@@ -1,9 +1,13 @@
 #define GRANULARITY 10.00
-
-
 float beta=3.71;
 
+#include <cmath>
+#include <vector>
+#include <fstream>
+#include <iostream>
+#include <sstream>
 
+using namespace std;
 
 struct float_task {
 	float computation_time;
@@ -14,7 +18,6 @@ struct float_task {
 	int index;
 };
 
-
 struct float_schedule {
 	int task_id;
 	double start;
@@ -24,38 +27,33 @@ struct float_schedule {
 	double power;
 };
 
-
 struct profile {
 	double time;
 	double temperature;
 
 };
 
-
-
-
 double heat(double init_temp, double power, double time) {
 	double t = time / GRANULARITY;
-	return (power / beta * (1 - exp(-1 * beta * t))
-			+ init_temp * exp(-1 * beta * t));
+	return (power / beta * (1 - (exp(-1 * beta * t)))
+			+ init_temp * (exp(-1 * beta * t)));
 }
-
 
 double cool(double init_temp, double time) {
 	double t = time / GRANULARITY;
-	return (init_temp * exp(-1 * beta * t));
+	return (init_temp * (exp(-1 * beta * t)));
 }
 
 
 
-void compute_profile(vector<float_schedule>* sch, vector<float_task>*tasks,int mode)
+void compute_profile(std::vector<float_schedule>* sch, std::vector<float_task>*tasks, int mode)
 {
 #if(ENABLE_PRINTS)
 
 	cout<<"Hyperperiod:"<<tasksets[0].hyperperiod<<" total thermal impact:"<<tasksets[0].TTI<<" utilization:"<<tasksets[0].c_util<<" thermal util:"<<tasksets[0].t_util<<" average_power"<<tasksets[0].average_power<<endl;
 #endif
 	float initial_temperature = 0;
-	vector<profile> temperature;
+    std::vector<profile> temperature;
 	profile ttemp;
 	ttemp.time = 0;
 	ttemp.temperature = initial_temperature;
@@ -90,7 +88,7 @@ void compute_profile(vector<float_schedule>* sch, vector<float_task>*tasks,int m
 			ttemp.temperature = cool(temperature[temperature.size() - 1].temperature,ttemp.time - (*sch)[sch->size() - 1].end);
 			temperature.push_back(ttemp);
 #if(ENABLE_PRINTS)
-			cout<<"end temperature"<<ttemp.temperature<<endl;
+            std::cout<<"end temperature"<<ttemp.temperature<<endl;
 #endif
 		}
 	//	if(mode==2)
@@ -109,7 +107,7 @@ void compute_profile(vector<float_schedule>* sch, vector<float_task>*tasks,int m
 		temperature[i].temperature = temperature[i].temperature+ cool(steady_temperature, temperature[i].time);
 	}
 
-	cout<<" steady temperature "<<steady_temperature<<" threshold "<<corrected_threshold<<endl;
+    std::cout<<" steady temperature "<<steady_temperature<<" threshold "<<corrected_threshold<<endl;
 	ofstream thermal_profile;
 
 	switch (mode) {
@@ -195,10 +193,10 @@ void compute_profile(vector<float_schedule>* sch, vector<float_task>*tasks,int m
 	global_results.close();
 
 
-	cout<<"taskset simulated"<<endl;
+    std::cout<<"taskset simulated"<<endl;
 #if(ENABLE_PRINTS)
 
-	cout<<"corrected_threshold"<<corrected_threshold<<endl;
+    std::cout<<"corrected_threshold"<<corrected_threshold<<endl;
 #endif
 }
 
