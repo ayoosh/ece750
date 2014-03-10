@@ -44,7 +44,30 @@ double cool(double init_temp, double time) {
 	return (init_temp * (exp(-1 * beta * t)));
 }
 
+int gcd(int a, int b) {
+    while (1) {
+        if (a == 0)
+            return b;
+        b %= a;
+        if (b == 0)
+            return a;
+        a %= b;
+    }
+    return 1;
+}
 
+int lcm(int a, int b) {
+    int temp = gcd(a, b);
+    return temp ? (a / temp * b) : 0;
+}
+
+int compute_lcm(vector<float_task>* tasks) {
+    int ret_lcm = 1;
+    for (unsigned int i = 0; i < tasks->size(); i++) {
+        ret_lcm = lcm(ret_lcm, (*tasks)[i].period);
+    }
+    return ret_lcm;
+}
 
 void compute_profile(std::vector<float_schedule>* sch, std::vector<float_task>*tasks, int mode)
 {
@@ -63,7 +86,9 @@ void compute_profile(std::vector<float_schedule>* sch, std::vector<float_task>*t
 
 	double hyperperiod=compute_lcm(tasks);
 	//cout<<"hyperperiod="<<hyperperiod<<endl;
-
+    
+    int seed = time(NULL);
+    int corrected_threshold = 47;
 	for (unsigned int i = 0; i < sch->size(); i++)
 	{
 		if (i < sch->size() - 1)
@@ -200,3 +225,7 @@ void compute_profile(std::vector<float_schedule>* sch, std::vector<float_task>*t
 #endif
 }
 
+
+int main () {
+    return 0;
+}
