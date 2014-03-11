@@ -35,7 +35,7 @@ void release(task_t *tsk)
 	 * execution time for testing purposes, but make sure it is
 	 * still there in the final version you submit.
 	 */
-	tsk->cur_exec = tsk->exec * random() / (double)RAND_MAX;
+	tsk->cur_exec = tsk->exec;// * random() / (double)RAND_MAX;
 }
 
 /*
