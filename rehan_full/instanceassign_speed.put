@@ -1,0 +1,964 @@
+NEW_INSTANCEI0                  0.00        2.00
+core1       task0       s7                  0.07
+core1       task3       s12                 0.74
+core1       task5       s16                 0.68
+core1       task7       s4                  0.07
+core1       task9       s8                  0.22
+core1       task10      s13                 0.22
+
+core2       task11      s7                  0.08
+core2       task13      s12                 1.75
+core2       task14      s6                  0.17
+
+core3       task2       s8                  1.09
+core3       task6       s16                 0.91
+
+
+NEW_INSTANCEI1                  2.00        4.00
+core1       task0       s7                  0.27
+core1       task1       s6                  0.29
+core1       task1       s7                  0.26
+core1       task5       s16                 0.68
+core1       task7       s4                  0.07
+core1       task9       s8                  0.22
+core1       task10      s13                 0.22
+
+core2       task11      s7                  0.40
+core2       task14      s6                  1.60
+
+core3       task2       s8                  1.09
+core3       task6       s16                 0.41
+core3       task8       s16                 0.50
+
+
+NEW_INSTANCEI2                  4.00        5.00
+core1       task1       s6                  0.35
+core1       task5       s16                 0.65
+
+core2       task2       s9                  0.89
+core2       task11      s6                  0.11
+
+core3       task3       s14                 0.32
+core3       task6       s16                 0.68
+
+
+NEW_INSTANCEI3                  5.00        6.00
+core1       task1       s6                  0.68
+core1       task5       s16                 0.03
+core1       task7       s4                  0.07
+core1       task9       s8                  0.22
+
+core2       task2       s9                  0.15
+core2       task13      s12                 0.85
+
+core3       task3       s14                 0.03
+core3       task6       s16                 0.65
+core3       task8       s16                 0.10
+core3       task10      s14                 0.21
+
+
+NEW_INSTANCEI4                  6.00        8.00
+core1       task1       s6                  0.81
+core1       task5       s16                 0.68
+core1       task7       s4                  0.07
+core1       task9       s8                  0.22
+core1       task10      s13                 0.22
+
+core2       task2       s8                  0.09
+core2       task2       s9                  0.96
+core2       task11      s6                  0.05
+core2       task13      s12                 0.90
+
+core3       task0       s8                  0.04
+core3       task0       s9                  0.27
+core3       task3       s14                 0.34
+core3       task6       s16                 1.35
+
+
+NEW_INSTANCEI5                  8.00       10.00
+core1       task0       s7                  0.34
+core1       task1       s6                  0.35
+core1       task1       s7                  0.12
+core1       task5       s16                 0.68
+core1       task7       s4                  0.07
+core1       task9       s8                  0.22
+core1       task10      s13                 0.22
+
+core2       task11      s6                  1.21
+core2       task11      s7                  0.79
+
+core3       task2       s8                  1.09
+core3       task3       s14                 0.51
+core3       task8       s16                 0.40
+
+
+NEW_INSTANCEI6                 10.00       12.00
+core1       task5       s16                 0.68
+core1       task6       s16                 0.81
+core1       task7       s4                  0.07
+core1       task9       s8                  0.22
+core1       task10      s13                 0.22
+
+core2       task2       s8                  0.02
+core2       task2       s9                  1.03
+core2       task11      s6                  0.96
+
+core3       task3       s14                 0.18
+core3       task13      s11                 1.82
+
+
+NEW_INSTANCEI7                 12.00       14.00
+core1       task3       s12                 0.60
+core1       task5       s16                 0.68
+core1       task6       s16                 0.19
+core1       task8       s14                 0.54
+
+core2       task11      s6                  0.65
+core2       task11      s7                  0.29
+core2       task13      s12                 1.06
+
+core3       task0       s8                  0.33
+core3       task2       s8                  1.09
+core3       task4       s6                  0.01
+core3       task7       s5                  0.06
+core3       task9       s9                  0.21
+core3       task10      s14                 0.21
+core3       task12      s12                 0.08
+
+
+NEW_INSTANCEI8                 14.00       15.00
+core1       task6       s16                 1.00
+
+core2       task2       s9                  0.97
+core2       task11      s6                  0.03
+
+core3       task5       s16                 0.68
+core3       task10      s14                 0.00
+core3       task12      s12                 0.32
+
+
+NEW_INSTANCEI9                 15.00       16.00
+core1       task1       s6                  0.42
+core1       task1       s7                  0.01
+core1       task3       s12                 0.14
+core1       task6       s16                 0.43
+
+core2       task2       s9                  0.08
+core2       task11      s6                  0.23
+core2       task13      s12                 0.69
+
+core3       task7       s5                  0.06
+core3       task8       s15                 0.52
+core3       task9       s9                  0.21
+core3       task10      s14                 0.21
+
+
+NEW_INSTANCEI10                16.00       18.00
+core1       task3       s12                 0.74
+core1       task5       s16                 0.68
+core1       task6       s16                 0.52
+core1       task7       s4                  0.07
+
+core2       task11      s6                  0.16
+core2       task11      s7                  0.51
+core2       task14      s6                  1.33
+
+core3       task0       s8                  0.33
+core3       task2       s8                  1.09
+core3       task9       s9                  0.21
+core3       task10      s14                 0.21
+core3       task13      s11                 0.16
+
+
+NEW_INSTANCEI11                18.00       20.00
+core1       task1       s7                  0.04
+core1       task5       s16                 0.68
+core1       task6       s16                 1.05
+core1       task10      s13                 0.22
+
+core2       task2       s9                  1.04
+core2       task11      s6                  0.92
+core2       task11      s7                  0.04
+
+core3       task7       s5                  0.06
+core3       task9       s9                  0.21
+core3       task12      s12                 0.06
+core3       task13      s11                 1.67
+
+
+NEW_INSTANCEI12                20.00       22.00
+core1       task5       s16                 0.68
+core1       task13      s9                  0.66
+core1       task13      s10                 0.66
+
+core2       task6       s16                 0.90
+core2       task11      s7                  0.20
+core2       task11      s8                  0.90
+
+core3       task2       s8                  1.09
+core3       task3       s15                 0.32
+core3       task4       s6                  0.12
+core3       task7       s6                  0.06
+core3       task9       s10                 0.20
+core3       task10      s15                 0.21
+
+
+NEW_INSTANCEI13                22.00       24.00
+core1       task1       s6                  0.71
+core1       task5       s16                 0.68
+core1       task13      s9                  0.11
+core1       task13      s10                 0.50
+
+core2       task2       s10                 1.00
+core2       task6       s16                 0.89
+core2       task11      s7                  0.11
+
+core3       task0       s9                  0.31
+core3       task3       s15                 0.34
+core3       task4       s6                  0.38
+core3       task7       s6                  0.06
+core3       task8       s16                 0.50
+core3       task9       s10                 0.20
+core3       task10      s15                 0.21
+
+
+NEW_INSTANCEI14                24.00       25.00
+core1       task1       s6                  0.29
+core1       task1       s7                  0.14
+core1       task3       s12                 0.26
+core1       task5       s16                 0.31
+
+core2       task2       s9                  0.79
+core2       task6       s16                 0.21
+
+core3       task4       s6                  0.79
+core3       task10      s14                 0.21
+
+
+NEW_INSTANCEI15                25.00       26.00
+core1       task3       s12                 0.39
+core1       task5       s16                 0.37
+core1       task9       s8                  0.22
+core1       task12      s11                 0.02
+
+core2       task2       s9                  0.26
+core2       task6       s16                 0.32
+core2       task13      s13                 0.42
+
+core3       task1       s8                  0.94
+core3       task7       s6                  0.06
+
+
+NEW_INSTANCEI16                26.00       28.00
+core1       task2       s6                  0.59
+core1       task2       s7                  0.58
+core1       task3       s12                 0.08
+core1       task5       s16                 0.68
+core1       task7       s4                  0.07
+
+core2       task6       s16                 0.73
+core2       task13      s13                 1.27
+
+core3       task0       s9                  0.31
+core3       task1       s8                  0.58
+core3       task4       s6                  0.20
+core3       task8       s16                 0.50
+core3       task9       s10                 0.20
+core3       task10      s14                 0.01
+core3       task10      s15                 0.20
+
+
+NEW_INSTANCEI17                28.00       30.00
+core1       task0       s7                  0.29
+core1       task3       s12                 0.74
+core1       task5       s16                 0.68
+core1       task7       s4                  0.07
+core1       task10      s12                 0.09
+core1       task10      s13                 0.13
+
+core2       task6       s16                 0.94
+core2       task11      s8                  0.28
+core2       task13      s13                 0.31
+core2       task13      s14                 0.47
+
+core3       task1       s8                  0.73
+core3       task2       s8                  0.68
+core3       task2       s9                  0.39
+core3       task9       s10                 0.20
+
+
+NEW_INSTANCEI18                30.00       32.00
+core1       task0       s7                  0.05
+core1       task5       s16                 0.68
+core1       task6       s16                 0.98
+core1       task7       s4                  0.07
+core1       task9       s8                  0.22
+
+core2       task2       s8                  0.59
+core2       task2       s9                  0.48
+core2       task13      s12                 0.93
+
+core3       task1       s7                  0.58
+core3       task4       s6                  1.21
+core3       task10      s14                 0.21
+
+
+NEW_INSTANCEI19                32.00       34.00
+core1       task5       s16                 0.68
+core1       task6       s16                 0.72
+core1       task7       s4                  0.07
+core1       task8       s14                 0.54
+
+core2       task2       s9                  1.04
+core2       task11      s6                  0.79
+core2       task11      s7                  0.06
+core2       task13      s12                 0.11
+
+core3       task0       s8                  0.33
+core3       task3       s13                 0.71
+core3       task4       s6                  0.54
+core3       task9       s9                  0.21
+core3       task10      s14                 0.21
+
+
+NEW_INSTANCEI20                34.00       35.00
+core1       task5       s16                 0.65
+core1       task6       s16                 0.30
+core1       task7       s4                  0.05
+
+core2       task11      s6                  0.13
+core2       task13      s12                 0.87
+
+core3       task2       s8                  0.61
+core3       task4       s6                  0.18
+core3       task10      s14                 0.21
+
+
+NEW_INSTANCEI21                35.00       36.00
+core1       task5       s16                 0.03
+core1       task6       s16                 0.73
+core1       task7       s4                  0.01
+core1       task9       s8                  0.22
+
+core2       task11      s6                  0.23
+core2       task13      s12                 0.77
+
+core3       task2       s8                  0.48
+core3       task8       s15                 0.52
+
+
+NEW_INSTANCEI22                36.00       38.00
+core1       task0       s7                  0.34
+core1       task5       s16                 0.68
+core1       task6       s16                 0.69
+core1       task7       s4                  0.07
+core1       task9       s8                  0.22
+
+core2       task13      s12                 0.77
+core2       task14      s6                  1.23
+
+core3       task2       s8                  1.09
+core3       task3       s13                 0.02
+core3       task4       s6                  0.68
+core3       task10      s14                 0.21
+
+
+NEW_INSTANCEI23                38.00       40.00
+core1       task5       s16                 0.68
+core1       task6       s16                 0.57
+core1       task7       s4                  0.07
+core1       task9       s8                  0.22
+core1       task12      s11                 0.46
+
+core2       task11      s6                  0.63
+core2       task11      s7                  0.38
+core2       task13      s12                 0.98
+
+core3       task2       s8                  1.09
+core3       task3       s13                 0.69
+core3       task10      s14                 0.21
+
+
+NEW_INSTANCEI24                40.00       42.00
+core1       task5       s16                 0.68
+core1       task7       s3                  0.07
+core1       task9       s7                  0.23
+core1       task13      s8                  1.02
+
+core2       task2       s10                 1.00
+core2       task6       s16                 0.79
+core2       task11      s7                  0.21
+
+core3       task1       s8                  1.11
+core3       task3       s15                 0.66
+core3       task4       s7                  0.02
+core3       task10      s15                 0.21
+
+
+NEW_INSTANCEI25                42.00       44.00
+core1       task5       s16                 0.68
+core1       task7       s3                  0.07
+core1       task10      s11                 0.24
+core1       task13      s8                  0.07
+core1       task13      s9                  0.94
+
+core2       task2       s10                 1.00
+core2       task6       s16                 0.89
+core2       task11      s8                  0.11
+
+core3       task0       s9                  0.31
+core3       task1       s8                  0.18
+core3       task4       s7                  0.37
+core3       task8       s16                 0.50
+core3       task9       s10                 0.20
+core3       task12      s13                 0.44
+
+
+NEW_INSTANCEI26                44.00       45.00
+core1       task0       s8                  0.33
+core1       task5       s16                 0.67
+
+core2       task6       s16                 0.32
+core2       task11      s7                  0.52
+core2       task11      s8                  0.16
+
+core3       task2       s8                  0.50
+core3       task2       s9                  0.10
+core3       task3       s15                 0.06
+core3       task13      s12                 0.34
+
+
+NEW_INSTANCEI27                45.00       46.00
+core1       task5       s16                 0.01
+core1       task6       s16                 0.99
+
+core2       task9       s10                 0.20
+core2       task10      s15                 0.21
+core2       task11      s6                  0.51
+core2       task11      s7                  0.08
+
+core3       task2       s8                  0.49
+core3       task7       s6                  0.06
+core3       task13      s12                 0.45
+
+
+NEW_INSTANCEI28                46.00       48.00
+core1       task2       s6                  0.56
+core1       task2       s7                  0.61
+core1       task5       s16                 0.68
+core1       task6       s16                 0.15
+
+core2       task7       s6                  0.06
+core2       task9       s10                 0.20
+core2       task10      s15                 0.21
+core2       task11      s6                  0.50
+core2       task14      s6                  1.03
+
+core3       task3       s14                 0.62
+core3       task8       s16                 0.42
+core3       task13      s12                 0.96
+
+
+NEW_INSTANCEI29                48.00       50.00
+core1       task6       s15                 0.06
+core1       task6       s16                 0.79
+core1       task13      s9                  1.14
+
+core2       task5       s16                 0.68
+core2       task7       s7                  0.06
+core2       task9       s11                 0.19
+core2       task10      s16                 0.20
+core2       task11      s7                  0.29
+core2       task11      s8                  0.58
+
+core3       task0       s9                  0.17
+core3       task2       s8                  0.99
+core3       task2       s9                  0.09
+core3       task3       s15                 0.66
+core3       task8       s16                 0.08
+
+
+NEW_INSTANCEI30                50.00       52.00
+core1       task5       s16                 0.68
+core1       task6       s16                 0.51
+core1       task13      s9                  0.03
+core1       task13      s10                 0.78
+
+core2       task1       s8                  0.67
+core2       task2       s8                  0.57
+core2       task2       s9                  0.50
+core2       task7       s6                  0.06
+core2       task9       s10                 0.20
+
+core3       task0       s9                  0.15
+core3       task10      s15                 0.21
+core3       task11      s6                  1.65
+
+
+NEW_INSTANCEI31                52.00       54.00
+core1       task5       s16                 0.68
+core1       task6       s16                 1.26
+core1       task8       s14                 0.06
+
+core2       task0       s9                  0.31
+core2       task1       s8                  0.98
+core2       task3       s15                 0.24
+core2       task7       s6                  0.06
+core2       task9       s10                 0.20
+core2       task10      s15                 0.21
+
+core3       task2       s8                  0.72
+core3       task2       s9                  0.35
+core3       task4       s6                  0.28
+core3       task13      s12                 0.64
+
+
+NEW_INSTANCEI32                54.00       55.00
+core1       task5       s16                 0.30
+core1       task6       s16                 0.22
+core1       task8       s14                 0.48
+
+core2       task1       s8                  0.02
+core2       task2       s8                  0.51
+core2       task2       s9                  0.09
+core2       task7       s6                  0.06
+core2       task9       s10                 0.12
+core2       task10      s15                 0.21
+
+core3       task4       s6                  0.50
+core3       task13      s12                 0.50
+
+
+NEW_INSTANCEI33                55.00       56.00
+core1       task5       s16                 0.38
+core1       task6       s16                 0.62
+
+core2       task2       s8                  0.49
+core2       task3       s15                 0.42
+core2       task9       s10                 0.08
+
+core3       task11      s6                  0.39
+core3       task13      s12                 0.61
+
+
+NEW_INSTANCEI34                56.00       58.00
+core1       task3       s13                 0.24
+core1       task5       s16                 0.68
+core1       task6       s16                 0.54
+core1       task8       s14                 0.54
+
+core2       task2       s8                  0.87
+core2       task2       s9                  0.21
+core2       task7       s6                  0.06
+core2       task9       s10                 0.20
+core2       task10      s15                 0.21
+core2       task14      s6                  0.45
+
+core3       task11      s6                  0.96
+core3       task13      s12                 1.04
+
+
+NEW_INSTANCEI35                58.00       60.00
+core1       task3       s12                 0.27
+core1       task3       s13                 0.21
+core1       task5       s16                 0.68
+core1       task6       s16                 0.84
+
+core2       task0       s9                  0.31
+core2       task1       s8                  0.68
+core2       task7       s6                  0.06
+core2       task9       s10                 0.20
+core2       task10      s15                 0.21
+core2       task14      s6                  0.54
+
+core3       task2       s8                  0.83
+core3       task2       s9                  0.25
+core3       task11      s6                  0.21
+core3       task13      s12                 0.71
+
+
+NEW_INSTANCEI36                60.00       62.00
+core1       task6       s15                 0.03
+core1       task6       s16                 1.34
+core1       task13      s9                  0.63
+
+core2       task1       s10                 0.27
+core2       task3       s16                 0.61
+core2       task5       s16                 0.68
+core2       task7       s7                  0.06
+core2       task9       s11                 0.19
+core2       task10      s16                 0.20
+
+core3       task0       s9                  0.31
+core3       task2       s8                  0.48
+core3       task2       s9                  0.58
+core3       task8       s16                 0.50
+core3       task11      s6                  0.12
+
+
+NEW_INSTANCEI37                62.00       64.00
+core1       task5       s16                 0.68
+core1       task13      s9                  0.56
+core1       task13      s10                 0.76
+
+core2       task1       s8                  0.07
+core2       task3       s15                 0.04
+core2       task7       s6                  0.06
+core2       task9       s10                 0.20
+core2       task14      s6                  1.63
+
+core3       task2       s8                  1.09
+core3       task10      s15                 0.21
+core3       task11      s6                  0.70
+
+
+NEW_INSTANCEI38                64.00       65.00
+core1       task5       s16                 0.37
+core1       task6       s16                 0.63
+
+core2       task2       s8                  0.51
+core2       task3       s15                 0.43
+core2       task7       s6                  0.06
+
+core3       task11      s6                  0.39
+core3       task13      s12                 0.61
+
+
+NEW_INSTANCEI39                65.00       66.00
+core1       task5       s16                 0.31
+core1       task6       s16                 0.57
+core1       task8       s14                 0.12
+
+core2       task2       s8                  0.47
+core2       task2       s9                  0.11
+core2       task3       s15                 0.01
+core2       task9       s10                 0.20
+core2       task10      s15                 0.21
+
+core3       task4       s6                  0.44
+core3       task13      s12                 0.56
+
+
+NEW_INSTANCEI40                66.00       68.00
+core1       task0       s7                  0.34
+core1       task5       s16                 0.68
+core1       task6       s16                 0.57
+core1       task8       s14                 0.19
+core1       task10      s13                 0.22
+
+core2       task1       s8                  1.33
+core2       task3       s15                 0.22
+core2       task7       s6                  0.06
+core2       task9       s10                 0.20
+core2       task14      s6                  0.19
+
+core3       task2       s8                  0.75
+core3       task2       s9                  0.32
+core3       task11      s6                  0.34
+core3       task13      s12                 0.59
+
+
+NEW_INSTANCEI41                68.00       70.00
+core1       task5       s16                 0.68
+core1       task6       s16                 0.86
+core1       task8       s14                 0.23
+core1       task10      s12                 0.18
+core1       task10      s13                 0.05
+
+core2       task0       s9                  0.31
+core2       task9       s10                 0.20
+core2       task14      s6                  1.49
+
+core3       task2       s8                  1.00
+core3       task2       s9                  0.09
+core3       task3       s15                 0.31
+core3       task7       s6                  0.06
+core3       task13      s12                 0.54
+
+
+NEW_INSTANCEI42                70.00       72.00
+core1       task5       s16                 0.68
+core1       task6       s16                 0.43
+core1       task8       s13                 0.56
+core1       task12      s10                 0.33
+
+core2       task2       s8                  0.74
+core2       task2       s9                  0.34
+core2       task7       s6                  0.06
+core2       task9       s10                 0.20
+core2       task10      s15                 0.21
+core2       task14      s6                  0.46
+
+core3       task3       s14                 0.36
+core3       task11      s6                  0.42
+core3       task13      s12                 1.21
+
+
+NEW_INSTANCEI43                72.00       74.00
+core1       task5       s16                 0.68
+core1       task6       s16                 1.25
+core1       task7       s3                  0.07
+
+core2       task0       s9                  0.31
+core2       task1       s8                  0.04
+core2       task9       s10                 0.20
+core2       task10      s15                 0.21
+core2       task14      s6                  1.24
+
+core3       task2       s8                  0.60
+core3       task2       s9                  0.47
+core3       task11      s6                  0.44
+core3       task13      s12                 0.49
+
+
+NEW_INSTANCEI44                74.00       75.00
+core1       task5       s16                 0.68
+core1       task6       s16                 0.32
+
+core2       task2       s8                  0.46
+core2       task2       s9                  0.28
+core2       task7       s6                  0.06
+core2       task9       s10                 0.20
+
+core3       task11      s6                  0.32
+core3       task13      s12                 0.68
+
+
+NEW_INSTANCEI45                75.00       76.00
+core1       task3       s11                 0.77
+core1       task6       s16                 0.23
+
+core2       task1       s8                  0.46
+core2       task2       s8                  0.18
+core2       task2       s9                  0.15
+core2       task10      s15                 0.21
+
+core3       task11      s6                  0.41
+core3       task13      s12                 0.59
+
+
+NEW_INSTANCEI46                76.00       78.00
+core1       task5       s16                 0.68
+core1       task6       s16                 0.69
+core1       task9       s7                  0.23
+core1       task10      s11                 0.24
+core1       task12      s10                 0.17
+
+core2       task0       s9                  0.05
+core2       task1       s8                  0.33
+core2       task2       s8                  0.40
+core2       task2       s9                  0.66
+core2       task7       s6                  0.06
+core2       task8       s16                 0.50
+
+core3       task3       s14                 0.28
+core3       task11      s6                  0.49
+core3       task13      s12                 1.23
+
+
+NEW_INSTANCEI47                78.00       80.00
+core1       task5       s16                 0.68
+core1       task6       s16                 1.08
+core1       task10      s11                 0.16
+core1       task10      s12                 0.08
+
+core2       task0       s10                 0.25
+core2       task1       s8                  1.49
+core2       task7       s6                  0.06
+core2       task9       s10                 0.20
+
+core3       task2       s8                  0.96
+core3       task2       s9                  0.13
+core3       task3       s15                 0.39
+core3       task13      s12                 0.52
+
+
+NEW_INSTANCEI48                80.00       82.00
+core1       task5       s14                 0.73
+core1       task6       s12                 0.92
+core1       task7       s1                  0.08
+core1       task10      s8                  0.27
+
+core2       task0       s10                 0.30
+core2       task2       s9                  0.06
+core2       task2       s10                 0.94
+core2       task13      s13                 0.70
+
+core3       task9       s6                  0.24
+core3       task11      s3                  1.76
+
+
+NEW_INSTANCEI49                82.00       84.00
+core1       task5       s13                 0.59
+core1       task5       s14                 0.16
+core1       task6       s12                 1.17
+core1       task7       s1                  0.08
+
+core2       task2       s9                  0.21
+core2       task2       s10                 0.80
+core2       task13      s13                 0.99
+
+core3       task3       s10                 0.80
+core3       task8       s12                 0.58
+core3       task9       s6                  0.24
+core3       task10      s10                 0.25
+core3       task11      s3                  0.13
+
+
+NEW_INSTANCEI50                84.00       85.00
+core1       task5       s16                 0.36
+core1       task6       s16                 0.19
+core1       task9       s8                  0.22
+core1       task10      s12                 0.23
+
+core2       task1       s8                  0.61
+core2       task13      s12                 0.39
+
+core3       task2       s9                  0.19
+core3       task7       s6                  0.06
+core3       task11      s6                  0.75
+
+
+NEW_INSTANCEI51                85.00       86.00
+core1       task5       s16                 0.32
+core1       task6       s16                 0.68
+
+core2       task0       s9                  0.31
+core2       task1       s8                  0.10
+core2       task8       s16                 0.15
+core2       task13      s12                 0.44
+
+core3       task2       s8                  0.48
+core3       task2       s9                  0.39
+core3       task11      s6                  0.13
+
+
+NEW_INSTANCEI52                86.00       88.00
+core1       task3       s12                 0.74
+core1       task5       s16                 0.68
+core1       task6       s16                 0.36
+core1       task10      s13                 0.22
+
+core2       task2       s8                  0.91
+core2       task2       s9                  0.17
+core2       task13      s12                 0.92
+
+core3       task4       s6                  0.70
+core3       task7       s6                  0.06
+core3       task9       s10                 0.20
+core3       task11      s6                  0.56
+core3       task11      s7                  0.04
+core3       task12      s13                 0.44
+
+
+NEW_INSTANCEI53                88.00       90.00
+core1       task0       s7                  0.29
+core1       task5       s16                 0.68
+core1       task6       s16                 0.96
+core1       task7       s4                  0.07
+
+core2       task8       s16                 0.35
+core2       task9       s10                 0.20
+core2       task10      s14                 0.12
+core2       task10      s15                 0.09
+core2       task13      s12                 1.24
+
+core3       task2       s8                  1.09
+core3       task11      s6                  0.91
+
+
+NEW_INSTANCEI54                90.00       92.00
+core1       task0       s7                  0.05
+core1       task5       s16                 0.68
+core1       task6       s16                 0.76
+core1       task7       s4                  0.07
+core1       task9       s8                  0.22
+core1       task10      s12                 0.21
+core1       task10      s13                 0.02
+
+core2       task2       s8                  0.64
+core2       task2       s9                  0.43
+core2       task8       s16                 0.41
+core2       task13      s12                 0.52
+
+core3       task3       s15                 0.66
+core3       task11      s6                  1.34
+
+
+NEW_INSTANCEI55                92.00       94.00
+core1       task5       s16                 0.68
+core1       task6       s16                 0.88
+core1       task9       s8                  0.22
+core1       task10      s13                 0.22
+
+core2       task2       s8                  0.89
+core2       task2       s9                  0.20
+core2       task8       s16                 0.09
+core2       task13      s12                 0.83
+
+core3       task3       s15                 0.66
+core3       task4       s6                  1.28
+core3       task7       s6                  0.06
+
+
+NEW_INSTANCEI56                94.00       95.00
+core1       task0       s7                  0.34
+core1       task5       s16                 0.15
+core1       task6       s16                 0.36
+core1       task9       s8                  0.14
+
+core2       task2       s8                  0.55
+core2       task2       s9                  0.32
+core2       task13      s12                 0.13
+
+core3       task4       s6                  0.94
+core3       task7       s6                  0.06
+
+
+NEW_INSTANCEI57                95.00       96.00
+core1       task5       s16                 0.53
+core1       task6       s16                 0.16
+core1       task9       s8                  0.07
+core1       task10      s12                 0.23
+
+core2       task2       s8                  0.21
+core2       task13      s12                 0.79
+
+core3       task11      s6                  1.00
+
+
+NEW_INSTANCEI58                96.00       98.00
+core1       task3       s12                 0.74
+core1       task5       s16                 0.68
+core1       task6       s16                 0.52
+core1       task7       s4                  0.07
+
+core2       task0       s10                 0.02
+core2       task1       s8                  0.94
+core2       task9       s10                 0.20
+core2       task10      s15                 0.21
+core2       task14      s6                  0.63
+
+core3       task2       s8                  0.76
+core3       task2       s9                  0.32
+core3       task11      s6                  0.31
+core3       task13      s12                 0.61
+
+
+NEW_INSTANCEI59                98.00      100.00
+core1       task5       s16                 0.68
+core1       task6       s16                 1.32
+
+core2       task0       s9                  0.29
+core2       task1       s8                  0.17
+core2       task2       s8                  0.69
+core2       task2       s9                  0.38
+core2       task7       s6                  0.06
+core2       task9       s10                 0.20
+core2       task10      s15                 0.21
+
+core3       task4       s6                  0.36
+core3       task8       s16                 0.50
+core3       task13      s12                 1.14
+
+
