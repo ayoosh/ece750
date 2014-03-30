@@ -26,11 +26,27 @@ struct timespec schedulestart, starttime, endtime;
  vector<float> speeds;
  vector<taskset> tasksets;
 //****************************************************************
+
+#define max(a,b) ({ __typeof__ (a) _a = (a); \
+                __typeof__ (b) _b = (b); \
+              _a > _b ? _a : _b; })
+
+bool compare_instances(instance a, instance b) {
+    if(a.deadline < b.deadline) {
+        return true;
+    } else if(a.deadline == b.deadline) {
+        if (a.arrival < b.arrival) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void tasks2instances(vector<task> *periodic_tasks, vector<instance> *aperiodics, vector<instance> *instances) {
-    int i, j, start = 0;
+    int i, start = 0;
     instance temp;
 
-	for (i = 0, j = 0; i < periodic_tasks->size(); i++, j++) {
+	for (i = 0; i < periodic_tasks->size(); i++) {
 		while (start < tasksets[0].hyperperiod) {
 			temp.computation_time = (*periodic_tasks)[i].computation_time;
 			temp.arrival = start;
@@ -38,16 +54,18 @@ void tasks2instances(vector<task> *periodic_tasks, vector<instance> *aperiodics,
 			start = temp.deadline;
 			temp.task_id = i;
             temp.power = (*periodic_tasks)[i].power;
-			inst.push_back(temp);
+			instances->push_back(temp);
 		}
 	}
-    instances.insert( instances.end(), aperiodics.begin(), aperiodics.end() );
+    
+    instances->insert(instances->end(), aperiodics->begin(), aperiodics->end());
+    sort(instances->begin(), instances->end(), compare_instances);
 }
 
 #define S_THERM_CAP ((S_COMP_CAP * S_POWER) / beta)
 int s_last_deadline = 0;
 void generate_aperiodics(vector<instance> *aperiodics, int arrival, int computation_time, double power) {
-    double util_ratio, TTI = power * compuations / beta;
+    double util_ratio, TTI = power * computation_time / beta;
     instance temp, tempi;
     double comp_time_remaining = computation_time;
     unsigned int i, ceiling = ceil(TTI / S_THERM_CAP);
@@ -71,8 +89,8 @@ void generate_aperiodics(vector<instance> *aperiodics, int arrival, int computat
         
         tempi.arrival = arrival + temp.computation_time;
         s_last_deadline = tempi.deadline = temp.deadline;
-        aperiodics.push_back(temp);
-        aperiodics.push_back(tempi);
+        aperiodics->push_back(temp);
+        aperiodics->push_back(tempi);
     }
 
     return;
@@ -102,7 +120,7 @@ int main(int argc, char* argv[]) {
     int_pointer=&tasks;
 		
     double t_util;
-	ab_edf_schedule(&tasks, &edf);
+	//ab_edf_schedule(&tasks, &edf);
 	consolidate_schedule(&edf, &tasks);
 
 	ab_compute_profile(&edf, &tasks, t_util);

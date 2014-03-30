@@ -6,7 +6,8 @@
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 ACTUAL_RUN	config.h	89;"	d
 AMBIENT	config.h	16;"	d
-BASE_OPTIONS	Makefile	/^BASE_OPTIONS= -ansi -Wall -Wextra -Wno-long-long -std=c++0x -Wvla$/;"	m
+BASE_OPTIONS	Makefile	/^BASE_OPTIONS= -g -ansi -Wall -Wextra -Wno-long-long -std=c++0x -Wvla$/;"	m
+BASE_OPTIONS1	Makefile	/^BASE_OPTIONS1= -ansi -Wall -Wextra -Wno-long-long -std=c++0x -Wvla$/;"	m
 BENCH_RUN	config.h	59;"	d
 BIN_LENGTH	config.h	108;"	d
 BUFSIZE	config.h	23;"	d
@@ -61,8 +62,12 @@ SLACK_ENABLE	config.h	27;"	d
 SLACK_SCHEME_TEST	config.h	61;"	d
 SPEED_DEBUG	config.h	39;"	d
 STATIC_ENABLE	config.h	29;"	d
+S_COMP_CAP	scheduler.cpp	2;"	d	file:
 S_FACTOR	config.h	11;"	d
 S_L	config.h	95;"	d
+S_PERIOD	scheduler.cpp	4;"	d	file:
+S_POWER	scheduler.cpp	3;"	d	file:
+S_THERM_CAP	scheduler.cpp	63;"	d	file:
 TEMP_CORE	config.h	65;"	d
 TEMP_EXPERIMENT	config.h	63;"	d
 TEMP_TASK	config.h	64;"	d
@@ -74,6 +79,8 @@ TTI	scheduler.h	/^	float TTI;$/;"	m	struct:taskset
 UTIL_POWER	config.h	93;"	d
 W_INT	config.h	48;"	d
 W_INT_HIGH	config.h	49;"	d
+ab_compute_profile	base_sched.cpp	/^void ab_compute_profile(vector<schedule>* sch, vector<task>*tasks,$/;"	f
+ab_edf_schedule	base_sched.cpp	/^void ab_edf_schedule(vector<schedule> *edf, vector<instance> *instances) {$/;"	f
 add_exec	exec_interval.cpp	/^void interval::add_exec(execution newexec)$/;"	f	class:interval
 arrival	scheduler.h	/^	double arrival;$/;"	m	struct:float_schedule
 arrival	scheduler.h	/^	int arrival;$/;"	m	struct:comps_req
@@ -82,7 +89,9 @@ arrival	scheduler.h	/^	int arrival;$/;"	m	struct:schedule
 arrival	scheduler.h	/^	long arrival;$/;"	m	struct:long_schedule
 ascending	util.cpp	/^bool ascending(int a, int b) {$/;"	f
 average_power	scheduler.h	/^	float average_power;$/;"	m	struct:taskset
+beta	scheduler-bk.cpp	/^ double beta = 1 \/ (R * C) - (DEL \/ C);$/;"	v
 beta	scheduler.cpp	/^ double beta = 1 \/ (R * C) - (DEL \/ C);$/;"	v
+beta_multi	scheduler-bk.cpp	/^float beta_multi[CORE][CORE];$/;"	v
 beta_multi	scheduler.cpp	/^float beta_multi[CORE][CORE];$/;"	v
 c_util	scheduler.h	/^	float c_util;$/;"	m	struct:taskset
 call_hotspot	hotspot_util.cpp	/^void call_hotspot(string ptrace, string flp)$/;"	f
@@ -90,6 +99,7 @@ call_hotspot	hotspot_util.cpp	/^void call_hotspot(string ptrace, string ttrace,s
 cd_computations	scheduler.h	/^struct cd_computations {$/;"	s
 clear	exec_interval.cpp	/^void interval::clear()$/;"	f	class:interval
 command	scheduler.h	/^	vector<string> command;$/;"	m	struct:task
+compare_instances	scheduler.cpp	/^bool compare_instances(instance a, instance b) {$/;"	f
 comps	scheduler.h	/^	float comps;$/;"	m	struct:comps_req
 comps_done	scheduler.h	/^	float comps_done;$/;"	m	struct:instance
 comps_left	scheduler.h	/^	float comps_left;$/;"	m	struct:instance
@@ -120,7 +130,9 @@ core	scheduler.h	/^	int core; \/\/ core on which task is executing$/;"	m	struct:
 core	scheduler.h	/^	int core;$/;"	m	struct:execution
 core	scheduler.h	/^	int core;$/;"	m	struct:long_schedule
 corrected_temperature	util.cpp	/^float corrected_temperature(float temperature) {$/;"	f
+corrected_threshold	scheduler-bk.cpp	/^ double corrected_threshold;$/;"	v
 corrected_threshold	scheduler.cpp	/^ double corrected_threshold;$/;"	v
+current_timedd	scheduler-bk.cpp	/^long long current_timedd = -GRANULARITY;$/;"	v
 current_timedd	scheduler.cpp	/^long long current_timedd = -GRANULARITY;$/;"	v
 deadline	scheduler.h	/^	int deadline;$/;"	m	struct:cd_computations
 deadline	scheduler.h	/^	int deadline;$/;"	m	struct:instance
@@ -138,6 +150,7 @@ end	scheduler.h	/^	long end;$/;"	m	struct:interval_s
 end	scheduler.h	/^	long end;$/;"	m	struct:long_schedule
 end_scheduler_speed	dynamic_interval_speed.cpp	/^long end_scheduler_speed(vector<long_schedule> *sch, vector<interval>*intervals,$/;"	f
 end_temp	scheduler.h	/^	float end_temp[NUM_PROCESSORS];$/;"	m	struct:task
+endtime	scheduler-bk.cpp	/^struct timespec schedulestart, starttime, endtime;$/;"	v	typeref:struct:
 endtime	scheduler.cpp	/^struct timespec schedulestart, starttime, endtime;$/;"	v	typeref:struct:
 exec	scheduler.h	/^	long exec;$/;"	m	struct:execution
 exec	scheduler.h	/^	vector<execution> exec;$/;"	m	class:interval
@@ -151,6 +164,7 @@ g_instance_size	intervals_vars.c	/^int g_instance_size=(int)(sizeof(global_insta
 g_task_size	intervals_vars.c	/^int g_task_size=10;$/;"	v
 gams_include	multi.cpp	/^int gams_include(vector<float_task>*tasks, int** matrix)$/;"	f
 gcd	util.cpp	/^int gcd(int a, int b) {$/;"	f
+generate_aperiodics	scheduler.cpp	/^void generate_aperiodics(vector<instance> *aperiodics, int arrival, int computation_time, double power) {$/;"	f
 generate_instances	util.cpp	/^void generate_instances(vector<task>*tasks, char *fname) {$/;"	f
 generate_instances	util.cpp	/^void generate_instances(vector<task>*tasks, vector<instance> *inst, float* speeds) {$/;"	f
 generate_intervals	w2fq.cpp	/^void generate_intervals(vector<interval_s>* intervals, vector<long_task>*tasks)$/;"	f
@@ -170,6 +184,7 @@ global_instances	intervals_vars.c	/^double global_instances[MAX_INSTANCES][6]={{
 global_power	util.cpp	/^double global_power(vector<task>*tasks, int start, int end, float util) {$/;"	f
 global_power_interval_speed	dynamic_interval_speed.cpp	/^float global_power_interval_speed(double *computations, vector<long_task>*tasks,$/;"	f
 global_power_partial	util.cpp	/^double global_power_partial(vector<task>*tasks, vector<int>*decisions,$/;"	f
+global_sort_power	scheduler-bk.cpp	/^ double global_sort_power = 0;$/;"	v
 global_sort_power	scheduler.cpp	/^ double global_sort_power = 0;$/;"	v
 global_tasks	intervals_vars.c	/^double global_tasks[10][4]={{0,11.55,50,71},$/;"	v
 heat	base_sched.cpp	/^double heat(double init_temp, double power, double time) {$/;"	f
@@ -185,6 +200,7 @@ index	scheduler.h	/^	int index;$/;"	m	struct:long_task
 index	scheduler.h	/^	int index;$/;"	m	struct:task
 instance	scheduler.h	/^struct instance {$/;"	s
 instance_override_speed	dynamic_interval_speed.cpp	/^void instance_override_speed(vector<float_task>*tasks, vector<instance>*inst) {$/;"	f
+int_pointer	scheduler-bk.cpp	/^vector<task>*int_pointer;$/;"	v
 int_pointer	scheduler.cpp	/^vector<task>*int_pointer;$/;"	v
 integral	base_sched.cpp	/^double integral(double initial, double final, double power, int time)$/;"	f
 interval	exec_interval.cpp	/^interval::interval(){};$/;"	f	class:interval
@@ -196,12 +212,15 @@ interval_s	scheduler.h	/^struct interval_s {$/;"	s
 interval_size	intervals_vars.c	/^int interval_size=(int)(sizeof(interval_req)\/sizeof(interval_req[0]));$/;"	v
 interval_tasks	scheduler.h	/^struct interval_tasks {$/;"	s
 lcm	util.cpp	/^int lcm(int a, int b) {$/;"	f
+logfile	scheduler-bk.cpp	/^stringstream logfile;$/;"	v
 logfile	scheduler.cpp	/^stringstream logfile;$/;"	v
 long_schedule	scheduler.h	/^struct long_schedule {$/;"	s
 long_task	scheduler.h	/^struct long_task {$/;"	s
+main	scheduler-bk.cpp	/^int main(int argc, char* argv[]) {$/;"	f
 main	scheduler.cpp	/^int main(int argc, char* argv[]) {$/;"	f
 mapping	scheduler.h	/^	int mapping;$/;"	m	struct:comps_req
 mapping	scheduler.h	/^	int mapping;$/;"	m	struct:instance
+max	scheduler.cpp	30;"	d	file:
 maxfirst_interval_speed	dynamic_interval_speed.cpp	/^int maxfirst_interval_speed(double * computations, long earliness,$/;"	f
 min_deadline	util.cpp	/^int min_deadline(vector<float_task>*tasks, float start) {$/;"	f
 min_deadline	util.cpp	/^int min_deadline(vector<task>*tasks, int start) {$/;"	f
@@ -237,10 +256,15 @@ read_tasksets	util.cpp	/^void read_tasksets(vector<float_task>*tasks) {$/;"	f
 read_tasksets	util.cpp	/^void read_tasksets(vector<task>*tasks, string fname) {$/;"	f
 read_ttrace	hotspot_util.cpp	/^double read_ttrace(string fname, vector<trace>*therm)$/;"	f
 resource_matrix	util.cpp	/^void resource_matrix(int ** matrix,int size, float likelyhood)$/;"	f
+running_tasks	scheduler-bk.cpp	/^int running_tasks[NUM_PROCESSORS] = { -1, -1, -1, -1 };$/;"	v
 running_tasks	scheduler.cpp	/^int running_tasks[NUM_PROCESSORS] = { -1, -1, -1, -1 };$/;"	v
+s_last_deadline	scheduler.cpp	/^int s_last_deadline = 0;$/;"	v
 schedule	scheduler.h	/^struct schedule {$/;"	s
+scheduler_runtime	scheduler-bk.cpp	/^float scheduler_runtime = 0;$/;"	v
 scheduler_runtime	scheduler.cpp	/^float scheduler_runtime = 0;$/;"	v
+schedulestart	scheduler-bk.cpp	/^struct timespec schedulestart, starttime, endtime;$/;"	v	typeref:struct:timespec
 schedulestart	scheduler.cpp	/^struct timespec schedulestart, starttime, endtime;$/;"	v	typeref:struct:timespec
+seed	scheduler-bk.cpp	/^ unsigned int seed;$/;"	v
 seed	scheduler.cpp	/^ unsigned int seed;$/;"	v
 set_interval	exec_interval.cpp	/^void interval::set_interval(long st,long en)$/;"	f	class:interval
 slack	scheduler.h	/^struct slack {$/;"	s
@@ -253,8 +277,10 @@ speed	scheduler.h	/^	float speed;$/;"	m	struct:comps_req
 speed	scheduler.h	/^	float speed;$/;"	m	struct:instance
 speed	scheduler.h	/^	float speed;$/;"	m	struct:schedule
 speed_index	scheduler.h	/^	int speed_index;$/;"	m	struct:execution
+speed_levels	scheduler-bk.cpp	/^ float speed_levels[S_L]={0.5, 0.533, 0.567, 0.6, 0.633, 0.667, 0.7, 0.733, 0.767, 0.8, 0.833, 0.867, 0.9, 0.933, 0.967, 1.0};$/;"	v
 speed_levels	scheduler.cpp	/^ float speed_levels[S_L]={0.5, 0.533, 0.567, 0.6, 0.633, 0.667, 0.7, 0.733, 0.767, 0.8, 0.833, 0.867, 0.9, 0.933, 0.967, 1.0};$/;"	v
 speed_scale_discrete	base_sched.cpp	/^void speed_scale_discrete(vector<task>*scaled_tasks, vector<float>*speeds,$/;"	f
+speeds	scheduler-bk.cpp	/^ vector<float> speeds;$/;"	v
 speeds	scheduler.cpp	/^ vector<float> speeds;$/;"	v
 split	util.cpp	/^void split(string *text, vector<string> *delimiters, vector<string>*elem)$/;"	f
 start	scheduler.h	/^	double start;$/;"	m	struct:float_schedule
@@ -264,6 +290,7 @@ start	scheduler.h	/^	int start;$/;"	m	struct:slack
 start	scheduler.h	/^	long start;$/;"	m	class:interval
 start	scheduler.h	/^	long start;$/;"	m	struct:interval_s
 start	scheduler.h	/^	long start;$/;"	m	struct:long_schedule
+starttime	scheduler-bk.cpp	/^struct timespec schedulestart, starttime, endtime;$/;"	v	typeref:struct:
 starttime	scheduler.cpp	/^struct timespec schedulestart, starttime, endtime;$/;"	v	typeref:struct:
 stat_stream	scheduler.h	/^	ifstream *stat_stream;$/;"	m	struct:task
 state	scheduler.h	/^	int state; \/\/ state of task (FINISHED, EXECUTING or IDLE)$/;"	m	struct:task
@@ -276,10 +303,13 @@ task_id	scheduler.h	/^	int task_id;$/;"	m	struct:instance
 task_id	scheduler.h	/^	int task_id;$/;"	m	struct:interval_tasks
 task_id	scheduler.h	/^	int task_id;$/;"	m	struct:long_schedule
 task_id	scheduler.h	/^	int task_id;$/;"	m	struct:schedule
+tasks2instances	scheduler.cpp	/^void tasks2instances(vector<task> *periodic_tasks, vector<instance> *aperiodics, vector<instance> *instances) {$/;"	f
 taskset	scheduler.h	/^	int taskset;$/;"	m	struct:task
 taskset	scheduler.h	/^struct taskset {$/;"	s
+tasksets	scheduler-bk.cpp	/^ vector<taskset> tasksets;$/;"	v
 tasksets	scheduler.cpp	/^ vector<taskset> tasksets;$/;"	v
 temperature	scheduler.h	/^	double temperature;$/;"	m	struct:profile
+thermal_optimal	scheduler-bk.cpp	/^ int thermal_optimal = 0;$/;"	v
 thermal_optimal	scheduler.cpp	/^ int thermal_optimal = 0;$/;"	v
 tid	scheduler.h	/^	int tid;$/;"	m	struct:task
 time	scheduler.h	/^	double time;$/;"	m	struct:mprofile
