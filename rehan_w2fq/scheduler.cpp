@@ -109,21 +109,31 @@ int main(int argc, char* argv[]) {
 
 	int iter = 1;
 	int hyperperiod = 0;
+    double t_util;
 
 	string task_file;
 	task_file = argv[1];
 
-	vector<task> tasks;
+	vector<task> periodic_tasks;
 	vector<schedule> edf;
-	read_tasksets(&tasks, task_file);
-		
-    int_pointer=&tasks;
-		
-    double t_util;
-	//ab_edf_schedule(&tasks, &edf);
-	consolidate_schedule(&edf, &tasks);
+    vector<instance> aperiodics;
+    vector<instance> instances;
 
-	ab_compute_profile(&edf, &tasks, t_util);
+	read_tasksets(&periodic_tasks, task_file);
+    generate_aperiodics(&aperiodics, 10, 5, 50);
+    generate_aperiodics(&aperiodics, 30, 5, 100);
+    generate_aperiodics(&aperiodics, 31, 5, 5);
+    generate_aperiodics(&aperiodics, 50, 5, 200);
+    generate_aperiodics(&aperiodics, 55, 5, 50);
+    generate_aperiodics(&aperiodics, 70, 5, 0);
+
+    tasks2instances(&periodic_tasks, &aperiodics, &instances);
+//    int_pointer=&tasks;
+
+//	ab_edf_schedule(&tasks, &edf);
+//	consolidate_schedule(&edf, &tasks);
+
+//	ab_compute_profile(&edf, &tasks, t_util);
 }
 
 
