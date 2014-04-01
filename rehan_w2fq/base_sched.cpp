@@ -13,6 +13,229 @@ extern double corrected_threshold;
 extern int seed;
 extern float global_sort_power;
 
+void ab_edf_schedule(vector<task> * tasks, vector<schedule>*edf) {
+	vector<int> times;
+	imp_times(tasks, &times);
+//#if(ENABLE_PRINTS)
+
+	for(unsigned int i=0;i<times.size();i++)
+	{
+		cout<<"times: "<<i<<":"<<times[i]<<endl;
+	}
+//#endif
+
+	for (unsigned int i = 0; i < tasks->size(); i++) {
+		(*tasks)[i].computations = 0;
+		(*tasks)[i].next_start = 0;
+	}
+
+	schedule temp;
+	for (unsigned int i = 0; i < times.size() - 1; i++)
+	{
+		int start = times[i];
+		while (start < times[i + 1])
+		{
+			int id = min_deadline(tasks, start);
+			if (id == -1)
+			{
+				break;
+			}
+
+			int computations_left = (*tasks)[id].computation_time - (*tasks)[id].computations;
+			(*tasks)[id].computations = (times[i + 1] - start) >= computations_left ?(*tasks)[id].computation_time :
+										(*tasks)[id].computations + times[i + 1] - start;
+			temp.start = start;
+			temp.end =(times[i + 1] - start) >= computations_left ?temp.start + computations_left : times[i + 1];
+			temp.task_id = id;
+			temp.arrival=(start/(*tasks)[temp.task_id].period)*(*tasks)[temp.task_id].period;
+
+			if ((*tasks)[id].computations == (*tasks)[id].computation_time&& start >= (*tasks)[id].next_start)
+			{
+				(*tasks)[id].computations = 0;
+				(*tasks)[id].next_start = start / (*tasks)[id].period * (*tasks)[id].period + (*tasks)[id].period;
+			}
+
+			start = temp.end;
+			edf->push_back(temp);
+		}
+	}
+//#if(ENABLE_PRINTS)
+
+	for(unsigned int i=0;i<edf->size();i++)
+	{
+		cout<<i<<": Task:"<<(*edf)[i].task_id<<" start:"<<(*edf)[i].start<<" end: "<<(*edf)[i].end<<endl;
+	}
+//#endif
+
+	verify(edf, tasks);
+
+}
+void ab_compute_profile(vector<schedule>* sch, vector<double> speeds,
+		vector<task>*tasks, double thermal_util) {
+#if(ENABLE_PRINTS)
+
+	cout<<"Hyperperiod:"<<tasksets[0].hyperperiod<<" total thermal impact:"<<tasksets[0].TTI<<" utilization:"<<tasksets[0].c_util<<" thermal util:"<<tasksets[0].t_util<<" average_power"<<tasksets[0].average_power<<endl;
+#endif
+	float initial_temperature = 0;
+	vector<profile> temperature;
+	profile ttemp;
+	ttemp.time = 0;
+	ttemp.temperature = initial_temperature;
+	temperature.push_back(ttemp);
+
+	for (unsigned int i = 0; i < sch->size(); i++) {
+		if (i < sch->size() - 1) {
+			ttemp.time = (*sch)[i].end;
+			ttemp.temperature = heat(
+					temperature[temperature.size() - 1].temperature,
+					(*tasks)[(*sch)[i].task_id].power,
+					ttemp.time - temperature[temperature.size() - 1].time);
+			temperature.push_back(ttemp);
+			int next_start = (*sch)[i + 1].start;
+			if (next_start > temperature[temperature.size() - 1].time) {
+				ttemp.time = (*sch)[i + 1].start;
+				ttemp.temperature = cool(
+						temperature[temperature.size() - 1].temperature,
+						ttemp.time - temperature[temperature.size() - 1].time);
+				temperature.push_back(ttemp);
+			}
+
+		}
+
+		else {
+			ttemp.time = tasksets[0].hyperperiod;
+			ttemp.temperature = cool(
+					temperature[temperature.size() - 1].temperature,
+					tasksets[0].hyperperiod - (*sch)[sch->size() - 1].end);
+			temperature.push_back(ttemp);
+#if(ENABLE_PRINTS)
+			cout<<"end temperature"<<ttemp.temperature<<endl;
+#endif
+		}
+	}
+
+	double steady_temperature = (temperature[temperature.size() - 1].temperature)
+			/ (1 - exp(-1 * beta * tasksets[0].hyperperiod / GRANULARITY));
+	for (unsigned int i = 0; i < temperature.size(); i++) {
+		temperature[i].temperature = temperature[i].temperature
+				+ cool(steady_temperature, temperature[i].time);
+	}
+
+	ofstream thermal_profile;
+
+	switch (thermal_optimal) {
+	case 1:
+		thermal_profile.open("profile");
+		break;
+	case 2:
+		thermal_profile.open("profile_opt");
+		break;
+	case 3:
+		thermal_profile.open("profile_disc");
+		break;
+	case 4:
+		thermal_profile.open("profile_maxfirst");
+		break;
+	case 5:
+		thermal_profile.open("profile_staticspeed");
+		break;
+	case 6:
+		thermal_profile.open("profile_matlab");
+		break;
+	case 7:
+		thermal_profile.open("profile_nocons");
+		break;
+	default:
+		thermal_profile.open("profile_default");
+		break;
+	}
+
+	thermal_profile << "#Time\tTemparature\n";
+
+	bool thermal_violation = false;
+	float max_temp = 0;
+	for (unsigned int i = 0; i < temperature.size(); i++) {
+		thermal_profile << temperature[i].time << "\t"
+				<< temperature[i].temperature << endl;
+		if (temperature[i].temperature > corrected_threshold) {
+			thermal_violation = true;
+		}
+		if (temperature[i].temperature > max_temp) {
+			max_temp = temperature[i].temperature;
+		}
+	}
+
+	thermal_profile.close();
+	// cout<<"steady_temp"<<steady_temperature<<endl;
+	float c_util = 0.00;
+	float t_util = 0.00;
+	for (unsigned int i = 0; i < tasks->size(); i++) {
+		c_util = c_util
+				+ ((float) (*tasks)[i].computation_time)
+						/ ((float) (*tasks)[i].period);
+		t_util = t_util
+				+ tasksets[0].hyperperiod / ((float) (*tasks)[i].period)
+						* (*tasks)[i].power * (*tasks)[i].computation_time
+						/ beta;
+	}
+
+	t_util = t_util / ((float) (tasksets[0].hyperperiod * corrected_threshold));
+
+	ofstream global_results;
+
+	stringstream fname;
+
+	switch (thermal_optimal) {
+	case 1:
+		fname.str("");
+		fname << "results" << seed;
+		break;
+	case 2:
+		fname.str("");
+		fname << "results_opt" << seed;
+		break;
+	case 3:
+		fname.str("");
+		fname << "results_disc" << seed;
+		break;
+	case 4:
+		fname.str("");
+		fname << "results_maxfirst" << seed;
+		t_util = thermal_util;
+		break;
+	case 5:
+		fname.str("");
+		fname << "results_staticspeed" << seed;
+		t_util = thermal_util;
+		break;
+	case 6:
+		fname.str("");
+		fname << "results_matlab" << seed;
+		t_util = thermal_util;
+		break;
+	case 7:
+		fname.str("");
+		fname << "results_nocons" << seed;
+		break;
+	default:
+		fname.str("");
+		fname << "results_default" << seed;
+		break;
+	}
+
+	global_results.open(fname.str().c_str(), fstream::app);
+	global_results << c_util << "\t" << t_util << "\t" << thermal_violation
+			<< "\t" << max_temp << "\t"
+			<< temperature[temperature.size() - 1].time << "\t" << tasks->size()
+			<< endl;
+	global_results.close();
+#if(ENABLE_PRINTS)
+
+	cout<<"corrected_threshold"<<corrected_threshold<<endl;
+#endif
+}
+
+
 void edf_schedule(vector<task> * tasks, vector<schedule>*edf) {
 	vector<int> times;
 	imp_times(tasks, &times);
