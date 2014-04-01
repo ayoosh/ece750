@@ -1,0 +1,302 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ACTUAL_RUN	config.h	89;"	d
+AMBIENT	config.h	16;"	d
+BASE_OPTIONS	Makefile	/^BASE_OPTIONS= -ansi -Wall -Wextra -Wno-long-long -std=c++0x -Wvla$/;"	m
+BENCH_RUN	config.h	59;"	d
+BIN_LENGTH	config.h	108;"	d
+BUFSIZE	config.h	23;"	d
+C	config.h	13;"	d
+CC	Makefile	/^CC = gcc$/;"	m
+CONFIG_H_	config.h	9;"	d
+CORE	config.h	70;"	d
+CORRECTION_FACTOR	config.h	38;"	d
+CPP	Makefile	/^CPP= g++$/;"	m
+DEBUG	config.h	56;"	d
+DEL	config.h	14;"	d
+ENABLE_PRINTS	config.h	36;"	d
+EXECUTING	config.h	53;"	d
+FINISHED	config.h	52;"	d
+F_COMPARE	config.h	104;"	d
+GRANULARITY	config.h	19;"	d
+IDLE	config.h	54;"	d
+IDLE_TIME	config.h	67;"	d
+INST_ENABLE	config.h	33;"	d
+INST_MF_PRINT	config.h	37;"	d
+LINKER_OPT	Makefile	/^LINKER_OPT       = -lstdc++ -lm$/;"	m
+MARGIN	config.h	46;"	d
+MATLAB_ENABLE	config.h	28;"	d
+MAX_ENABLE	config.h	30;"	d
+MAX_INSTANCES	config.h	106;"	d
+MAX_PERIOD	config.h	72;"	d
+MAX_POWER	config.h	99;"	d
+MAX_RUNTIME	config.h	86;"	d
+MAX_SAFE_STACK	config.h	76;"	d
+MAX_SPEED	config.h	45;"	d
+MAX_TASKS	config.h	42;"	d
+MAX_TASKS	config.h	91;"	d
+MIN_PERIOD	config.h	25;"	d
+MIN_POWER	config.h	100;"	d
+MIN_SPEED	config.h	44;"	d
+MULT_FACTOR	config.h	21;"	d
+MY_PRIORITY	config.h	73;"	d
+NOCONS_ENABLE	config.h	31;"	d
+NSEC_PER_SEC	config.h	79;"	d
+NUM_PROCESSORS	config.h	81;"	d
+OPT_ENABLE	config.h	32;"	d
+PRINT_TASKSET	config.h	41;"	d
+PROFILE_GRANULARITY	config.h	22;"	d
+R	config.h	12;"	d
+RAU	config.h	15;"	d
+READY	config.h	55;"	d
+RT_ENABLE	config.h	34;"	d
+RT_GRANULARITY	config.h	20;"	d
+SCHEDULER_H_	scheduler.h	9;"	d
+SCHED_SCHEME	config.h	83;"	d
+SLACK_ENABLE	config.h	27;"	d
+SLACK_SCHEME_TEST	config.h	61;"	d
+SPEED_DEBUG	config.h	39;"	d
+STATIC_ENABLE	config.h	29;"	d
+S_FACTOR	config.h	11;"	d
+S_L	config.h	95;"	d
+TEMP_CORE	config.h	65;"	d
+TEMP_EXPERIMENT	config.h	63;"	d
+TEMP_TASK	config.h	64;"	d
+TEMP_TIME	config.h	66;"	d
+THRESHOLD	config.h	17;"	d
+TIMING	config.h	57;"	d
+TTI	scheduler.h	/^	float TTI;$/;"	m	struct:task
+TTI	scheduler.h	/^	float TTI;$/;"	m	struct:taskset
+UTIL_POWER	config.h	93;"	d
+W_INT	config.h	48;"	d
+W_INT_HIGH	config.h	49;"	d
+add_exec	exec_interval.cpp	/^void interval::add_exec(execution newexec)$/;"	f	class:interval
+arrival	scheduler.h	/^	double arrival;$/;"	m	struct:float_schedule
+arrival	scheduler.h	/^	int arrival;$/;"	m	struct:comps_req
+arrival	scheduler.h	/^	int arrival;$/;"	m	struct:instance
+arrival	scheduler.h	/^	int arrival;$/;"	m	struct:schedule
+arrival	scheduler.h	/^	long arrival;$/;"	m	struct:long_schedule
+ascending	util.cpp	/^bool ascending(int a, int b) {$/;"	f
+average_power	scheduler.h	/^	float average_power;$/;"	m	struct:taskset
+beta	scheduler.cpp	/^ double beta = 1 \/ (R * C) - (DEL \/ C);$/;"	v
+beta_multi	scheduler.cpp	/^float beta_multi[CORE][CORE];$/;"	v
+c_util	scheduler.h	/^	float c_util;$/;"	m	struct:taskset
+call_hotspot	hotspot_util.cpp	/^void call_hotspot(string ptrace, string flp)$/;"	f
+call_hotspot	hotspot_util.cpp	/^void call_hotspot(string ptrace, string ttrace,string flp, string init)$/;"	f
+cd_computations	scheduler.h	/^struct cd_computations {$/;"	s
+clear	exec_interval.cpp	/^void interval::clear()$/;"	f	class:interval
+command	scheduler.h	/^	vector<string> command;$/;"	m	struct:task
+comps	scheduler.h	/^	float comps;$/;"	m	struct:comps_req
+comps_done	scheduler.h	/^	float comps_done;$/;"	m	struct:instance
+comps_left	scheduler.h	/^	float comps_left;$/;"	m	struct:instance
+comps_req	scheduler.h	/^struct comps_req {$/;"	s
+computation_time	scheduler.h	/^	float computation_time;$/;"	m	struct:float_task
+computation_time	scheduler.h	/^	int computation_time;$/;"	m	struct:instance
+computation_time	scheduler.h	/^	int computation_time;$/;"	m	struct:task
+computation_time	scheduler.h	/^	long computation_time;$/;"	m	struct:long_task
+computations	scheduler.h	/^	double computations;$/;"	m	struct:interval_tasks
+computations	scheduler.h	/^	float computations;$/;"	m	struct:float_task
+computations	scheduler.h	/^	float computations;$/;"	m	struct:instance
+computations	scheduler.h	/^	int computations; \/\/unscaled computations$/;"	m	struct:comps_req
+computations	scheduler.h	/^	int computations;$/;"	m	struct:cd_computations
+computations	scheduler.h	/^	int computations;$/;"	m	struct:task
+computations	scheduler.h	/^	long computations;$/;"	m	struct:long_task
+computations	scheduler.h	/^	long computations[MAX_TASKS][CORE];$/;"	m	struct:interval_s
+compute_lcm	util.cpp	/^int compute_lcm(vector<float_task>* tasks) {$/;"	f
+compute_lcm	util.cpp	/^int compute_lcm(vector<long_task>* tasks) {$/;"	f
+compute_lcm	util.cpp	/^int compute_lcm(vector<task>* tasks, int set) {$/;"	f
+compute_profile	base_sched.cpp	/^void compute_profile(vector<float_schedule>* sch, vector<float_task>*tasks,int mode)$/;"	f
+compute_profile	base_sched.cpp	/^void compute_profile(vector<schedule>* sch, vector<double> speeds,$/;"	f
+compute_profile	base_sched.cpp	/^void compute_profile(vector<schedule>* sch, vector<task>*tasks,$/;"	f
+compute_profile_dynamic	base_sched.cpp	/^void compute_profile_dynamic(vector<schedule>* sch, vector<task>*tasks, double thermal_util,string append) {$/;"	f
+compute_profile_multi	base_sched.cpp	/^void compute_profile_multi(vector<long_schedule>* sch, vector<long_task>*tasks)$/;"	f
+consolidate_schedule	base_sched.cpp	/^void consolidate_schedule(vector<schedule>*sch, vector<task>*tasks) {$/;"	f
+cool	base_sched.cpp	/^double cool(double init_temp, double time) {$/;"	f
+core	scheduler.h	/^	int core; \/\/ core on which task is executing$/;"	m	struct:task
+core	scheduler.h	/^	int core;$/;"	m	struct:execution
+core	scheduler.h	/^	int core;$/;"	m	struct:long_schedule
+corrected_temperature	util.cpp	/^float corrected_temperature(float temperature) {$/;"	f
+corrected_threshold	scheduler.cpp	/^ double corrected_threshold;$/;"	v
+current_timedd	scheduler.cpp	/^long long current_timedd = -GRANULARITY;$/;"	v
+deadline	scheduler.h	/^	int deadline;$/;"	m	struct:cd_computations
+deadline	scheduler.h	/^	int deadline;$/;"	m	struct:instance
+dynamic_instance_schedule_speed	dynamic_interval_speed.cpp	/^void dynamic_instance_schedule_speed(vector<long_schedule>*sch,$/;"	f
+edf_schedule	base_sched.cpp	/^void edf_schedule(vector<float_task>*tasks, vector<float_schedule>*edf)$/;"	f
+edf_schedule	base_sched.cpp	/^void edf_schedule(vector<task> * tasks, vector<schedule>*edf) {$/;"	f
+edl_schedule	base_sched.cpp	/^void edl_schedule(vector<schedule>*edl, vector<schedule>*edf,$/;"	f
+edl_schedule2	base_sched.cpp	/^void edl_schedule2(vector<schedule>*edl, vector<schedule>*edf) {$/;"	f
+end	scheduler.h	/^	double end;$/;"	m	struct:float_schedule
+end	scheduler.h	/^	int end;$/;"	m	struct:comps_req
+end	scheduler.h	/^	int end;$/;"	m	struct:schedule
+end	scheduler.h	/^	int end;$/;"	m	struct:slack
+end	scheduler.h	/^	long end;$/;"	m	class:interval
+end	scheduler.h	/^	long end;$/;"	m	struct:interval_s
+end	scheduler.h	/^	long end;$/;"	m	struct:long_schedule
+end_scheduler_speed	dynamic_interval_speed.cpp	/^long end_scheduler_speed(vector<long_schedule> *sch, vector<interval>*intervals,$/;"	f
+end_temp	scheduler.h	/^	float end_temp[NUM_PROCESSORS];$/;"	m	struct:task
+endtime	scheduler.cpp	/^struct timespec schedulestart, starttime, endtime;$/;"	v	typeref:struct:
+exec	scheduler.h	/^	long exec;$/;"	m	struct:execution
+exec	scheduler.h	/^	vector<execution> exec;$/;"	m	class:interval
+execution	scheduler.h	/^struct execution{$/;"	s
+factorise	util.cpp	/^void factorise(vector<int>* factors, int big_number) {$/;"	f
+float_ascending	util.cpp	/^bool float_ascending(float a, float b) {$/;"	f
+float_end	scheduler.h	/^	double float_end;$/;"	m	struct:long_schedule
+float_schedule	scheduler.h	/^struct float_schedule {$/;"	s
+float_task	scheduler.h	/^struct float_task {$/;"	s
+g_instance_size	intervals_vars.c	/^int g_instance_size=(int)(sizeof(global_instances)\/sizeof(global_instances[0]));$/;"	v
+g_task_size	intervals_vars.c	/^int g_task_size=10;$/;"	v
+gams_include	multi.cpp	/^int gams_include(vector<float_task>*tasks, int** matrix)$/;"	f
+gcd	util.cpp	/^int gcd(int a, int b) {$/;"	f
+generate_instances	util.cpp	/^void generate_instances(vector<task>*tasks, char *fname) {$/;"	f
+generate_instances	util.cpp	/^void generate_instances(vector<task>*tasks, vector<instance> *inst, float* speeds) {$/;"	f
+generate_intervals	w2fq.cpp	/^void generate_intervals(vector<interval_s>* intervals, vector<long_task>*tasks)$/;"	f
+generate_intervals_gps	w2fq.cpp	/^void generate_intervals_gps(vector<interval_s>* intervals, vector<long_task>*tasks)$/;"	f
+generate_intervals_multi	multi.cpp	/^void generate_intervals_multi(vector<interval>*intervals,string fname)$/;"	f
+generate_intervals_multi	multi.cpp	/^void generate_intervals_multi(vector<interval_s>*intervals,string fname, vector<float_task>*tasks)$/;"	f
+generate_power_profile	multi.cpp	/^void generate_power_profile(vector<mprofile> *profile,vector<long_schedule>*sch, long hyperperiod)$/;"	f
+generate_power_trace	multi.cpp	/^void generate_power_trace(vector<long_schedule>*sch, string fname, long hyperperiod, float * average_power)$/;"	f
+generate_taskset	util.cpp	/^void generate_taskset(vector<float_task> *tasks, long hyperperiod, int num_tasks, float comp_util)$/;"	f
+generate_taskset	util.cpp	/^void generate_taskset(vector<float_task> *tasks, long hyperperiod, int num_tasks, float comp_util, float thermal_util)$/;"	f
+generate_taskset_multi	multi.cpp	/^void generate_taskset_multi(vector<float_task> *tasks, long hyperperiod, int num_tasks, float comp_util)$/;"	f
+generate_tasksets	util.cpp	/^void generate_tasksets(vector<task>* tasks, int num_tasksets, int hyperperiod,int min_util, int max_util)$/;"	f
+get_element	exec_interval.cpp	/^execution interval::get_element(int index)$/;"	f	class:interval
+get_length	exec_interval.cpp	/^long interval::get_length()$/;"	f	class:interval
+get_size	exec_interval.cpp	/^int interval::get_size()$/;"	f	class:interval
+global_instances	intervals_vars.c	/^double global_instances[MAX_INSTANCES][6]={{0,0,10.7409268825,0,50,71.0},$/;"	v
+global_power	util.cpp	/^double global_power(vector<task>*tasks, int start, int end, float util) {$/;"	f
+global_power_interval_speed	dynamic_interval_speed.cpp	/^float global_power_interval_speed(double *computations, vector<long_task>*tasks,$/;"	f
+global_power_partial	util.cpp	/^double global_power_partial(vector<task>*tasks, vector<int>*decisions,$/;"	f
+global_sort_power	scheduler.cpp	/^ double global_sort_power = 0;$/;"	v
+global_tasks	intervals_vars.c	/^double global_tasks[10][4]={{0,11.55,50,71},$/;"	v
+heat	base_sched.cpp	/^double heat(double init_temp, double power, double time) {$/;"	f
+heat	base_sched.cpp	/^void heat(double init_temp[CORE], double power[CORE], double time, double* out) {$/;"	f
+hyperperiod	scheduler.h	/^	int hyperperiod;$/;"	m	struct:taskset
+id	scheduler.h	/^	int id;$/;"	m	struct:comps_req
+imp_times	util.cpp	/^void imp_times(vector<float_task> * tasks, vector<float>*times) {$/;"	f
+imp_times	util.cpp	/^void imp_times(vector<long_task> * tasks, vector<long>*times) {$/;"	f
+imp_times	util.cpp	/^void imp_times(vector<task> * tasks, vector<int>*times) {$/;"	f
+imp_times_partial	util.cpp	/^void imp_times_partial(vector<task> * tasks, int * computations,$/;"	f
+index	scheduler.h	/^	int index;$/;"	m	struct:float_task
+index	scheduler.h	/^	int index;$/;"	m	struct:long_task
+index	scheduler.h	/^	int index;$/;"	m	struct:task
+instance	scheduler.h	/^struct instance {$/;"	s
+instance_override_speed	dynamic_interval_speed.cpp	/^void instance_override_speed(vector<float_task>*tasks, vector<instance>*inst) {$/;"	f
+int_pointer	scheduler.cpp	/^vector<task>*int_pointer;$/;"	v
+integral	base_sched.cpp	/^double integral(double initial, double final, double power, int time)$/;"	f
+interval	exec_interval.cpp	/^interval::interval(){};$/;"	f	class:interval
+interval	exec_interval.cpp	/^interval::interval(double st,double en)$/;"	f	class:interval
+interval	scheduler.h	/^class interval$/;"	c
+interval_ascend	w2fq.cpp	/^bool interval_ascend(interval_s a,interval_s b)$/;"	f
+interval_req	intervals_vars.c	/^double interval_req[300][13]={{1,0,2,0.925,0,0,0.907,0.05,0,0,0,0.118,0},\/\/0.118$/;"	v
+interval_s	scheduler.h	/^struct interval_s {$/;"	s
+interval_size	intervals_vars.c	/^int interval_size=(int)(sizeof(interval_req)\/sizeof(interval_req[0]));$/;"	v
+interval_tasks	scheduler.h	/^struct interval_tasks {$/;"	s
+lcm	util.cpp	/^int lcm(int a, int b) {$/;"	f
+logfile	scheduler.cpp	/^stringstream logfile;$/;"	v
+long_schedule	scheduler.h	/^struct long_schedule {$/;"	s
+long_task	scheduler.h	/^struct long_task {$/;"	s
+main	scheduler.cpp	/^int main(int argc, char* argv[]) {$/;"	f
+mapping	scheduler.h	/^	int mapping;$/;"	m	struct:comps_req
+mapping	scheduler.h	/^	int mapping;$/;"	m	struct:instance
+maxfirst_interval_speed	dynamic_interval_speed.cpp	/^int maxfirst_interval_speed(double * computations, long earliness,$/;"	f
+min_deadline	util.cpp	/^int min_deadline(vector<float_task>*tasks, float start) {$/;"	f
+min_deadline	util.cpp	/^int min_deadline(vector<task>*tasks, int start) {$/;"	f
+min_deadline	util.cpp	/^int min_deadline(vector<task>*tasks, int start, vector<int>*times,$/;"	f
+mprofile	scheduler.h	/^struct mprofile {$/;"	s
+multi_schedule	multi.cpp	/^void multi_schedule(vector<long_schedule>*sch,vector<interval_s>*intervals, vector<long_task>*tasks)$/;"	f
+multi_simulate	hotspot_util.cpp	/^void multi_simulate(string power_profile, string flp,int mode, double avg_power)$/;"	f
+myceil	util.cpp	/^int myceil(float f)$/;"	f
+myfloor	util.cpp	/^int myfloor(float f)$/;"	f
+net_computations	scheduler.h	/^	long net_computations[MAX_TASKS][CORE];$/;"	m	struct:interval_s
+next_start	scheduler.h	/^	float next_start;$/;"	m	struct:float_task
+next_start	scheduler.h	/^	int next_start;$/;"	m	struct:task
+next_start	scheduler.h	/^	long next_start;$/;"	m	struct:long_task
+partial_instances	util.cpp	/^void partial_instances(vector<task>*tasks,vector<instance>*inst, vector<instance>*r_inst,float* speeds,int start,int end)$/;"	f
+period	scheduler.h	/^	float period;$/;"	m	struct:float_task
+period	scheduler.h	/^	int period;$/;"	m	struct:task
+period	scheduler.h	/^	long period;$/;"	m	struct:long_task
+pid	scheduler.h	/^	pid_t pid; \/\/ linux pid$/;"	m	struct:task
+populate_beta	multi.cpp	/^void populate_beta()$/;"	f
+populate_slacks	base_sched.cpp	/^void populate_slacks(vector<slack>*slacks, vector<schedule>*sch) {$/;"	f
+power	scheduler.h	/^	double power;$/;"	m	struct:float_schedule
+power	scheduler.h	/^	double power;$/;"	m	struct:interval_tasks
+power	scheduler.h	/^	double power;$/;"	m	struct:long_schedule
+power	scheduler.h	/^	double power;$/;"	m	struct:long_task
+power	scheduler.h	/^	float power;$/;"	m	struct:float_task
+power	scheduler.h	/^	float power;$/;"	m	struct:instance
+power	scheduler.h	/^	float power;$/;"	m	struct:schedule
+power	scheduler.h	/^	float power;$/;"	m	struct:task
+priority	scheduler.h	/^	int priority; \/\/ linux priority of task$/;"	m	struct:task
+profile	scheduler.h	/^struct profile {$/;"	s
+read_taskset_multi	multi.cpp	/^void read_taskset_multi(vector<float_task> *tasks, string file)$/;"	f
+read_tasksets	util.cpp	/^void read_tasksets(vector<float_task>*tasks) {$/;"	f
+read_tasksets	util.cpp	/^void read_tasksets(vector<task>*tasks, string fname) {$/;"	f
+read_ttrace	hotspot_util.cpp	/^double read_ttrace(string fname, vector<trace>*therm)$/;"	f
+resource_matrix	util.cpp	/^void resource_matrix(int ** matrix,int size, float likelyhood)$/;"	f
+running_tasks	scheduler.cpp	/^int running_tasks[NUM_PROCESSORS] = { -1, -1, -1, -1 };$/;"	v
+schedule	scheduler.h	/^struct schedule {$/;"	s
+scheduler_runtime	scheduler.cpp	/^float scheduler_runtime = 0;$/;"	v
+schedulestart	scheduler.cpp	/^struct timespec schedulestart, starttime, endtime;$/;"	v	typeref:struct:timespec
+seed	scheduler.cpp	/^ unsigned int seed;$/;"	v
+set_interval	exec_interval.cpp	/^void interval::set_interval(long st,long en)$/;"	f	class:interval
+slack	scheduler.h	/^struct slack {$/;"	s
+sort_power	util.cpp	/^bool sort_power(task a, task b) {$/;"	f
+sort_sch	base_sched.cpp	/^bool sort_sch(long_schedule a,long_schedule b)$/;"	f
+speed	scheduler.h	/^	double speed;$/;"	m	struct:execution
+speed	scheduler.h	/^	double speed;$/;"	m	struct:float_schedule
+speed	scheduler.h	/^	double speed;$/;"	m	struct:long_schedule
+speed	scheduler.h	/^	float speed;$/;"	m	struct:comps_req
+speed	scheduler.h	/^	float speed;$/;"	m	struct:instance
+speed	scheduler.h	/^	float speed;$/;"	m	struct:schedule
+speed_index	scheduler.h	/^	int speed_index;$/;"	m	struct:execution
+speed_levels	scheduler.cpp	/^ float speed_levels[S_L]={0.5, 0.533, 0.567, 0.6, 0.633, 0.667, 0.7, 0.733, 0.767, 0.8, 0.833, 0.867, 0.9, 0.933, 0.967, 1.0};$/;"	v
+speed_scale_discrete	base_sched.cpp	/^void speed_scale_discrete(vector<task>*scaled_tasks, vector<float>*speeds,$/;"	f
+speeds	scheduler.cpp	/^ vector<float> speeds;$/;"	v
+split	util.cpp	/^void split(string *text, vector<string> *delimiters, vector<string>*elem)$/;"	f
+start	scheduler.h	/^	double start;$/;"	m	struct:float_schedule
+start	scheduler.h	/^	int start;$/;"	m	struct:comps_req
+start	scheduler.h	/^	int start;$/;"	m	struct:schedule
+start	scheduler.h	/^	int start;$/;"	m	struct:slack
+start	scheduler.h	/^	long start;$/;"	m	class:interval
+start	scheduler.h	/^	long start;$/;"	m	struct:interval_s
+start	scheduler.h	/^	long start;$/;"	m	struct:long_schedule
+starttime	scheduler.cpp	/^struct timespec schedulestart, starttime, endtime;$/;"	v	typeref:struct:
+stat_stream	scheduler.h	/^	ifstream *stat_stream;$/;"	m	struct:task
+state	scheduler.h	/^	int state; \/\/ state of task (FINISHED, EXECUTING or IDLE)$/;"	m	struct:task
+store_taskset	util.cpp	/^void store_taskset(vector<task>*tasks) {$/;"	f
+t_util	scheduler.h	/^	float t_util;$/;"	m	struct:taskset
+task	scheduler.h	/^	int task;$/;"	m	struct:execution
+task	scheduler.h	/^struct task {$/;"	s
+task_id	scheduler.h	/^	int task_id;$/;"	m	struct:float_schedule
+task_id	scheduler.h	/^	int task_id;$/;"	m	struct:instance
+task_id	scheduler.h	/^	int task_id;$/;"	m	struct:interval_tasks
+task_id	scheduler.h	/^	int task_id;$/;"	m	struct:long_schedule
+task_id	scheduler.h	/^	int task_id;$/;"	m	struct:schedule
+taskset	scheduler.h	/^	int taskset;$/;"	m	struct:task
+taskset	scheduler.h	/^struct taskset {$/;"	s
+tasksets	scheduler.cpp	/^ vector<taskset> tasksets;$/;"	v
+temperature	scheduler.h	/^	double temperature;$/;"	m	struct:profile
+thermal_optimal	scheduler.cpp	/^ int thermal_optimal = 0;$/;"	v
+tid	scheduler.h	/^	int tid;$/;"	m	struct:task
+time	scheduler.h	/^	double time;$/;"	m	struct:mprofile
+time	scheduler.h	/^	double time;$/;"	m	struct:profile
+time_diff	scheduler.h	/^inline float time_diff(timespec* start, timespec *end) {$/;"	f
+total_comps	multi.cpp	/^void total_comps(vector<long_schedule>*sch,vector<long_task>*tasks, vector<interval_s>*intervals)$/;"	f
+trace	scheduler.h	/^struct trace {$/;"	s
+unit_exec	scheduler.h	/^	float unit_exec;$/;"	m	struct:execution
+val	scheduler.h	/^	double val[CORE];$/;"	m	struct:mprofile
+val	scheduler.h	/^	float val[CORE];$/;"	m	struct:trace
+verify	base_sched.cpp	/^void verify(vector<float_schedule>*sch, vector<float_task>*tasks) {$/;"	f
+verify	base_sched.cpp	/^void verify(vector<schedule>*sch, vector<task>*tasks) {$/;"	f
+verify	base_sched.cpp	/^void verify(vector<schedule>*sch, vector<task>*tasks, vector<double>*speed) {$/;"	f
+verify_s	base_sched.cpp	/^void verify_s(vector<schedule>*sch, vector<schedule>*edf, vector<task>*tasks) {$/;"	f
+w2fq_interval_speed	dynamic_interval_speed.cpp	/^void w2fq_interval_speed(vector<long_schedule>*sch, double* computations,$/;"	f
+w2fq_schedule	w2fq.cpp	/^void w2fq_schedule(vector<long_schedule>*sch, vector<long_task>*tasks, vector<interval_s>*intervals, int core)$/;"	f
+w2fq_schedule_convert	w2fq.cpp	/^void w2fq_schedule_convert(vector<float_schedule>*fsch, vector<long_schedule>*lsch)$/;"	f
+w2fq_task_convert	w2fq.cpp	/^void w2fq_task_convert(vector<long_task>*tasks, vector<float_task>*f_tasks)$/;"	f
+write_to_file	util.cpp	/^void write_to_file(string fname, string *str)$/;"	f
+~interval	exec_interval.cpp	/^interval::~interval(){$/;"	f	class:interval

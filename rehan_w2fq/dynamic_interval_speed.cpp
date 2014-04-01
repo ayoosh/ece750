@@ -264,7 +264,7 @@ int maxfirst_interval_speed(double * computations, long earliness,
 
 		//	cout<<"global power high "<<g_power<<endl;
 #if(ENABLE_PRINTS)
-		cout<<"global power:"<<g_power<<"utilization "<<used_util<<endl;
+		//cout<<"global power:"<<g_power<<"utilization "<<used_util<<endl;
 #endif
 		for (unsigned int i = 0; i < tasks->size(); i++) {
 			float speed = pow(g_power / (*tasks)[i].power, 1 / 3.0);

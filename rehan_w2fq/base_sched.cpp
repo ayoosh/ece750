@@ -16,13 +16,13 @@ extern float global_sort_power;
 void edf_schedule(vector<task> * tasks, vector<schedule>*edf) {
 	vector<int> times;
 	imp_times(tasks, &times);
-#if(ENABLE_PRINTS)
+//#if(ENABLE_PRINTS)
 
 	for(unsigned int i=0;i<times.size();i++)
 	{
 		cout<<"times: "<<i<<":"<<times[i]<<endl;
 	}
-#endif
+//#endif
 
 	for (unsigned int i = 0; i < tasks->size(); i++) {
 		(*tasks)[i].computations = 0;
@@ -59,13 +59,13 @@ void edf_schedule(vector<task> * tasks, vector<schedule>*edf) {
 			edf->push_back(temp);
 		}
 	}
-#if(ENABLE_PRINTS)
+//#if(ENABLE_PRINTS)
 
 	for(unsigned int i=0;i<edf->size();i++)
 	{
 		cout<<i<<": Task:"<<(*edf)[i].task_id<<" start:"<<(*edf)[i].start<<" end: "<<(*edf)[i].end<<endl;
 	}
-#endif
+//#endif
 
 	verify(edf, tasks);
 
@@ -201,10 +201,10 @@ double cool(double init_temp, double time) {
 
 void compute_profile(vector<schedule>* sch, vector<task>*tasks,
 		double thermal_util) {
-#if(ENABLE_PRINTS)
+//#if(ENABLE_PRINTS)
 
 	cout<<"Hyperperiod:"<<tasksets[0].hyperperiod<<" total thermal impact:"<<tasksets[0].TTI<<" utilization:"<<tasksets[0].c_util<<" thermal util:"<<tasksets[0].t_util<<" average_power"<<tasksets[0].average_power<<endl;
-#endif
+//#endif
 	float initial_temperature = 0;
 	vector<profile> temperature;
 	profile ttemp;
@@ -237,9 +237,9 @@ void compute_profile(vector<schedule>* sch, vector<task>*tasks,
 					temperature[temperature.size() - 1].temperature,
 					tasksets[0].hyperperiod - (*sch)[sch->size() - 1].end);
 			temperature.push_back(ttemp);
-#if(ENABLE_PRINTS)
+//#if(ENABLE_PRINTS)
 			cout<<"end temperature"<<ttemp.temperature<<endl;
-#endif
+//#endif
 		}
 	}
 
@@ -358,10 +358,11 @@ void compute_profile(vector<schedule>* sch, vector<task>*tasks,
 			<< temperature[temperature.size() - 1].time << "\t" << tasks->size()
 			<< endl;
 	global_results.close();
-#if(ENABLE_PRINTS)
+//#if(ENABLE_PRINTS)
 
-	cout<<"corrected_threshold"<<corrected_threshold<<endl;
-#endif
+	cout<<"corrected_threshold"<<corrected_threshold<<thermal_violation<<endl;
+	
+//#endif
 }
 
 

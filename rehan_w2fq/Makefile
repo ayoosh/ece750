@@ -2,14 +2,15 @@
 CC = gcc
 CPP= g++
 #BASE_OPTIONS     = -ansi -pedantic-errors -Wall -Wextra -Wno-long-long -std=c++0x -Wvla
-BASE_OPTIONS= -ansi -Wall -Wextra -Wno-long-long -std=c++0x -Wvla
+BASE_OPTIONS1= -ansi -Wall -Wextra -Wno-long-long -std=c++0x -Wvla
+BASE_OPTIONS= -g -ansi -Wall -Wextra -Wno-long-long -std=c++0x -Wvla
 LINKER_OPT       = -lstdc++ -lm
 
 
 all: edf
 
 edf: scheduler.o intervals_vars.o util.o multi.o w2fq.o exec_interval.o dynamic_interval_speed.o hotspot_util.o base_sched.o
-	 ${CPP} ${BASE_OPTIONS} -o edf scheduler.o intervals_vars.o util.o multi.o w2fq.o exec_interval.o dynamic_interval_speed.o hotspot_util.o base_sched.o
+	 ${CPP} ${BASE_OPTIONS1} -o edf scheduler.o intervals_vars.o util.o multi.o w2fq.o exec_interval.o dynamic_interval_speed.o hotspot_util.o base_sched.o
 
 scheduler.o: scheduler.cpp scheduler.h
 	${CPP} ${BASE_OPTIONS} -c scheduler.cpp
@@ -38,4 +39,4 @@ hotspot_util.o: hotspot_util.cpp
 base_sched.o: base_sched.cpp
 	${CPP} ${BASE_OPTIONS} -c base_sched.cpp
 clean:
-	rm -f *.o multi
+	rm -f *.o multi edf

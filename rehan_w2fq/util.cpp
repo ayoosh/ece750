@@ -107,6 +107,8 @@ void read_tasksets(vector<task>*tasks, string fname) {
 	temp.index = 0;
 	while (!taskfile.eof()) {
 		taskfile >> temp.computation_time >> temp.period >> temp.power;
+	//	 cout << temp.computation_time << "|" << temp.period << "|"
+          //                              << temp.power << endl;
 
 		if (temp.computation_time > 0 && temp.period > 0) {
 			cout << temp.computation_time << "|" << temp.period << "|"
@@ -121,9 +123,9 @@ void read_tasksets(vector<task>*tasks, string fname) {
 	cout << "size" << tasks->size() << endl;
 	for (unsigned int j = 0; j < tasks->size(); j++) {
 
-#if(ENABLE_PRINTS)
+//#if(ENABLE_PRINTS)
 		cout<<"task:"<<j<<"taskset:"<<(*tasks)[j].taskset<<" computation time:"<<(*tasks)[j].computation_time<<" period:"<<(*tasks)[j].period<< " Utilization: "<<(float)(*tasks)[j].computation_time/(float)(*tasks)[j].period<<endl;
-#endif
+//#endif
 		cout << (*tasks)[j].power << "|" << (*tasks)[j].computation_time << "|"
 				<< (*tasks)[j].period << endl;
 		total_impact = total_impact
@@ -296,7 +298,7 @@ void generate_tasksets(vector<task>* tasks, int num_tasksets, int hyperperiod,in
 	for (int i = 0; i < num_tasksets; i++) {
 		temp.taskset = i;
 		int num_tasks = rand() % (11) + 10;
-
+		
 //		num_tasks=2;
 
 		int utilization = 0;
