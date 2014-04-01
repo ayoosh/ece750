@@ -32,7 +32,7 @@ void ab_compute_profile(vector<schedule>* sch, vector<task>*tasks,
 			ttemp.time = (*sch)[i].end;
 			ttemp.temperature = heat(
 					temperature[temperature.size() - 1].temperature,
-					(*tasks)[(*sch)[i].task_id].power,
+					(*sch)[i].power,
 					ttemp.time - temperature[temperature.size() - 1].time);
 			temperature.push_back(ttemp);
 			int next_start = (*sch)[i + 1].start;
@@ -112,7 +112,8 @@ void ab_compute_profile(vector<schedule>* sch, vector<task>*tasks,
 	thermal_profile.close();
 	float c_util = 0.00;
 	float t_util = 0.00;
-	for (unsigned int i = 0; i < tasks->size(); i++) {
+#if 0	
+    for (unsigned int i = 0; i < tasks->size(); i++) {
 		c_util = c_util
 				+ ((float) (*tasks)[i].computation_time)
 						/ ((float) (*tasks)[i].period);
@@ -123,7 +124,7 @@ void ab_compute_profile(vector<schedule>* sch, vector<task>*tasks,
 	}
 
 	t_util = t_util / ((float) (tasksets[0].hyperperiod * corrected_threshold));
-
+#endif
 	ofstream global_results;
 
 	stringstream fname;
@@ -179,7 +180,8 @@ void ab_compute_profile(vector<schedule>* sch, vector<task>*tasks,
 	
 //#endif
 }
-void ab_edf_schedule(vector<task> * tasks, vector<schedule>*edf) {
+
+void ab_edf_schedule(vector<schedule> *edf, vector<instance> *instances) {
 	vector<int> times;
 	imp_times(tasks, &times);
 //#if(ENABLE_PRINTS)
@@ -236,6 +238,11 @@ void ab_edf_schedule(vector<task> * tasks, vector<schedule>*edf) {
 	verify(edf, tasks);
 
 }
+/*
+ * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#####################
+ * We do not want the code below this
+ */
+
 
 void edf_schedule(vector<task> * tasks, vector<schedule>*edf) {
 	vector<int> times;

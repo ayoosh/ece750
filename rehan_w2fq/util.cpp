@@ -123,9 +123,7 @@ void read_tasksets(vector<task>*tasks, string fname) {
 	cout << "size" << tasks->size() << endl;
 	for (unsigned int j = 0; j < tasks->size(); j++) {
 
-//#if(ENABLE_PRINTS)
 		cout<<"task:"<<j<<"taskset:"<<(*tasks)[j].taskset<<" computation time:"<<(*tasks)[j].computation_time<<" period:"<<(*tasks)[j].period<< " Utilization: "<<(float)(*tasks)[j].computation_time/(float)(*tasks)[j].period<<endl;
-//#endif
 		cout << (*tasks)[j].power << "|" << (*tasks)[j].computation_time << "|"
 				<< (*tasks)[j].period << endl;
 		total_impact = total_impact

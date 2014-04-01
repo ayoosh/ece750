@@ -1,5 +1,11 @@
-#include "scheduler.h"
 
+#define S_COMP_CAP  5
+#define S_POWER     50
+#define S_PERIOD    50
+
+#include "scheduler.h"
+#include <tgmath.h>
+#include <algorithm>
 float beta_multi[CORE][CORE];
 int running_tasks[NUM_PROCESSORS] = { -1, -1, -1, -1 };
 long long current_timedd = -GRANULARITY;
@@ -20,6 +26,58 @@ struct timespec schedulestart, starttime, endtime;
  vector<float> speeds;
  vector<taskset> tasksets;
 //****************************************************************
+void tasks2instances(vector<task> *periodic_tasks, vector<instance> *aperiodics, vector<instance> *instances) {
+    int i, j, start = 0;
+    instance temp;
+
+	for (i = 0, j = 0; i < periodic_tasks->size(); i++, j++) {
+		while (start < tasksets[0].hyperperiod) {
+			temp.computation_time = (*periodic_tasks)[i].computation_time;
+			temp.arrival = start;
+			temp.deadline = start + (*periodic_tasks)[i].period;
+			start = temp.deadline;
+			temp.task_id = i;
+            temp.power = (*periodic_tasks)[i].power;
+			inst.push_back(temp);
+		}
+	}
+    instances.insert( instances.end(), aperiodics.begin(), aperiodics.end() );
+}
+
+#define S_THERM_CAP ((S_COMP_CAP * S_POWER) / beta)
+int s_last_deadline = 0;
+void generate_aperiodics(vector<instance> *aperiodics, int arrival, int computation_time, double power) {
+    double util_ratio, TTI = power * compuations / beta;
+    instance temp, tempi;
+    double comp_time_remaining = computation_time;
+    unsigned int i, ceiling = ceil(TTI / S_THERM_CAP);
+
+    for (i = ceiling; i > 0; i--) {
+        temp.arrival    = arrival;
+        temp.power      = power;
+        tempi.power     = 0;
+
+        if (i == 1) {
+            util_ratio = max(1, power / S_POWER);
+            temp.deadline = max(arrival, s_last_deadline) + (comp_time_remaining * ( (double) S_PERIOD / S_COMP_CAP) * util_ratio);
+            temp.computation_time = comp_time_remaining;
+            tempi.computation_time = comp_time_remaining * (util_ratio - 1);
+        } else {
+            temp.deadline =  max(arrival, s_last_deadline) + S_PERIOD;
+            temp.computation_time = S_COMP_CAP / util_ratio;
+            tempi.computation_time = S_COMP_CAP - temp.computation_time;
+            comp_time_remaining -= temp.computation_time;
+        }
+        
+        tempi.arrival = arrival + temp.computation_time;
+        s_last_deadline = tempi.deadline = temp.deadline;
+        aperiodics.push_back(temp);
+        aperiodics.push_back(tempi);
+    }
+
+    return;
+}
+
 
 int main(int argc, char* argv[]) {
 
@@ -49,4 +107,5 @@ int main(int argc, char* argv[]) {
 
 	ab_compute_profile(&edf, &tasks, t_util);
 }
+
 
