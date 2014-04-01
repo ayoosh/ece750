@@ -44,9 +44,9 @@ int main(int argc, char* argv[]) {
     int_pointer=&tasks;
 		
     double t_util;
-	edf_schedule(&tasks, &edf);
+	ab_edf_schedule(&tasks, &edf);
 	consolidate_schedule(&edf, &tasks);
 
-	compute_profile(&edf, &tasks, t_util);
+	ab_compute_profile(&edf, &tasks, t_util);
 }
 

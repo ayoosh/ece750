@@ -13,69 +13,13 @@ extern double corrected_threshold;
 extern int seed;
 extern float global_sort_power;
 
-void ab_edf_schedule(vector<task> * tasks, vector<schedule>*edf) {
-	vector<int> times;
-	imp_times(tasks, &times);
+
+void ab_compute_profile(vector<schedule>* sch, vector<task>*tasks,
+		double thermal_util) {
 //#if(ENABLE_PRINTS)
-
-	for(unsigned int i=0;i<times.size();i++)
-	{
-		cout<<"times: "<<i<<":"<<times[i]<<endl;
-	}
-//#endif
-
-	for (unsigned int i = 0; i < tasks->size(); i++) {
-		(*tasks)[i].computations = 0;
-		(*tasks)[i].next_start = 0;
-	}
-
-	schedule temp;
-	for (unsigned int i = 0; i < times.size() - 1; i++)
-	{
-		int start = times[i];
-		while (start < times[i + 1])
-		{
-			int id = min_deadline(tasks, start);
-			if (id == -1)
-			{
-				break;
-			}
-
-			int computations_left = (*tasks)[id].computation_time - (*tasks)[id].computations;
-			(*tasks)[id].computations = (times[i + 1] - start) >= computations_left ?(*tasks)[id].computation_time :
-										(*tasks)[id].computations + times[i + 1] - start;
-			temp.start = start;
-			temp.end =(times[i + 1] - start) >= computations_left ?temp.start + computations_left : times[i + 1];
-			temp.task_id = id;
-			temp.arrival=(start/(*tasks)[temp.task_id].period)*(*tasks)[temp.task_id].period;
-
-			if ((*tasks)[id].computations == (*tasks)[id].computation_time&& start >= (*tasks)[id].next_start)
-			{
-				(*tasks)[id].computations = 0;
-				(*tasks)[id].next_start = start / (*tasks)[id].period * (*tasks)[id].period + (*tasks)[id].period;
-			}
-
-			start = temp.end;
-			edf->push_back(temp);
-		}
-	}
-//#if(ENABLE_PRINTS)
-
-	for(unsigned int i=0;i<edf->size();i++)
-	{
-		cout<<i<<": Task:"<<(*edf)[i].task_id<<" start:"<<(*edf)[i].start<<" end: "<<(*edf)[i].end<<endl;
-	}
-//#endif
-
-	verify(edf, tasks);
-
-}
-void ab_compute_profile(vector<schedule>* sch, vector<double> speeds,
-		vector<task>*tasks, double thermal_util) {
-#if(ENABLE_PRINTS)
 
 	cout<<"Hyperperiod:"<<tasksets[0].hyperperiod<<" total thermal impact:"<<tasksets[0].TTI<<" utilization:"<<tasksets[0].c_util<<" thermal util:"<<tasksets[0].t_util<<" average_power"<<tasksets[0].average_power<<endl;
-#endif
+//#endif
 	float initial_temperature = 0;
 	vector<profile> temperature;
 	profile ttemp;
@@ -108,9 +52,9 @@ void ab_compute_profile(vector<schedule>* sch, vector<double> speeds,
 					temperature[temperature.size() - 1].temperature,
 					tasksets[0].hyperperiod - (*sch)[sch->size() - 1].end);
 			temperature.push_back(ttemp);
-#if(ENABLE_PRINTS)
+//#if(ENABLE_PRINTS)
 			cout<<"end temperature"<<ttemp.temperature<<endl;
-#endif
+//#endif
 		}
 	}
 
@@ -166,7 +110,6 @@ void ab_compute_profile(vector<schedule>* sch, vector<double> speeds,
 	}
 
 	thermal_profile.close();
-	// cout<<"steady_temp"<<steady_temperature<<endl;
 	float c_util = 0.00;
 	float t_util = 0.00;
 	for (unsigned int i = 0; i < tasks->size(); i++) {
@@ -224,17 +167,75 @@ void ab_compute_profile(vector<schedule>* sch, vector<double> speeds,
 	}
 
 	global_results.open(fname.str().c_str(), fstream::app);
+
 	global_results << c_util << "\t" << t_util << "\t" << thermal_violation
 			<< "\t" << max_temp << "\t"
 			<< temperature[temperature.size() - 1].time << "\t" << tasks->size()
 			<< endl;
 	global_results.close();
-#if(ENABLE_PRINTS)
+//#if(ENABLE_PRINTS)
 
-	cout<<"corrected_threshold"<<corrected_threshold<<endl;
-#endif
+	cout<<"corrected_threshold"<<corrected_threshold<<thermal_violation<<endl;
+	
+//#endif
 }
+void ab_edf_schedule(vector<task> * tasks, vector<schedule>*edf) {
+	vector<int> times;
+	imp_times(tasks, &times);
+//#if(ENABLE_PRINTS)
 
+	for(unsigned int i=0;i<times.size();i++)
+	{
+		cout<<"times: "<<i<<":"<<times[i]<<endl;
+	}
+//#endif
+
+	for (unsigned int i = 0; i < tasks->size(); i++) {
+		(*tasks)[i].computations = 0;
+		(*tasks)[i].next_start = 0;
+	}
+
+	schedule temp;
+	for (unsigned int i = 0; i < times.size() - 1; i++)
+	{
+		int start = times[i];
+		while (start < times[i + 1])
+		{
+			int id = min_deadline(tasks, start);
+			if (id == -1)
+			{
+				break;
+			}
+
+			int computations_left = (*tasks)[id].computation_time - (*tasks)[id].computations;
+			(*tasks)[id].computations = (times[i + 1] - start) >= computations_left ?(*tasks)[id].computation_time :
+										(*tasks)[id].computations + times[i + 1] - start;
+			temp.start = start;
+			temp.end =(times[i + 1] - start) >= computations_left ?temp.start + computations_left : times[i + 1];
+			temp.task_id = id;
+			temp.arrival=(start/(*tasks)[temp.task_id].period)*(*tasks)[temp.task_id].period;
+
+			if ((*tasks)[id].computations == (*tasks)[id].computation_time&& start >= (*tasks)[id].next_start)
+			{
+				(*tasks)[id].computations = 0;
+				(*tasks)[id].next_start = start / (*tasks)[id].period * (*tasks)[id].period + (*tasks)[id].period;
+			}
+
+			start = temp.end;
+			edf->push_back(temp);
+		}
+	}
+//#if(ENABLE_PRINTS)
+
+	for(unsigned int i=0;i<edf->size();i++)
+	{
+		cout<<i<<": Task:"<<(*edf)[i].task_id<<" start:"<<(*edf)[i].start<<" end: "<<(*edf)[i].end<<endl;
+	}
+//#endif
+
+	verify(edf, tasks);
+
+}
 
 void edf_schedule(vector<task> * tasks, vector<schedule>*edf) {
 	vector<int> times;
