@@ -13,11 +13,28 @@ extern double corrected_threshold;
 extern int seed;
 extern float global_sort_power;
 
-void ab_compute_profile(vector<schedule>* sch, vector<task>*tasks,
-		double thermal_util) {
+#define min(a,b) ({ __typeof__ (a) _a = (a); \
+                          __typeof__ (b) _b = (b); \
+                        _a < _b ? _a : _b; })
 
-#if 0
-	cout<<"Hyperperiod:"<<tasksets[0].hyperperiod<<" total thermal impact:"<<tasksets[0].TTI<<" utilization:"<<tasksets[0].c_util<<" thermal util:"<<tasksets[0].t_util<<" average_power"<<tasksets[0].average_power<<endl;
+
+bool compare_deadline(instance a, instance b) {
+    if (a.deadline < b.deadline) {
+        return true;
+    }
+    else if(a.deadline == b.deadline) {
+        if(a.arrival < b.arrival)
+            return true;
+    }
+
+    return false;
+}
+
+
+void ab_compute_profile(vector<float_schedule>* sch) {
+
+
+	//cout<<"Hyperperiod:"<<tasksets[0].hyperperiod<<" total thermal impact:"<<tasksets[0].TTI<<" utilization:"<<tasksets[0].c_util<<" thermal util:"<<tasksets[0].t_util<<" average_power"<<tasksets[0].average_power<<endl;
 	float initial_temperature = 0;
 	vector<profile> temperature;
 	profile ttemp;
@@ -33,7 +50,7 @@ void ab_compute_profile(vector<schedule>* sch, vector<task>*tasks,
 					(*sch)[i].power,
 					ttemp.time - temperature[temperature.size() - 1].time);
 			temperature.push_back(ttemp);
-			int next_start = (*sch)[i + 1].start;
+			float next_start = (*sch)[i + 1].start;
 			if (next_start > temperature[temperature.size() - 1].time) {
 				ttemp.time = (*sch)[i + 1].start;
 				ttemp.temperature = cool(
@@ -63,7 +80,7 @@ void ab_compute_profile(vector<schedule>* sch, vector<task>*tasks,
 
 	ofstream thermal_profile;
 
-	switch (thermal_optimal) {
+	/*switch (thermal_optimal) {
 	case 1:
 		thermal_profile.open("profile");
 		break;
@@ -88,8 +105,8 @@ void ab_compute_profile(vector<schedule>* sch, vector<task>*tasks,
 	default:
 		thermal_profile.open("profile_default");
 		break;
-	}
-
+	}*/
+    thermal_profile.open("profile");
 	thermal_profile << "#Time\tTemparature\n";
 
 	bool thermal_violation = false;
@@ -106,8 +123,8 @@ void ab_compute_profile(vector<schedule>* sch, vector<task>*tasks,
 	}
 
 	thermal_profile.close();
-	float c_util = 0.00;
-	float t_util = 0.00;
+//	float c_util = 0.00;
+//	float t_util = 0.00;
 /*	
     for (unsigned int i = 0; i < tasks->size(); i++) {
 		c_util = c_util
@@ -119,8 +136,8 @@ void ab_compute_profile(vector<schedule>* sch, vector<task>*tasks,
 						/ beta;
 	}
 */
-	t_util = t_util / ((float) (tasksets[0].hyperperiod * corrected_threshold));
-	ofstream global_results;
+//	t_util = t_util / ((float) (tasksets[0].hyperperiod * corrected_threshold));
+/*	ofstream global_results;
 
 	stringstream fname;
 
@@ -169,65 +186,70 @@ void ab_compute_profile(vector<schedule>* sch, vector<task>*tasks,
 			<< temperature[temperature.size() - 1].time << "\t" << tasks->size()
 			<< endl;
 	global_results.close();
-
-	cout<<"corrected_threshold"<<corrected_threshold<<thermal_violation<<endl;
-	
-#endif
+*/
+	cout<<"corrected_threshold"<<corrected_threshold<<endl;
+    if (thermal_violation) {
+        cout<<"Thermal Violation !!!!!!"<<endl;
+    }
 }
-void ab_edf_schedule(vector<schedule> *edf, vector<instance> *instances) {
-	vector<int> times;
+void ab_edf_schedule(vector<float_schedule> *edf, vector<instance> *instances) {
 
-#if 0
-	imp_times(tasks, &times);
+    vector<instance> active;
 
-	for(unsigned int i=0;i<times.size();i++)
-	{
-		cout<<"times: "<<i<<":"<<times[i]<<endl;
+	for (unsigned int i = 0; i < instances->size(); i++) {
+		(*instances)[i].comps_done = 0;
+        (*instances)[i].comps_left = (*instances)[i].computation_time;
+		(*instances)[i].next_start = 0;
+        (*instances)[i].speed = 1;
 	}
 
-	for (unsigned int i = 0; i < tasks->size(); i++) {
-		(*tasks)[i].computations = 0;
-		(*tasks)[i].next_start = 0;
-	}
+	float_schedule temp;
+    unsigned int i=0;
+    double comps_avail=0, comps_left = 0, sched_start=0;
+   
+    double start = (*instances)[0].arrival;
 
-	schedule temp;
-	for (unsigned int i = 0; i < times.size() - 1; i++)
-	{
-		int start = times[i];
-		while (start < times[i + 1])
-		{
-			int id = min_deadline(tasks, start);
-			if (id == -1)
-			{
-				break;
-			}
+    while(start < tasksets[0].hyperperiod ) {
+        
+        for(; i < instances->size(); i++){
 
-			int computations_left = (*tasks)[id].computation_time - (*tasks)[id].computations;
-			(*tasks)[id].computations = (times[i + 1] - start) >= computations_left ?(*tasks)[id].computation_time :
-										(*tasks)[id].computations + times[i + 1] - start;
-			temp.start = start;
-			temp.end =(times[i + 1] - start) >= computations_left ?temp.start + computations_left : times[i + 1];
-			temp.task_id = id;
-			temp.arrival=(start/(*tasks)[temp.task_id].period)*(*tasks)[temp.task_id].period;
+            if(start == (*instances)[i].arrival) {
+                active.push_back((*instances)[i]);
+            }
+            else {
+                sort(active.begin(), active.end(), compare_deadline);
+                break;
+            }
+        }
+        comps_avail = (i < instances->size()) ? ((*instances)[i].arrival - start) : (tasksets[0].hyperperiod - start);
+        sched_start = start;
+        start += comps_avail;
+        while((comps_avail > 0) && active.size()) {
+            comps_left = min(active[0].comps_left, comps_avail);
+            active[0].comps_done += comps_left;
+            active[0].comps_left -= comps_left;
+            
+            temp.start = sched_start;
+            sched_start += comps_left;
+            temp.end = temp.start + comps_left;
+            temp.power = active[0].power;
+            temp.task_id = active[0].task_id;
+            temp.speed = active[0].speed;
+            if(active[0].comps_left == 0) {
+                active.erase(active.begin() + 0);
+            }
+            comps_avail -= comps_left;
+            edf->push_back(temp);
+        }
 
-			if ((*tasks)[id].computations == (*tasks)[id].computation_time&& start >= (*tasks)[id].next_start)
-			{
-				(*tasks)[id].computations = 0;
-				(*tasks)[id].next_start = start / (*tasks)[id].period * (*tasks)[id].period + (*tasks)[id].period;
-			}
-
-			start = temp.end;
-			edf->push_back(temp);
-		}
-	}
-
+    }
+	
 	for(unsigned int i=0;i<edf->size();i++)
 	{
-		cout<<i<<": Task:"<<(*edf)[i].task_id<<" start:"<<(*edf)[i].start<<" end: "<<(*edf)[i].end<<endl;
+		cout<<i<<": Task:"<<(*edf)[i].task_id<<"\t"<<" start:"<<(*edf)[i].start<<"\t"<<" end: "<<(*edf)[i].end<<"\t"<<" power: "<<(*edf)[i].power<<endl;
 	}
-	verify(edf, tasks);
+	//verify(edf, tasks);
 
-#endif
 }
 /*
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#####################

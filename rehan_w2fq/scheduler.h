@@ -157,15 +157,17 @@ struct long_schedule {
 
 struct instance {
 	int task_id;
-	int arrival;
-	int deadline;
-	int computation_time;
+	float arrival;
+	float deadline;
+//	int computation_time;
+    float computation_time;
 	float computations;
 	float comps_left;
 	float comps_done;
 	float speed;
 	float power;
 	int mapping;
+	int next_start;
 	//int instance_id;
 };
 
@@ -302,14 +304,13 @@ void speed_scale_discrete(vector<task>*scaled_tasks, vector<float>*speeds,
 double heat(double init_temp, double power, double time);
 void heat(double init_temp[CORE], double power[CORE], double time, double *out);
 double cool(double init_temp, double time);
-void ab_edf_schedule(vector<task> * tasks, vector<schedule>*edf);
+void ab_edf_schedule(vector<float_schedule> *, vector<instance> *);
 void edf_schedule(vector<task> * tasks, vector<schedule>*edf);
 void edf_schedule(vector<float_task> * tasks, vector<float_schedule>*edf);
 void populate_slacks(vector<slack>*slacks, vector<schedule>*sch);
 void compute_profile(vector<schedule>* sch, vector<task>*tasks,
 		double thermal_util);
-void ab_compute_profile(vector<schedule>* sch, vector<task>*tasks,
-		double thermal_util);
+void ab_compute_profile(vector<float_schedule>* sch);
 void compute_profile_multi(vector<schedule>* sch, vector<task>*tasks,
 		double thermal_util);
 void consolidate_schedule(vector<schedule>*sch, vector<task>*tasks);
