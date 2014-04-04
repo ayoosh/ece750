@@ -79,7 +79,7 @@ void insert_aperiodic_instances(instance real, instance idle, vector<instance> *
 
     double arrival = real.arrival;
     bool choose_real = CHOOSE_REAL_FIRST; // Controls if real task is chosen first or the idle one. After this the choice is round robin.
-    
+    double comp_ratio = real.computation_time / idle.computation_time;
     real.comps_left = real.computation_time;
     idle.comps_left = idle.computation_time;
     
@@ -98,14 +98,22 @@ void insert_aperiodic_instances(instance real, instance idle, vector<instance> *
          */
         temp.arrival = arrival;
         if (choose_real) {
+            if (comp_ratio > 1) {
+                temp.computation_time = min(INTERLEAVE_GRANULARITY * comp_ratio, real.comps_left);
+            } else {
+                temp.computation_time = min(INTERLEAVE_GRANULARITY, real.comps_left);
+            }
             temp.task_id = real.task_id;
             temp.power = real.power;
-            temp.computation_time = min(INTERLEAVE_GRANULARITY, real.comps_left);
             real.comps_left -= temp.computation_time;
         } else {
+            if (comp_ratio < 1) {
+                temp.computation_time = min(INTERLEAVE_GRANULARITY / comp_ratio, idle.comps_left);
+            } else {
+                temp.computation_time = min(INTERLEAVE_GRANULARITY, idle.comps_left);
+            }
             temp.task_id = idle.task_id;
             temp.power = idle.power;
-            temp.computation_time = min(INTERLEAVE_GRANULARITY, idle.comps_left);
             idle.comps_left -= temp.computation_time;
         }
 
