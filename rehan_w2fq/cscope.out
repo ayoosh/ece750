@@ -1,4 +1,4 @@
-cscope 15 /ece750/rehan_w2fq               0000314394
+cscope 15 /ece750/rehan_w2fq               0000314767
 	@base_sched.cpp
 
 8 
@@ -18291,7 +18291,7 @@ b
 	}
 }
 
-44 
+45 
 sks2š¡ªûs
 (
 veùÜ
@@ -18307,19 +18307,19 @@ veùÜ
 š¡ªûs
 ) {
 
-45 
+46 
 	gi
 , 
 	g¡¬t
  = 0;
 
-46 
+47 
 š¡ªû
  
 	g‹mp
 ;
 
-48 
+49 
 	gi
  = 0; i < 
 	g³riodic_sks
@@ -18327,7 +18327,7 @@ veùÜ
 size
 (); i++) {
 
-49 
+50 
 	g¡¬t
  < 
 	gsk£ts
@@ -18335,7 +18335,7 @@ size
 	ghy³½”iod
 ) {
 
-50 
+51 
 	g‹mp
 .
 	gcomputiÚ_time
@@ -18347,7 +18347,7 @@ i
 computiÚ_time
 ;
 
-51 
+52 
 	g‹mp
 .
 	g¬riv®
@@ -18355,7 +18355,7 @@ computiÚ_time
 ¡¬t
 ;
 
-52 
+53 
 	g‹mp
 .
 	gd—dlše
@@ -18369,7 +18369,7 @@ i
 ³riod
 ;
 
-53 
+54 
 	g¡¬t
  = 
 ‹mp
@@ -18377,7 +18377,7 @@ i
 d—dlše
 ;
 
-54 
+55 
 	g‹mp
 .
 	gsk_id
@@ -18385,7 +18385,7 @@ d—dlše
 i
 ;
 
-55 
+56 
 	g‹mp
 .
 	gpow”
@@ -18397,7 +18397,7 @@ i
 pow”
 ;
 
-56 
+57 
 	gš¡ªûs
 ->
 push_back
@@ -18405,7 +18405,7 @@ push_back
 ‹mp
 );
 
-60 
+61 
 	gš¡ªûs
 ->
 š£¹
@@ -18419,7 +18419,19 @@ push_back
 begš
 (),‡periodics->end());
 
-63 
+62 
+sÜt
+(
+š¡ªûs
+->
+begš
+(), in¡ªûs->
+’d
+(), 
+com·»_š¡ªûs
+);
+
+65 
 	#S_THERM_CAP
  ((
 S_COMP_CAP
@@ -18431,11 +18443,11 @@ b‘a
 
 	)
 
-64 
+66 
 	gs_Ï¡_d—dlše
  = 0;
 
-65 
+67 
 g’”©e_­”iodics
 (
 veùÜ
@@ -18451,7 +18463,7 @@ computiÚ_time
 pow”
 ) {
 
-66 
+68 
 	gut_¿tio
 , 
 	gTTI
@@ -18463,7 +18475,7 @@ computiÚ_time
 b‘a
 ;
 
-67 
+69 
 š¡ªû
  
 	g‹mp
@@ -18471,13 +18483,13 @@ b‘a
 	g‹mpi
 ;
 
-68 
+70 
 	gcomp_time_»maššg
  = 
 computiÚ_time
 ;
 
-69 
+71 
 	gi
 , 
 	gûšg
@@ -18489,13 +18501,13 @@ TTI
 S_THERM_CAP
 );
 
-71 
+73 
 	gi
  = 
 ûšg
 ; i > 0; i--) {
 
-72 
+74 
 	g‹mp
 .
 	g¬riv®
@@ -18503,7 +18515,7 @@ S_THERM_CAP
 ¬riv®
 ;
 
-73 
+75 
 	g‹mp
 .
 	gpow”
@@ -18511,17 +18523,17 @@ S_THERM_CAP
 pow”
 ;
 
-74 
+76 
 	g‹mpi
 .
 	gpow”
  = 0;
 
-76 ià(
+78 ià(
 	gi
  == 1) {
 
-77 
+79 
 ut_¿tio
  = 
 max
@@ -18531,7 +18543,7 @@ pow”
 S_POWER
 );
 
-78 
+80 
 	g‹mp
 .
 	gd—dlše
@@ -18551,7 +18563,7 @@ s_Ï¡_d—dlše
 	gut_¿tio
 );
 
-79 
+81 
 	g‹mp
 .
 	gcomputiÚ_time
@@ -18559,7 +18571,7 @@ s_Ï¡_d—dlše
 comp_time_»maššg
 ;
 
-80 
+82 
 	g‹mpi
 .
 	gcomputiÚ_time
@@ -18569,7 +18581,7 @@ comp_time_»maššg
 ut_¿tio
  - 1);
 
-82 
+84 
 	g‹mp
 .
 	gd—dlše
@@ -18583,7 +18595,7 @@ s_Ï¡_d—dlše
 	gS_PERIOD
 ;
 
-83 
+85 
 	g‹mp
 .
 	gcomputiÚ_time
@@ -18593,7 +18605,7 @@ S_COMP_CAP
 ut_¿tio
 ;
 
-84 
+86 
 	g‹mpi
 .
 	gcomputiÚ_time
@@ -18605,7 +18617,7 @@ S_COMP_CAP
 computiÚ_time
 ;
 
-85 
+87 
 	gcomp_time_»maššg
  -ğ
 ‹mp
@@ -18613,7 +18625,7 @@ computiÚ_time
 computiÚ_time
 ;
 
-88 
+90 
 	g‹mpi
 .
 	g¬riv®
@@ -18625,7 +18637,7 @@ computiÚ_time
 computiÚ_time
 ;
 
-89 
+91 
 	gs_Ï¡_d—dlše
  = 
 ‹mpi
@@ -18635,7 +18647,7 @@ d—dlše
 ‹mp
 .deadline;
 
-90 
+92 
 	g­”iodics
 ->
 push_back
@@ -18643,7 +18655,7 @@ push_back
 ‹mp
 );
 
-91 
+93 
 	g­”iodics
 ->
 push_back
@@ -18651,7 +18663,7 @@ push_back
 ‹mpi
 );
 
-98 
+100 
 	$maš
 (
 ¬gc
@@ -18659,21 +18671,21 @@ push_back
 ¬gv
 []) {
 
-100 ià(
+102 ià(
 ¬gc
  < 2) {
 
-101 
+103 
 cout
 << "šv®id fÜm©: <skfe>" << 
 ’dl
 ;
 
-102 
+104 
 	`ex™
 (1);
 
-105 
+107 
 cÜ»ùed_th»shŞd
  = 
 	`cÜ»ùed_‹m³¿tu»
@@ -18681,7 +18693,7 @@ cÜ»ùed_th»shŞd
 THRESHOLD
 );
 
-106 
+108 
 cout
 <<"b‘¨"<<
 b‘a
@@ -18691,35 +18703,39 @@ cÜ»ùed_th»shŞd
 ’dl
 ;
 
-108 
+110 
 ™”
  = 1;
 
-109 
+111 
 hy³½”iod
  = 0;
 
-111 
+112 
+t_ut
+;
+
+114 
 ¡ršg
  
 sk_fe
 ;
 
-112 
+115 
 sk_fe
  = 
 ¬gv
 [1];
 
-114 
+117 
 veùÜ
 <
 sk
 > 
-sks
+³riodic_sks
 ;
 
-115 
+118 
 veùÜ
 <
 scheduË
@@ -18727,43 +18743,77 @@ scheduË
 edf
 ;
 
-116 
+119 
+veùÜ
+<
+š¡ªû
+> 
+­”iodics
+;
+
+120 
+veùÜ
+<
+š¡ªû
+> 
+š¡ªûs
+;
+
+122 
 	`»ad_sk£ts
 (&
-sks
+³riodic_sks
 , 
 sk_fe
 );
 
-118 
-št_poš‹r
-=&
-sks
-;
-
-120 
-t_ut
-;
-
-122 
-	`cÚsŞid©e_scheduË
+123 
+	`g’”©e_­”iodics
 (&
-edf
-, &
-sks
-);
+­”iodics
+, 10, 5, 50);
 
 124 
-	`ab_compu‹_´ofe
+	`g’”©e_­”iodics
 (&
-edf
-, &
-sks
-, 
-t_ut
-);
+­”iodics
+, 30, 5, 100);
 
 125 
+	`g’”©e_­”iodics
+(&
+­”iodics
+, 31, 5, 5);
+
+126 
+	`g’”©e_­”iodics
+(&
+­”iodics
+, 50, 5, 200);
+
+127 
+	`g’”©e_­”iodics
+(&
+­”iodics
+, 55, 5, 50);
+
+128 
+	`g’”©e_­”iodics
+(&
+­”iodics
+, 70, 5, 0);
+
+130 
+	`sks2š¡ªûs
+(&
+³riodic_sks
+, &
+­”iodics
+, &
+š¡ªûs
+);
+
+137 
 	}
 }
 

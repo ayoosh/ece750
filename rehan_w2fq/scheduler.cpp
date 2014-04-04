@@ -1,4 +1,6 @@
-
+#define INTERLEAVE  1
+#define INTERLEAVE_GRANULARITY 1
+#define CHOOSE_REAL_FIRST 1
 #define S_COMP_CAP  5
 #define S_POWER     50
 #define S_PERIOD    50
@@ -6,6 +8,7 @@
 #include "scheduler.h"
 #include <tgmath.h>
 #include <algorithm>
+#include <iomanip>
 float beta_multi[CORE][CORE];
 int running_tasks[NUM_PROCESSORS] = { -1, -1, -1, -1 };
 long long current_timedd = -GRANULARITY;
@@ -31,11 +34,14 @@ struct timespec schedulestart, starttime, endtime;
                 __typeof__ (b) _b = (b); \
               _a > _b ? _a : _b; })
 
+#define min(a,b) ({ __typeof__ (a) _a = (a); \
+                __typeof__ (b) _b = (b); \
+              _a < _b ? _a : _b; })
+
 bool compare_arrival(instance a, instance b) {
     if (a.arrival < b.arrival) {
         return true;
     }
-
     return false;
 }
 
@@ -60,6 +66,80 @@ void tasks2instances(vector<task> *periodic_tasks, vector<instance> *aperiodics,
     sort(instances->begin(), instances->end(), compare_arrival);
 }
 
+void insert_aperiodic_instances(instance real, instance idle, vector<instance> *aperiodics) {
+
+// If interleaving is desired, interleave real and idle tasks in a round robin fashion, with a predefined INTERLEAVE_GRANULARITY
+#if INTERLEAVE
+
+    if (idle.computation_time == 0) {
+        // This real task has a power less than server power. Nothing to do here.
+        aperiodics->push_back(real);
+        return;
+    }
+
+    double arrival = real.arrival;
+    bool choose_real = CHOOSE_REAL_FIRST; // Controls if real task is chosen first or the idle one. After this the choice is round robin.
+    
+    real.comps_left = real.computation_time;
+    idle.comps_left = idle.computation_time;
+    
+    instance temp;
+    temp.deadline = real.deadline;
+    
+    /*
+     * In every iteration choose one of real or idle task,
+     * Take care of one INTERLEAVE_GRANULARITY computation time
+     */
+    while ((real.comps_left > 0) && (idle.comps_left > 0)) {
+
+        /*
+         * Interleaving depends on staggering arrival times.
+         * Makse sure to break ties based on arrival times in EDF
+         */
+        temp.arrival = arrival;
+        if (choose_real) {
+            temp.task_id = real.task_id;
+            temp.power = real.power;
+            temp.computation_time = min(INTERLEAVE_GRANULARITY, real.comps_left);
+            real.comps_left -= temp.computation_time;
+        } else {
+            temp.task_id = idle.task_id;
+            temp.power = idle.power;
+            temp.computation_time = min(INTERLEAVE_GRANULARITY, idle.comps_left);
+            idle.comps_left -= temp.computation_time;
+        }
+
+        choose_real = !choose_real;
+        arrival += temp.computation_time;
+        aperiodics->push_back(temp);
+    }
+
+    /* 
+     * One of the real or idle is handled completely till now
+     * Dump remaining computation time of the other in one contiguous task
+     */
+    if (real.comps_left > 0) {
+        real.arrival = arrival;
+        real.computation_time = real.comps_left;
+        aperiodics->push_back(real);
+    }
+
+    if (idle.comps_left > 0) {
+        idle.arrival = arrival;
+        idle.computation_time = idle.comps_left;
+        aperiodics->push_back(idle);
+    }
+
+#else
+    // If we do not want to Interleave real and idle parts just add them to instances as it is. No sweat.
+    aperiodics->push_back(real);
+    if(idle.computation_time) {
+        aperiodics->push_back(idle);
+    }
+#endif
+    return;
+}
+
 #define S_THERM_CAP ((S_COMP_CAP * S_POWER) / beta)
 double s_last_deadline = 0;
 int aper_task_id = 500;
@@ -72,7 +152,7 @@ void generate_aperiodics(vector<instance> *aperiodics, int arrival, int computat
     double util_ratio = max(1, power / S_POWER);
     
     for (i = ceiling; i > 0; i--) {
-        temp.arrival    = arrival;
+        temp.arrival    = max(arrival, s_last_deadline);
         temp.power      = power;
         tempi.power     = 0;
 
@@ -85,15 +165,19 @@ void generate_aperiodics(vector<instance> *aperiodics, int arrival, int computat
             temp.computation_time = S_COMP_CAP / util_ratio;
             tempi.computation_time = S_COMP_CAP - temp.computation_time;
             comp_time_remaining -= temp.computation_time;
+            arrival += S_COMP_CAP;
         }
         
         tempi.arrival = arrival + temp.computation_time;
         s_last_deadline = tempi.deadline = temp.deadline;
         temp.task_id = tempi.task_id = aper_task_id;
+        insert_aperiodic_instances(temp, tempi, aperiodics);
+        /*
         aperiodics->push_back(temp);
         if(tempi.computation_time) {
             aperiodics->push_back(tempi);
         }
+        */
     }
 
     aper_task_id++;
@@ -124,7 +208,7 @@ int main(int argc, char* argv[]) {
     vector<instance> instances;
 
 	read_tasksets(&periodic_tasks, task_file);
-    generate_aperiodics(&aperiodics, 10, 5, 100);
+    generate_aperiodics(&aperiodics, 10, 5, 50);
     generate_aperiodics(&aperiodics, 30, 5, 100);
     generate_aperiodics(&aperiodics, 31, 5, 5);
     generate_aperiodics(&aperiodics, 50, 5, 200);
@@ -134,7 +218,8 @@ int main(int argc, char* argv[]) {
     tasks2instances(&periodic_tasks, &aperiodics, &instances);
     
     for(unsigned int i=0;i<instances.size();i++) {
-        cout<<i<<": Task:"<<instances[i].task_id<<"\t"<<" arrival:"<<instances[i].arrival<<"\t"<<" deadline: "<<instances[i].deadline<<"\t"<<" computations: "<<instances[i].computation_time<<"\t"<<" Power: "<<instances[i].power<<endl;
+    cout<<setw(5)<<i<<": Task:"<<setw(4)<<instances[i].task_id<<" arrival:"<<setw(7)<<instances[i].arrival;
+    cout<<" deadline: "<<setw(7)<<instances[i].deadline<<" computations: "<<setw(7)<<instances[i].computation_time<<"\t"<<" Power: "<<instances[i].power<<endl;
     }
 //    int_pointer=&tasks;
 
