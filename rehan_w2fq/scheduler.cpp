@@ -248,7 +248,8 @@ int main(int argc, char* argv[]) {
     generate_aperiodics(&aperiodics, 55, 5, 50);
     generate_aperiodics(&aperiodics, 70, 5, 0);
     */
-    generate_tasksets(&periodic_tasks,1, 120, 60, 80);
+    //generate_tasksets(&periodic_tasks,1, 120, 60, 80);
+    ab_generate_taskset(&periodic_tasks, 120, 5, 0.8, 0.8); 
     generate_poisson(&aperiodics);
 
     tasks2instances(&periodic_tasks, &aperiodics, &instances);
