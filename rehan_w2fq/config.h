@@ -18,7 +18,7 @@
 //#define GRANULARITY 10000.00//100000.00 //100 us
 #define GRANULARITY 10.00//100000.00 //100 us
 #define RT_GRANULARITY 10000.00 //10ms should be equal to GRANULARITY. Kept different to allow proper scheduling and profiling
-#define MULT_FACTOR 100//10//1000 change to 10 later
+#define MULT_FACTOR 10//10//1000 change to 10 later
 #define PROFILE_GRANULARITY 100
 #define BUFSIZE	2048
 

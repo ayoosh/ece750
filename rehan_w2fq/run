@@ -1,0 +1,592 @@
+beta 3.47097 corrected threshold 27.9597
+task:0taskset:0 computation time:35 period:250 Utilization: 0.14
+task:1taskset:0 computation time:5 period:40 Utilization: 0.125
+task:2taskset:0 computation time:4 period:20 Utilization: 0.2
+task:3taskset:0 computation time:13 period:80 Utilization: 0.1625
+task:4taskset:0 computation time:55 period:500 Utilization: 0.11
+0:4
+1:24
+2:77
+3:146
+4:187
+    0: Task: 158 arrival:      0 deadline:      80 computations:      13	 Power: 102.314
+    1: Task:   0 arrival:      0 deadline:     250 computations:      35	 Power: 48.1293
+    2: Task: 183 arrival:      0 deadline:     500 computations:      55	 Power: 74.7524
+    3: Task:   8 arrival:      0 deadline:      40 computations:       5	 Power: 62.7333
+    4: Task:  58 arrival:      0 deadline:      20 computations:       4	 Power: 105.855
+    5: Task: 500 arrival:      4 deadline:      54 computations:       1	 Power: 100
+    6: Task: 500 arrival:      5 deadline:      54 computations:       1	 Power: 0
+    7: Task: 500 arrival:      6 deadline:      54 computations:       1	 Power: 100
+    8: Task: 500 arrival:      7 deadline:      54 computations:       1	 Power: 0
+    9: Task: 500 arrival:      8 deadline:      54 computations:     0.5	 Power: 100
+   10: Task: 500 arrival:    8.5 deadline:      54 computations:     0.5	 Power: 0
+   11: Task:  59 arrival:     20 deadline:      40 computations:       4	 Power: 105.855
+   12: Task:  60 arrival:     40 deadline:      60 computations:       4	 Power: 105.855
+   13: Task:   9 arrival:     40 deadline:      80 computations:       5	 Power: 62.7333
+   14: Task: 500 arrival:     54 deadline:     104 computations:       1	 Power: 100
+   15: Task: 500 arrival:     55 deadline:     104 computations:       1	 Power: 0
+   16: Task: 500 arrival:     56 deadline:     104 computations:       1	 Power: 100
+   17: Task: 500 arrival:     57 deadline:     104 computations:       1	 Power: 0
+   18: Task: 500 arrival:     58 deadline:     104 computations:     0.5	 Power: 100
+   19: Task: 500 arrival:   58.5 deadline:     104 computations:     0.5	 Power: 0
+   20: Task:  61 arrival:     60 deadline:      80 computations:       4	 Power: 105.855
+   21: Task:  10 arrival:     80 deadline:     120 computations:       5	 Power: 62.7333
+   22: Task:  62 arrival:     80 deadline:     100 computations:       4	 Power: 105.855
+   23: Task: 159 arrival:     80 deadline:     160 computations:      13	 Power: 102.314
+   24: Task:  63 arrival:    100 deadline:     120 computations:       4	 Power: 105.855
+   25: Task: 501 arrival:    104 deadline:     154 computations:       1	 Power: 100
+   26: Task: 501 arrival:    105 deadline:     154 computations:       1	 Power: 0
+   27: Task: 501 arrival:    106 deadline:     154 computations:       1	 Power: 100
+   28: Task: 501 arrival:    107 deadline:     154 computations:       1	 Power: 0
+   29: Task: 501 arrival:    108 deadline:     154 computations:     0.5	 Power: 100
+   30: Task: 501 arrival:  108.5 deadline:     154 computations:     0.5	 Power: 0
+   31: Task:  64 arrival:    120 deadline:     140 computations:       4	 Power: 105.855
+   32: Task:  11 arrival:    120 deadline:     160 computations:       5	 Power: 62.7333
+   33: Task:  65 arrival:    140 deadline:     160 computations:       4	 Power: 105.855
+   34: Task: 501 arrival:    154 deadline:     204 computations:       1	 Power: 100
+   35: Task: 501 arrival:    155 deadline:     204 computations:       1	 Power: 0
+   36: Task: 501 arrival:    156 deadline:     204 computations:       1	 Power: 100
+   37: Task: 501 arrival:    157 deadline:     204 computations:       1	 Power: 0
+   38: Task: 501 arrival:    158 deadline:     204 computations:     0.5	 Power: 100
+   39: Task: 501 arrival:  158.5 deadline:     204 computations:     0.5	 Power: 0
+   40: Task:  66 arrival:    160 deadline:     180 computations:       4	 Power: 105.855
+   41: Task:  12 arrival:    160 deadline:     200 computations:       5	 Power: 62.7333
+   42: Task: 160 arrival:    160 deadline:     240 computations:      13	 Power: 102.314
+   43: Task:  67 arrival:    180 deadline:     200 computations:       4	 Power: 105.855
+   44: Task:  68 arrival:    200 deadline:     220 computations:       4	 Power: 105.855
+   45: Task:  13 arrival:    200 deadline:     240 computations:       5	 Power: 62.7333
+   46: Task: 502 arrival:    204 deadline:     254 computations:       1	 Power: 100
+   47: Task: 502 arrival:    205 deadline:     254 computations:       1	 Power: 0
+   48: Task: 502 arrival:    206 deadline:     254 computations:       1	 Power: 100
+   49: Task: 502 arrival:    207 deadline:     254 computations:       1	 Power: 0
+   50: Task: 502 arrival:    208 deadline:     254 computations:     0.5	 Power: 100
+   51: Task: 502 arrival:  208.5 deadline:     254 computations:     0.5	 Power: 0
+   52: Task:  69 arrival:    220 deadline:     240 computations:       4	 Power: 105.855
+   53: Task:  70 arrival:    240 deadline:     260 computations:       4	 Power: 105.855
+   54: Task:  14 arrival:    240 deadline:     280 computations:       5	 Power: 62.7333
+   55: Task: 161 arrival:    240 deadline:     320 computations:      13	 Power: 102.314
+   56: Task:   1 arrival:    250 deadline:     500 computations:      35	 Power: 48.1293
+   57: Task: 502 arrival:    254 deadline:     304 computations:       1	 Power: 100
+   58: Task: 502 arrival:    255 deadline:     304 computations:       1	 Power: 0
+   59: Task: 502 arrival:    256 deadline:     304 computations:       1	 Power: 100
+   60: Task: 502 arrival:    257 deadline:     304 computations:       1	 Power: 0
+   61: Task: 502 arrival:    258 deadline:     304 computations:     0.5	 Power: 100
+   62: Task: 502 arrival:  258.5 deadline:     304 computations:     0.5	 Power: 0
+   63: Task:  71 arrival:    260 deadline:     280 computations:       4	 Power: 105.855
+   64: Task:  15 arrival:    280 deadline:     320 computations:       5	 Power: 62.7333
+   65: Task:  72 arrival:    280 deadline:     300 computations:       4	 Power: 105.855
+   66: Task:  73 arrival:    300 deadline:     320 computations:       4	 Power: 105.855
+   67: Task: 503 arrival:    304 deadline:     354 computations:       1	 Power: 100
+   68: Task: 503 arrival:    305 deadline:     354 computations:       1	 Power: 0
+   69: Task: 503 arrival:    306 deadline:     354 computations:       1	 Power: 100
+   70: Task: 503 arrival:    307 deadline:     354 computations:       1	 Power: 0
+   71: Task: 503 arrival:    308 deadline:     354 computations:     0.5	 Power: 100
+   72: Task: 503 arrival:  308.5 deadline:     354 computations:     0.5	 Power: 0
+   73: Task: 162 arrival:    320 deadline:     400 computations:      13	 Power: 102.314
+   74: Task:  16 arrival:    320 deadline:     360 computations:       5	 Power: 62.7333
+   75: Task:  74 arrival:    320 deadline:     340 computations:       4	 Power: 105.855
+   76: Task:  75 arrival:    340 deadline:     360 computations:       4	 Power: 105.855
+   77: Task: 503 arrival:    354 deadline:     404 computations:       1	 Power: 100
+   78: Task: 503 arrival:    355 deadline:     404 computations:       1	 Power: 0
+   79: Task: 503 arrival:    356 deadline:     404 computations:       1	 Power: 100
+   80: Task: 503 arrival:    357 deadline:     404 computations:       1	 Power: 0
+   81: Task: 503 arrival:    358 deadline:     404 computations:     0.5	 Power: 100
+   82: Task: 503 arrival:  358.5 deadline:     404 computations:     0.5	 Power: 0
+   83: Task:  76 arrival:    360 deadline:     380 computations:       4	 Power: 105.855
+   84: Task:  17 arrival:    360 deadline:     400 computations:       5	 Power: 62.7333
+   85: Task:  77 arrival:    380 deadline:     400 computations:       4	 Power: 105.855
+   86: Task:  78 arrival:    400 deadline:     420 computations:       4	 Power: 105.855
+   87: Task:  18 arrival:    400 deadline:     440 computations:       5	 Power: 62.7333
+   88: Task: 163 arrival:    400 deadline:     480 computations:      13	 Power: 102.314
+   89: Task: 504 arrival:    404 deadline:     454 computations:       1	 Power: 100
+   90: Task: 504 arrival:    405 deadline:     454 computations:       1	 Power: 0
+   91: Task: 504 arrival:    406 deadline:     454 computations:       1	 Power: 100
+   92: Task: 504 arrival:    407 deadline:     454 computations:       1	 Power: 0
+   93: Task: 504 arrival:    408 deadline:     454 computations:     0.5	 Power: 100
+   94: Task: 504 arrival:  408.5 deadline:     454 computations:     0.5	 Power: 0
+   95: Task:  79 arrival:    420 deadline:     440 computations:       4	 Power: 105.855
+   96: Task:  19 arrival:    440 deadline:     480 computations:       5	 Power: 62.7333
+   97: Task:  80 arrival:    440 deadline:     460 computations:       4	 Power: 105.855
+   98: Task: 504 arrival:    454 deadline:     504 computations:       1	 Power: 100
+   99: Task: 504 arrival:    455 deadline:     504 computations:       1	 Power: 0
+  100: Task: 504 arrival:    456 deadline:     504 computations:       1	 Power: 100
+  101: Task: 504 arrival:    457 deadline:     504 computations:       1	 Power: 0
+  102: Task: 504 arrival:    458 deadline:     504 computations:     0.5	 Power: 100
+  103: Task: 504 arrival:  458.5 deadline:     504 computations:     0.5	 Power: 0
+  104: Task:  81 arrival:    460 deadline:     480 computations:       4	 Power: 105.855
+  105: Task: 164 arrival:    480 deadline:     560 computations:      13	 Power: 102.314
+  106: Task:  20 arrival:    480 deadline:     520 computations:       5	 Power: 62.7333
+  107: Task:  82 arrival:    480 deadline:     500 computations:       4	 Power: 105.855
+  108: Task:   2 arrival:    500 deadline:     750 computations:      35	 Power: 48.1293
+  109: Task: 184 arrival:    500 deadline:    1000 computations:      55	 Power: 74.7524
+  110: Task:  83 arrival:    500 deadline:     520 computations:       4	 Power: 105.855
+  111: Task:  21 arrival:    520 deadline:     560 computations:       5	 Power: 62.7333
+  112: Task:  84 arrival:    520 deadline:     540 computations:       4	 Power: 105.855
+  113: Task:  85 arrival:    540 deadline:     560 computations:       4	 Power: 105.855
+  114: Task: 165 arrival:    560 deadline:     640 computations:      13	 Power: 102.314
+  115: Task:  22 arrival:    560 deadline:     600 computations:       5	 Power: 62.7333
+  116: Task:  86 arrival:    560 deadline:     580 computations:       4	 Power: 105.855
+  117: Task:  87 arrival:    580 deadline:     600 computations:       4	 Power: 105.855
+  118: Task:  23 arrival:    600 deadline:     640 computations:       5	 Power: 62.7333
+  119: Task:  88 arrival:    600 deadline:     620 computations:       4	 Power: 105.855
+  120: Task:  89 arrival:    620 deadline:     640 computations:       4	 Power: 105.855
+  121: Task: 166 arrival:    640 deadline:     720 computations:      13	 Power: 102.314
+  122: Task:  24 arrival:    640 deadline:     680 computations:       5	 Power: 62.7333
+  123: Task:  90 arrival:    640 deadline:     660 computations:       4	 Power: 105.855
+  124: Task:  91 arrival:    660 deadline:     680 computations:       4	 Power: 105.855
+  125: Task:  92 arrival:    680 deadline:     700 computations:       4	 Power: 105.855
+  126: Task:  25 arrival:    680 deadline:     720 computations:       5	 Power: 62.7333
+  127: Task:  93 arrival:    700 deadline:     720 computations:       4	 Power: 105.855
+  128: Task:  94 arrival:    720 deadline:     740 computations:       4	 Power: 105.855
+  129: Task:  26 arrival:    720 deadline:     760 computations:       5	 Power: 62.7333
+  130: Task: 167 arrival:    720 deadline:     800 computations:      13	 Power: 102.314
+  131: Task:  95 arrival:    740 deadline:     760 computations:       4	 Power: 105.855
+  132: Task:   3 arrival:    750 deadline:    1000 computations:      35	 Power: 48.1293
+  133: Task:  96 arrival:    760 deadline:     780 computations:       4	 Power: 105.855
+  134: Task:  27 arrival:    760 deadline:     800 computations:       5	 Power: 62.7333
+  135: Task:  97 arrival:    780 deadline:     800 computations:       4	 Power: 105.855
+  136: Task:  98 arrival:    800 deadline:     820 computations:       4	 Power: 105.855
+  137: Task: 168 arrival:    800 deadline:     880 computations:      13	 Power: 102.314
+  138: Task:  28 arrival:    800 deadline:     840 computations:       5	 Power: 62.7333
+  139: Task:  99 arrival:    820 deadline:     840 computations:       4	 Power: 105.855
+  140: Task: 100 arrival:    840 deadline:     860 computations:       4	 Power: 105.855
+  141: Task:  29 arrival:    840 deadline:     880 computations:       5	 Power: 62.7333
+  142: Task: 101 arrival:    860 deadline:     880 computations:       4	 Power: 105.855
+  143: Task: 169 arrival:    880 deadline:     960 computations:      13	 Power: 102.314
+  144: Task: 102 arrival:    880 deadline:     900 computations:       4	 Power: 105.855
+  145: Task:  30 arrival:    880 deadline:     920 computations:       5	 Power: 62.7333
+  146: Task: 103 arrival:    900 deadline:     920 computations:       4	 Power: 105.855
+  147: Task:  31 arrival:    920 deadline:     960 computations:       5	 Power: 62.7333
+  148: Task: 104 arrival:    920 deadline:     940 computations:       4	 Power: 105.855
+  149: Task: 105 arrival:    940 deadline:     960 computations:       4	 Power: 105.855
+  150: Task: 106 arrival:    960 deadline:     980 computations:       4	 Power: 105.855
+  151: Task: 170 arrival:    960 deadline:    1040 computations:      13	 Power: 102.314
+  152: Task:  32 arrival:    960 deadline:    1000 computations:       5	 Power: 62.7333
+  153: Task: 107 arrival:    980 deadline:    1000 computations:       4	 Power: 105.855
+  154: Task:  33 arrival:   1000 deadline:    1040 computations:       5	 Power: 62.7333
+  155: Task: 185 arrival:   1000 deadline:    1500 computations:      55	 Power: 74.7524
+  156: Task:   4 arrival:   1000 deadline:    1250 computations:      35	 Power: 48.1293
+  157: Task: 108 arrival:   1000 deadline:    1020 computations:       4	 Power: 105.855
+  158: Task: 109 arrival:   1020 deadline:    1040 computations:       4	 Power: 105.855
+  159: Task: 110 arrival:   1040 deadline:    1060 computations:       4	 Power: 105.855
+  160: Task: 171 arrival:   1040 deadline:    1120 computations:      13	 Power: 102.314
+  161: Task:  34 arrival:   1040 deadline:    1080 computations:       5	 Power: 62.7333
+  162: Task: 111 arrival:   1060 deadline:    1080 computations:       4	 Power: 105.855
+  163: Task: 112 arrival:   1080 deadline:    1100 computations:       4	 Power: 105.855
+  164: Task:  35 arrival:   1080 deadline:    1120 computations:       5	 Power: 62.7333
+  165: Task: 113 arrival:   1100 deadline:    1120 computations:       4	 Power: 105.855
+  166: Task:  36 arrival:   1120 deadline:    1160 computations:       5	 Power: 62.7333
+  167: Task: 172 arrival:   1120 deadline:    1200 computations:      13	 Power: 102.314
+  168: Task: 114 arrival:   1120 deadline:    1140 computations:       4	 Power: 105.855
+  169: Task: 115 arrival:   1140 deadline:    1160 computations:       4	 Power: 105.855
+  170: Task: 116 arrival:   1160 deadline:    1180 computations:       4	 Power: 105.855
+  171: Task:  37 arrival:   1160 deadline:    1200 computations:       5	 Power: 62.7333
+  172: Task: 117 arrival:   1180 deadline:    1200 computations:       4	 Power: 105.855
+  173: Task: 173 arrival:   1200 deadline:    1280 computations:      13	 Power: 102.314
+  174: Task: 118 arrival:   1200 deadline:    1220 computations:       4	 Power: 105.855
+  175: Task:  38 arrival:   1200 deadline:    1240 computations:       5	 Power: 62.7333
+  176: Task: 119 arrival:   1220 deadline:    1240 computations:       4	 Power: 105.855
+  177: Task:  39 arrival:   1240 deadline:    1280 computations:       5	 Power: 62.7333
+  178: Task: 120 arrival:   1240 deadline:    1260 computations:       4	 Power: 105.855
+  179: Task:   5 arrival:   1250 deadline:    1500 computations:      35	 Power: 48.1293
+  180: Task: 121 arrival:   1260 deadline:    1280 computations:       4	 Power: 105.855
+  181: Task: 174 arrival:   1280 deadline:    1360 computations:      13	 Power: 102.314
+  182: Task:  40 arrival:   1280 deadline:    1320 computations:       5	 Power: 62.7333
+  183: Task: 122 arrival:   1280 deadline:    1300 computations:       4	 Power: 105.855
+  184: Task: 123 arrival:   1300 deadline:    1320 computations:       4	 Power: 105.855
+  185: Task:  41 arrival:   1320 deadline:    1360 computations:       5	 Power: 62.7333
+  186: Task: 124 arrival:   1320 deadline:    1340 computations:       4	 Power: 105.855
+  187: Task: 125 arrival:   1340 deadline:    1360 computations:       4	 Power: 105.855
+  188: Task:  42 arrival:   1360 deadline:    1400 computations:       5	 Power: 62.7333
+  189: Task: 175 arrival:   1360 deadline:    1440 computations:      13	 Power: 102.314
+  190: Task: 126 arrival:   1360 deadline:    1380 computations:       4	 Power: 105.855
+  191: Task: 127 arrival:   1380 deadline:    1400 computations:       4	 Power: 105.855
+  192: Task:  43 arrival:   1400 deadline:    1440 computations:       5	 Power: 62.7333
+  193: Task: 128 arrival:   1400 deadline:    1420 computations:       4	 Power: 105.855
+  194: Task: 129 arrival:   1420 deadline:    1440 computations:       4	 Power: 105.855
+  195: Task: 130 arrival:   1440 deadline:    1460 computations:       4	 Power: 105.855
+  196: Task: 176 arrival:   1440 deadline:    1520 computations:      13	 Power: 102.314
+  197: Task:  44 arrival:   1440 deadline:    1480 computations:       5	 Power: 62.7333
+  198: Task: 131 arrival:   1460 deadline:    1480 computations:       4	 Power: 105.855
+  199: Task: 132 arrival:   1480 deadline:    1500 computations:       4	 Power: 105.855
+  200: Task:  45 arrival:   1480 deadline:    1520 computations:       5	 Power: 62.7333
+  201: Task:   6 arrival:   1500 deadline:    1750 computations:      35	 Power: 48.1293
+  202: Task: 133 arrival:   1500 deadline:    1520 computations:       4	 Power: 105.855
+  203: Task: 186 arrival:   1500 deadline:    2000 computations:      55	 Power: 74.7524
+  204: Task:  46 arrival:   1520 deadline:    1560 computations:       5	 Power: 62.7333
+  205: Task: 177 arrival:   1520 deadline:    1600 computations:      13	 Power: 102.314
+  206: Task: 134 arrival:   1520 deadline:    1540 computations:       4	 Power: 105.855
+  207: Task: 135 arrival:   1540 deadline:    1560 computations:       4	 Power: 105.855
+  208: Task:  47 arrival:   1560 deadline:    1600 computations:       5	 Power: 62.7333
+  209: Task: 136 arrival:   1560 deadline:    1580 computations:       4	 Power: 105.855
+  210: Task: 137 arrival:   1580 deadline:    1600 computations:       4	 Power: 105.855
+  211: Task:  48 arrival:   1600 deadline:    1640 computations:       5	 Power: 62.7333
+  212: Task: 138 arrival:   1600 deadline:    1620 computations:       4	 Power: 105.855
+  213: Task: 178 arrival:   1600 deadline:    1680 computations:      13	 Power: 102.314
+  214: Task: 139 arrival:   1620 deadline:    1640 computations:       4	 Power: 105.855
+  215: Task:  49 arrival:   1640 deadline:    1680 computations:       5	 Power: 62.7333
+  216: Task: 140 arrival:   1640 deadline:    1660 computations:       4	 Power: 105.855
+  217: Task: 141 arrival:   1660 deadline:    1680 computations:       4	 Power: 105.855
+  218: Task:  50 arrival:   1680 deadline:    1720 computations:       5	 Power: 62.7333
+  219: Task: 142 arrival:   1680 deadline:    1700 computations:       4	 Power: 105.855
+  220: Task: 179 arrival:   1680 deadline:    1760 computations:      13	 Power: 102.314
+  221: Task: 143 arrival:   1700 deadline:    1720 computations:       4	 Power: 105.855
+  222: Task: 144 arrival:   1720 deadline:    1740 computations:       4	 Power: 105.855
+  223: Task:  51 arrival:   1720 deadline:    1760 computations:       5	 Power: 62.7333
+  224: Task: 145 arrival:   1740 deadline:    1760 computations:       4	 Power: 105.855
+  225: Task:   7 arrival:   1750 deadline:    2000 computations:      35	 Power: 48.1293
+  226: Task:  52 arrival:   1760 deadline:    1800 computations:       5	 Power: 62.7333
+  227: Task: 146 arrival:   1760 deadline:    1780 computations:       4	 Power: 105.855
+  228: Task: 180 arrival:   1760 deadline:    1840 computations:      13	 Power: 102.314
+  229: Task: 147 arrival:   1780 deadline:    1800 computations:       4	 Power: 105.855
+  230: Task: 148 arrival:   1800 deadline:    1820 computations:       4	 Power: 105.855
+  231: Task:  53 arrival:   1800 deadline:    1840 computations:       5	 Power: 62.7333
+  232: Task: 149 arrival:   1820 deadline:    1840 computations:       4	 Power: 105.855
+  233: Task: 181 arrival:   1840 deadline:    1920 computations:      13	 Power: 102.314
+  234: Task: 150 arrival:   1840 deadline:    1860 computations:       4	 Power: 105.855
+  235: Task:  54 arrival:   1840 deadline:    1880 computations:       5	 Power: 62.7333
+  236: Task: 151 arrival:   1860 deadline:    1880 computations:       4	 Power: 105.855
+  237: Task:  55 arrival:   1880 deadline:    1920 computations:       5	 Power: 62.7333
+  238: Task: 152 arrival:   1880 deadline:    1900 computations:       4	 Power: 105.855
+  239: Task: 153 arrival:   1900 deadline:    1920 computations:       4	 Power: 105.855
+  240: Task: 182 arrival:   1920 deadline:    2000 computations:      13	 Power: 102.314
+  241: Task: 154 arrival:   1920 deadline:    1940 computations:       4	 Power: 105.855
+  242: Task:  56 arrival:   1920 deadline:    1960 computations:       5	 Power: 62.7333
+  243: Task: 155 arrival:   1940 deadline:    1960 computations:       4	 Power: 105.855
+  244: Task: 156 arrival:   1960 deadline:    1980 computations:       4	 Power: 105.855
+  245: Task:  57 arrival:   1960 deadline:    2000 computations:       5	 Power: 62.7333
+  246: Task: 157 arrival:   1980 deadline:    2000 computations:       4	 Power: 105.855
+0: Task:58	 start:0	 end: 4	 power: 105.855
+1: Task:8	 start:4	 end: 5	 power: 62.7333
+2: Task:8	 start:5	 end: 6	 power: 62.7333
+3: Task:8	 start:6	 end: 7	 power: 62.7333
+4: Task:8	 start:7	 end: 8	 power: 62.7333
+5: Task:8	 start:8	 end: 8.5	 power: 62.7333
+6: Task:8	 start:8.5	 end: 9	 power: 62.7333
+7: Task:500	 start:9	 end: 10	 power: 100
+8: Task:500	 start:10	 end: 11	 power: 0
+9: Task:500	 start:11	 end: 12	 power: 100
+10: Task:500	 start:12	 end: 13	 power: 0
+11: Task:500	 start:13	 end: 13.5	 power: 100
+12: Task:500	 start:13.5	 end: 14	 power: 0
+13: Task:158	 start:14	 end: 20	 power: 102.314
+14: Task:59	 start:20	 end: 24	 power: 105.855
+15: Task:158	 start:24	 end: 31	 power: 102.314
+16: Task:0	 start:31	 end: 40	 power: 48.1293
+17: Task:60	 start:40	 end: 44	 power: 105.855
+18: Task:9	 start:44	 end: 49	 power: 62.7333
+19: Task:0	 start:49	 end: 54	 power: 48.1293
+20: Task:500	 start:54	 end: 55	 power: 100
+21: Task:500	 start:55	 end: 56	 power: 0
+22: Task:500	 start:56	 end: 57	 power: 100
+23: Task:500	 start:57	 end: 58	 power: 0
+24: Task:500	 start:58	 end: 58.5	 power: 100
+25: Task:500	 start:58.5	 end: 59	 power: 0
+26: Task:0	 start:59	 end: 60	 power: 48.1293
+27: Task:61	 start:60	 end: 64	 power: 105.855
+28: Task:0	 start:64	 end: 80	 power: 48.1293
+29: Task:62	 start:80	 end: 84	 power: 105.855
+30: Task:10	 start:84	 end: 89	 power: 62.7333
+31: Task:159	 start:89	 end: 100	 power: 102.314
+32: Task:63	 start:100	 end: 104	 power: 105.855
+33: Task:501	 start:104	 end: 105	 power: 100
+34: Task:501	 start:105	 end: 106	 power: 0
+35: Task:501	 start:106	 end: 107	 power: 100
+36: Task:501	 start:107	 end: 108	 power: 0
+37: Task:501	 start:108	 end: 108.5	 power: 100
+38: Task:501	 start:108.5	 end: 109	 power: 0
+39: Task:159	 start:109	 end: 111	 power: 102.314
+40: Task:0	 start:111	 end: 115	 power: 48.1293
+41: Task:183	 start:115	 end: 120	 power: 74.7524
+42: Task:64	 start:120	 end: 124	 power: 105.855
+43: Task:11	 start:124	 end: 129	 power: 62.7333
+44: Task:183	 start:129	 end: 140	 power: 74.7524
+45: Task:65	 start:140	 end: 144	 power: 105.855
+46: Task:183	 start:144	 end: 154	 power: 74.7524
+47: Task:501	 start:154	 end: 155	 power: 100
+48: Task:501	 start:155	 end: 156	 power: 0
+49: Task:501	 start:156	 end: 157	 power: 100
+50: Task:501	 start:157	 end: 158	 power: 0
+51: Task:501	 start:158	 end: 158.5	 power: 100
+52: Task:501	 start:158.5	 end: 159	 power: 0
+53: Task:183	 start:159	 end: 160	 power: 74.7524
+54: Task:66	 start:160	 end: 164	 power: 105.855
+55: Task:12	 start:164	 end: 169	 power: 62.7333
+56: Task:160	 start:169	 end: 180	 power: 102.314
+57: Task:67	 start:180	 end: 184	 power: 105.855
+58: Task:160	 start:184	 end: 186	 power: 102.314
+59: Task:183	 start:186	 end: 200	 power: 74.7524
+60: Task:68	 start:200	 end: 204	 power: 105.855
+61: Task:13	 start:204	 end: 205	 power: 62.7333
+62: Task:13	 start:205	 end: 206	 power: 62.7333
+63: Task:13	 start:206	 end: 207	 power: 62.7333
+64: Task:13	 start:207	 end: 208	 power: 62.7333
+65: Task:13	 start:208	 end: 208.5	 power: 62.7333
+66: Task:13	 start:208.5	 end: 209	 power: 62.7333
+67: Task:502	 start:209	 end: 210	 power: 100
+68: Task:502	 start:210	 end: 211	 power: 0
+69: Task:502	 start:211	 end: 212	 power: 100
+70: Task:502	 start:212	 end: 213	 power: 0
+71: Task:502	 start:213	 end: 213.5	 power: 100
+72: Task:502	 start:213.5	 end: 214	 power: 0
+73: Task:183	 start:214	 end: 220	 power: 74.7524
+74: Task:69	 start:220	 end: 224	 power: 105.855
+75: Task:183	 start:224	 end: 232	 power: 74.7524
+76: Task:70	 start:240	 end: 244	 power: 105.855
+77: Task:14	 start:244	 end: 249	 power: 62.7333
+78: Task:161	 start:249	 end: 250	 power: 102.314
+79: Task:161	 start:250	 end: 254	 power: 102.314
+80: Task:502	 start:254	 end: 255	 power: 100
+81: Task:502	 start:255	 end: 256	 power: 0
+82: Task:502	 start:256	 end: 257	 power: 100
+83: Task:502	 start:257	 end: 258	 power: 0
+84: Task:502	 start:258	 end: 258.5	 power: 100
+85: Task:502	 start:258.5	 end: 259	 power: 0
+86: Task:161	 start:259	 end: 260	 power: 102.314
+87: Task:71	 start:260	 end: 264	 power: 105.855
+88: Task:161	 start:264	 end: 271	 power: 102.314
+89: Task:1	 start:271	 end: 280	 power: 48.1293
+90: Task:72	 start:280	 end: 284	 power: 105.855
+91: Task:15	 start:284	 end: 289	 power: 62.7333
+92: Task:1	 start:289	 end: 300	 power: 48.1293
+93: Task:73	 start:300	 end: 304	 power: 105.855
+94: Task:503	 start:304	 end: 305	 power: 100
+95: Task:503	 start:305	 end: 306	 power: 0
+96: Task:503	 start:306	 end: 307	 power: 100
+97: Task:503	 start:307	 end: 308	 power: 0
+98: Task:503	 start:308	 end: 308.5	 power: 100
+99: Task:503	 start:308.5	 end: 309	 power: 0
+100: Task:1	 start:309	 end: 320	 power: 48.1293
+101: Task:74	 start:320	 end: 324	 power: 105.855
+102: Task:16	 start:324	 end: 329	 power: 62.7333
+103: Task:162	 start:329	 end: 340	 power: 102.314
+104: Task:75	 start:340	 end: 344	 power: 105.855
+105: Task:162	 start:344	 end: 346	 power: 102.314
+106: Task:1	 start:346	 end: 350	 power: 48.1293
+107: Task:503	 start:354	 end: 355	 power: 100
+108: Task:503	 start:355	 end: 356	 power: 0
+109: Task:503	 start:356	 end: 357	 power: 100
+110: Task:503	 start:357	 end: 358	 power: 0
+111: Task:503	 start:358	 end: 358.5	 power: 100
+112: Task:503	 start:358.5	 end: 359	 power: 0
+113: Task:76	 start:360	 end: 364	 power: 105.855
+114: Task:17	 start:364	 end: 369	 power: 62.7333
+115: Task:77	 start:380	 end: 384	 power: 105.855
+116: Task:78	 start:400	 end: 404	 power: 105.855
+117: Task:18	 start:404	 end: 405	 power: 62.7333
+118: Task:18	 start:405	 end: 406	 power: 62.7333
+119: Task:18	 start:406	 end: 407	 power: 62.7333
+120: Task:18	 start:407	 end: 408	 power: 62.7333
+121: Task:18	 start:408	 end: 408.5	 power: 62.7333
+122: Task:18	 start:408.5	 end: 409	 power: 62.7333
+123: Task:504	 start:409	 end: 410	 power: 100
+124: Task:504	 start:410	 end: 411	 power: 0
+125: Task:504	 start:411	 end: 412	 power: 100
+126: Task:504	 start:412	 end: 413	 power: 0
+127: Task:504	 start:413	 end: 413.5	 power: 100
+128: Task:504	 start:413.5	 end: 414	 power: 0
+129: Task:163	 start:414	 end: 420	 power: 102.314
+130: Task:79	 start:420	 end: 424	 power: 105.855
+131: Task:163	 start:424	 end: 431	 power: 102.314
+132: Task:80	 start:440	 end: 444	 power: 105.855
+133: Task:19	 start:444	 end: 449	 power: 62.7333
+134: Task:504	 start:454	 end: 455	 power: 100
+135: Task:504	 start:455	 end: 456	 power: 0
+136: Task:504	 start:456	 end: 457	 power: 100
+137: Task:504	 start:457	 end: 458	 power: 0
+138: Task:504	 start:458	 end: 458.5	 power: 100
+139: Task:504	 start:458.5	 end: 459	 power: 0
+140: Task:81	 start:460	 end: 464	 power: 105.855
+141: Task:82	 start:480	 end: 484	 power: 105.855
+142: Task:20	 start:484	 end: 489	 power: 62.7333
+143: Task:164	 start:489	 end: 500	 power: 102.314
+144: Task:83	 start:500	 end: 504	 power: 105.855
+145: Task:164	 start:504	 end: 506	 power: 102.314
+146: Task:2	 start:506	 end: 520	 power: 48.1293
+147: Task:84	 start:520	 end: 524	 power: 105.855
+148: Task:21	 start:524	 end: 529	 power: 62.7333
+149: Task:2	 start:529	 end: 540	 power: 48.1293
+150: Task:85	 start:540	 end: 544	 power: 105.855
+151: Task:2	 start:544	 end: 554	 power: 48.1293
+152: Task:184	 start:554	 end: 560	 power: 74.7524
+153: Task:86	 start:560	 end: 564	 power: 105.855
+154: Task:22	 start:564	 end: 569	 power: 62.7333
+155: Task:165	 start:569	 end: 580	 power: 102.314
+156: Task:87	 start:580	 end: 584	 power: 105.855
+157: Task:165	 start:584	 end: 586	 power: 102.314
+158: Task:184	 start:586	 end: 600	 power: 74.7524
+159: Task:88	 start:600	 end: 604	 power: 105.855
+160: Task:23	 start:604	 end: 609	 power: 62.7333
+161: Task:184	 start:609	 end: 620	 power: 74.7524
+162: Task:89	 start:620	 end: 624	 power: 105.855
+163: Task:184	 start:624	 end: 640	 power: 74.7524
+164: Task:90	 start:640	 end: 644	 power: 105.855
+165: Task:24	 start:644	 end: 649	 power: 62.7333
+166: Task:166	 start:649	 end: 660	 power: 102.314
+167: Task:91	 start:660	 end: 664	 power: 105.855
+168: Task:166	 start:664	 end: 666	 power: 102.314
+169: Task:184	 start:666	 end: 674	 power: 74.7524
+170: Task:92	 start:680	 end: 684	 power: 105.855
+171: Task:25	 start:684	 end: 689	 power: 62.7333
+172: Task:93	 start:700	 end: 704	 power: 105.855
+173: Task:94	 start:720	 end: 724	 power: 105.855
+174: Task:26	 start:724	 end: 729	 power: 62.7333
+175: Task:167	 start:729	 end: 740	 power: 102.314
+176: Task:95	 start:740	 end: 744	 power: 105.855
+177: Task:167	 start:744	 end: 746	 power: 102.314
+178: Task:3	 start:750	 end: 760	 power: 48.1293
+179: Task:96	 start:760	 end: 764	 power: 105.855
+180: Task:27	 start:764	 end: 769	 power: 62.7333
+181: Task:3	 start:769	 end: 780	 power: 48.1293
+182: Task:97	 start:780	 end: 784	 power: 105.855
+183: Task:3	 start:784	 end: 798	 power: 48.1293
+184: Task:98	 start:800	 end: 804	 power: 105.855
+185: Task:28	 start:804	 end: 809	 power: 62.7333
+186: Task:168	 start:809	 end: 820	 power: 102.314
+187: Task:99	 start:820	 end: 824	 power: 105.855
+188: Task:168	 start:824	 end: 826	 power: 102.314
+189: Task:100	 start:840	 end: 844	 power: 105.855
+190: Task:29	 start:844	 end: 849	 power: 62.7333
+191: Task:101	 start:860	 end: 864	 power: 105.855
+192: Task:102	 start:880	 end: 884	 power: 105.855
+193: Task:30	 start:884	 end: 889	 power: 62.7333
+194: Task:169	 start:889	 end: 900	 power: 102.314
+195: Task:103	 start:900	 end: 904	 power: 105.855
+196: Task:169	 start:904	 end: 906	 power: 102.314
+197: Task:104	 start:920	 end: 924	 power: 105.855
+198: Task:31	 start:924	 end: 929	 power: 62.7333
+199: Task:105	 start:940	 end: 944	 power: 105.855
+200: Task:106	 start:960	 end: 964	 power: 105.855
+201: Task:32	 start:964	 end: 969	 power: 62.7333
+202: Task:170	 start:969	 end: 980	 power: 102.314
+203: Task:107	 start:980	 end: 984	 power: 105.855
+204: Task:170	 start:984	 end: 986	 power: 102.314
+205: Task:108	 start:1000	 end: 1004	 power: 105.855
+206: Task:33	 start:1004	 end: 1009	 power: 62.7333
+207: Task:4	 start:1009	 end: 1020	 power: 48.1293
+208: Task:109	 start:1020	 end: 1024	 power: 105.855
+209: Task:4	 start:1024	 end: 1040	 power: 48.1293
+210: Task:110	 start:1040	 end: 1044	 power: 105.855
+211: Task:34	 start:1044	 end: 1049	 power: 62.7333
+212: Task:171	 start:1049	 end: 1060	 power: 102.314
+213: Task:111	 start:1060	 end: 1064	 power: 105.855
+214: Task:171	 start:1064	 end: 1066	 power: 102.314
+215: Task:4	 start:1066	 end: 1074	 power: 48.1293
+216: Task:185	 start:1074	 end: 1080	 power: 74.7524
+217: Task:112	 start:1080	 end: 1084	 power: 105.855
+218: Task:35	 start:1084	 end: 1089	 power: 62.7333
+219: Task:185	 start:1089	 end: 1100	 power: 74.7524
+220: Task:113	 start:1100	 end: 1104	 power: 105.855
+221: Task:185	 start:1104	 end: 1120	 power: 74.7524
+222: Task:114	 start:1120	 end: 1124	 power: 105.855
+223: Task:36	 start:1124	 end: 1129	 power: 62.7333
+224: Task:172	 start:1129	 end: 1140	 power: 102.314
+225: Task:115	 start:1140	 end: 1144	 power: 105.855
+226: Task:172	 start:1144	 end: 1146	 power: 102.314
+227: Task:185	 start:1146	 end: 1160	 power: 74.7524
+228: Task:116	 start:1160	 end: 1164	 power: 105.855
+229: Task:37	 start:1164	 end: 1169	 power: 62.7333
+230: Task:185	 start:1169	 end: 1177	 power: 74.7524
+231: Task:117	 start:1180	 end: 1184	 power: 105.855
+232: Task:118	 start:1200	 end: 1204	 power: 105.855
+233: Task:38	 start:1204	 end: 1209	 power: 62.7333
+234: Task:173	 start:1209	 end: 1220	 power: 102.314
+235: Task:119	 start:1220	 end: 1224	 power: 105.855
+236: Task:173	 start:1224	 end: 1226	 power: 102.314
+237: Task:120	 start:1240	 end: 1244	 power: 105.855
+238: Task:39	 start:1244	 end: 1249	 power: 62.7333
+239: Task:5	 start:1250	 end: 1260	 power: 48.1293
+240: Task:121	 start:1260	 end: 1264	 power: 105.855
+241: Task:5	 start:1264	 end: 1280	 power: 48.1293
+242: Task:122	 start:1280	 end: 1284	 power: 105.855
+243: Task:40	 start:1284	 end: 1289	 power: 62.7333
+244: Task:174	 start:1289	 end: 1300	 power: 102.314
+245: Task:123	 start:1300	 end: 1304	 power: 105.855
+246: Task:174	 start:1304	 end: 1306	 power: 102.314
+247: Task:5	 start:1306	 end: 1315	 power: 48.1293
+248: Task:124	 start:1320	 end: 1324	 power: 105.855
+249: Task:41	 start:1324	 end: 1329	 power: 62.7333
+250: Task:125	 start:1340	 end: 1344	 power: 105.855
+251: Task:126	 start:1360	 end: 1364	 power: 105.855
+252: Task:42	 start:1364	 end: 1369	 power: 62.7333
+253: Task:175	 start:1369	 end: 1380	 power: 102.314
+254: Task:127	 start:1380	 end: 1384	 power: 105.855
+255: Task:175	 start:1384	 end: 1386	 power: 102.314
+256: Task:128	 start:1400	 end: 1404	 power: 105.855
+257: Task:43	 start:1404	 end: 1409	 power: 62.7333
+258: Task:129	 start:1420	 end: 1424	 power: 105.855
+259: Task:130	 start:1440	 end: 1444	 power: 105.855
+260: Task:44	 start:1444	 end: 1449	 power: 62.7333
+261: Task:176	 start:1449	 end: 1460	 power: 102.314
+262: Task:131	 start:1460	 end: 1464	 power: 105.855
+263: Task:176	 start:1464	 end: 1466	 power: 102.314
+264: Task:132	 start:1480	 end: 1484	 power: 105.855
+265: Task:45	 start:1484	 end: 1489	 power: 62.7333
+266: Task:133	 start:1500	 end: 1504	 power: 105.855
+267: Task:6	 start:1504	 end: 1520	 power: 48.1293
+268: Task:134	 start:1520	 end: 1524	 power: 105.855
+269: Task:46	 start:1524	 end: 1529	 power: 62.7333
+270: Task:177	 start:1529	 end: 1540	 power: 102.314
+271: Task:135	 start:1540	 end: 1544	 power: 105.855
+272: Task:177	 start:1544	 end: 1546	 power: 102.314
+273: Task:6	 start:1546	 end: 1560	 power: 48.1293
+274: Task:136	 start:1560	 end: 1564	 power: 105.855
+275: Task:47	 start:1564	 end: 1569	 power: 62.7333
+276: Task:6	 start:1569	 end: 1574	 power: 48.1293
+277: Task:186	 start:1574	 end: 1580	 power: 74.7524
+278: Task:137	 start:1580	 end: 1584	 power: 105.855
+279: Task:186	 start:1584	 end: 1600	 power: 74.7524
+280: Task:138	 start:1600	 end: 1604	 power: 105.855
+281: Task:48	 start:1604	 end: 1609	 power: 62.7333
+282: Task:178	 start:1609	 end: 1620	 power: 102.314
+283: Task:139	 start:1620	 end: 1624	 power: 105.855
+284: Task:178	 start:1624	 end: 1626	 power: 102.314
+285: Task:186	 start:1626	 end: 1640	 power: 74.7524
+286: Task:140	 start:1640	 end: 1644	 power: 105.855
+287: Task:49	 start:1644	 end: 1649	 power: 62.7333
+288: Task:186	 start:1649	 end: 1660	 power: 74.7524
+289: Task:141	 start:1660	 end: 1664	 power: 105.855
+290: Task:186	 start:1664	 end: 1672	 power: 74.7524
+291: Task:142	 start:1680	 end: 1684	 power: 105.855
+292: Task:50	 start:1684	 end: 1689	 power: 62.7333
+293: Task:179	 start:1689	 end: 1700	 power: 102.314
+294: Task:143	 start:1700	 end: 1704	 power: 105.855
+295: Task:179	 start:1704	 end: 1706	 power: 102.314
+296: Task:144	 start:1720	 end: 1724	 power: 105.855
+297: Task:51	 start:1724	 end: 1729	 power: 62.7333
+298: Task:145	 start:1740	 end: 1744	 power: 105.855
+299: Task:7	 start:1750	 end: 1760	 power: 48.1293
+300: Task:146	 start:1760	 end: 1764	 power: 105.855
+301: Task:52	 start:1764	 end: 1769	 power: 62.7333
+302: Task:180	 start:1769	 end: 1780	 power: 102.314
+303: Task:147	 start:1780	 end: 1784	 power: 105.855
+304: Task:180	 start:1784	 end: 1786	 power: 102.314
+305: Task:7	 start:1786	 end: 1800	 power: 48.1293
+306: Task:148	 start:1800	 end: 1804	 power: 105.855
+307: Task:53	 start:1804	 end: 1809	 power: 62.7333
+308: Task:7	 start:1809	 end: 1820	 power: 48.1293
+309: Task:149	 start:1820	 end: 1824	 power: 105.855
+310: Task:150	 start:1840	 end: 1844	 power: 105.855
+311: Task:54	 start:1844	 end: 1849	 power: 62.7333
+312: Task:181	 start:1849	 end: 1860	 power: 102.314
+313: Task:151	 start:1860	 end: 1864	 power: 105.855
+314: Task:181	 start:1864	 end: 1866	 power: 102.314
+315: Task:152	 start:1880	 end: 1884	 power: 105.855
+316: Task:55	 start:1884	 end: 1889	 power: 62.7333
+317: Task:153	 start:1900	 end: 1904	 power: 105.855
+318: Task:154	 start:1920	 end: 1924	 power: 105.855
+319: Task:56	 start:1924	 end: 1929	 power: 62.7333
+320: Task:182	 start:1929	 end: 1940	 power: 102.314
+321: Task:155	 start:1940	 end: 1944	 power: 105.855
+322: Task:182	 start:1944	 end: 1946	 power: 102.314
+323: Task:156	 start:1960	 end: 1964	 power: 105.855
+324: Task:57	 start:1964	 end: 1969	 power: 62.7333
+325: Task:157	 start:1980	 end: 1984	 power: 105.855
+0:4
+1:24
+2:77
+3:146
+4:187
+end temperature0.00161128
+corrected_threshold27.9597
+Thermal Violation !!!!!!

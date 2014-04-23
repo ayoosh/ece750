@@ -248,6 +248,8 @@ void generate_taskset(vector<float_task> *tasks, long hyperperiod,
 		int num_tasks, float comp_util, float thermal_util);
 void generate_taskset(vector<float_task> *tasks, long hyperperiod,
 		int num_tasks, float comp_util);
+void generate_taskset(vector<task> *tasks, long hyperperiod,
+		int num_tasks, float comp_util);
 void read_tasksets(vector<task>*tasks, string fname);
 void read_tasksets(vector<float_task>*tasks);
 bool ascending(int a, int b);

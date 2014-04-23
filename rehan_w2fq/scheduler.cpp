@@ -9,6 +9,7 @@
 #include <tgmath.h>
 #include <algorithm>
 #include <iomanip>
+#include <random>
 float beta_multi[CORE][CORE];
 int running_tasks[NUM_PROCESSORS] = { -1, -1, -1, -1 };
 long long current_timedd = -GRANULARITY;
@@ -16,6 +17,7 @@ vector<task>*int_pointer;
 stringstream logfile;
 float scheduler_runtime = 0;
 struct timespec schedulestart, starttime, endtime;
+int n_aperiodics = 5;
 
 //****************global variables********************************
  double beta = 1 / (R * C) - (DEL / C);
@@ -192,6 +194,29 @@ void generate_aperiodics(vector<instance> *aperiodics, int arrival, int computat
     return;
 }
 
+void generate_poisson(vector<instance> *aperiodics)
+{
+    const int nrolls = 1000;
+    const int n_tasks = 5;
+
+    std::default_random_engine generator;
+    std::poisson_distribution<int> distribution(n_tasks);
+
+    int p[n_tasks]={};
+    
+    for (int i=0; i<nrolls; ++i) {
+        int number = distribution(generator);
+        if (number<n_tasks) ++p[number];
+    }
+    for (int i=0; i<n_tasks; ++i) {
+        cout << i << ":" << p[i]<<endl;
+    }
+    for(int i=0; i<n_tasks; i++) {
+        generate_aperiodics(aperiodics, p[i], 5, 100);
+    }
+
+}
+
 
 int main(int argc, char* argv[]) {
 
@@ -215,13 +240,16 @@ int main(int argc, char* argv[]) {
     vector<instance> aperiodics;
     vector<instance> instances;
 
-	read_tasksets(&periodic_tasks, task_file);
-    generate_aperiodics(&aperiodics, 10, 5, 50);
+	//read_tasksets(&periodic_tasks, task_file);
+/*    generate_aperiodics(&aperiodics, 10, 5, 50);
     generate_aperiodics(&aperiodics, 30, 5, 100);
     generate_aperiodics(&aperiodics, 31, 5, 5);
     generate_aperiodics(&aperiodics, 50, 5, 200);
     generate_aperiodics(&aperiodics, 55, 5, 50);
     generate_aperiodics(&aperiodics, 70, 5, 0);
+    */
+    generate_tasksets(&periodic_tasks,1, 120, 60, 80);
+    generate_poisson(&aperiodics);
 
     tasks2instances(&periodic_tasks, &aperiodics, &instances);
     
@@ -233,6 +261,8 @@ int main(int argc, char* argv[]) {
 
 	ab_edf_schedule(&edf, &instances);
 //	consolidate_schedule(&edf, &tasks);
+    
+    generate_poisson(&aperiodics);
 
 	ab_compute_profile(&edf);
 }

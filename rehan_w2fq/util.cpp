@@ -297,28 +297,33 @@ void generate_tasksets(vector<task>* tasks, int num_tasksets, int hyperperiod,in
 		temp.taskset = i;
 		int num_tasks = rand() % (11) + 10;
 		
-//		num_tasks=2;
+		//num_tasks=5;
 
 		int utilization = 0;
 		if ((max_util - min_util) > 0) {
-			utilization = rand() % (max_util - min_util) + min_util;
+			//utilization = 2*rand() % (max_util - min_util) + min_util;
+            utilization = max_util;
 		} else {
 			utilization = min_util;
 		}
+        cout << "utilizatio = "<<utilization<< endl;
 		for (int j = 0; j < num_tasks; j++) {
 			temp.index = i;
 			int index = rand() % factors.size();
 			int task_utilization;
-			temp.period = factors[index] * MULT_FACTOR;
+			temp.period = factors[index]; //* MULT_FACTOR;
 			if (j < num_tasks - 1) {
 				task_utilization = rand()
 						% (utilization / ((num_tasks - j) / 2)
 								- utilization / (2 * (num_tasks - j)))
 						+ utilization / (2 * (num_tasks - j));
-				utilization = utilization - task_utilization;
+
+             //   task_utilization = utilization * ((( rand() % (num_tasks - j)) + 1) / (num_tasks - j));
+                utilization = utilization - task_utilization;
 			} else {
 				task_utilization = utilization;
 			}
+            cout << "j:" << j << "util:" << task_utilization <<endl;
 			temp.computation_time = temp.period * task_utilization / 100;
 			//temp.stat_stream=new ifstream();
 			temp.priority=20;
@@ -329,6 +334,8 @@ void generate_tasksets(vector<task>* tasks, int num_tasksets, int hyperperiod,in
 			}
 		}
 	}
+
+    cout << "tasks->size()="<<tasks->size()<<endl;
 
 	for (unsigned int i = 0; i < tasks->size(); i++) {
 		(*tasks)[i].tid = i;
@@ -358,13 +365,13 @@ void generate_tasksets(vector<task>* tasks, int num_tasksets, int hyperperiod,in
 		float total_util = 0;
 		for (int j = start; j <= end; j++) {
 
-			     #if(ENABLE_PRINTS)
+			     //#if(ENABLE_PRINTS)
 			cout << "task:" << j << "taskset:" << (*tasks)[j].taskset
 					<< " computation time:" << (*tasks)[j].computation_time
 					<< " period:" << (*tasks)[j].period << " Utilization: "
 					<< (float) (*tasks)[j].computation_time
 							/ (float) (*tasks)[j].period << endl;
-			     #endif
+			     //#endif
 			total_util = total_util
 					+ (float) (*tasks)[j].computation_time
 							/ (float) (*tasks)[j].period;
@@ -404,9 +411,9 @@ void generate_tasksets(vector<task>* tasks, int num_tasksets, int hyperperiod,in
 		cout<<"required_impact "<<taskset_target_TTI<<" actual thermal impact: "<<total_impact<<endl;
 #endif
 	}
-#if(OPT_ENABLE==1)
+/*#if(OPT_ENABLE==1)
 	generate_instances(tasks,"input");
-#endif
+#endif*/
 //    exit(1);
 
 //	cout << "taskset generated" << endl;
@@ -577,6 +584,212 @@ void generate_taskset(vector<float_task> *tasks, long hyperperiod, int num_tasks
 
 }
 
+void ab_generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, float comp_util, float thermal_util)
+{
+	vector<int> factors;
+	factorise(&factors, hyperperiod);
+
+	task temp;
+//	int num_tasks =
+
+//	cout<<" number of tasks "<<num_tasks<<endl;
+	float sumU=comp_util;
+	float t_sumU=thermal_util;
+
+//	cout<<" initial sumU "<<sumU<<" t_sumU "<<t_sumU<<endl;
+	float t_next_sumU;
+	float next_sumU;
+
+	bool violation=false;
+
+	for (int i = 0; i < num_tasks; i++)
+	{
+		int index = rand() % factors.size();
+		temp.period = factors[index];
+
+		float cutil;
+		if(i<num_tasks-1)
+		{
+			next_sumU=sumU*pow((float)(rand()/((float)(RAND_MAX))),1.0/((float)(num_tasks-(i+1))));
+//			cout<<" sumu "<<sumU<<" next sumu "<<next_sumU<<endl;
+			cutil=sumU-next_sumU;
+
+		}
+		else
+		{
+			cutil=sumU;
+		}
+
+
+		temp.computation_time=temp.period*(cutil);
+		temp.computation_time=floor(temp.computation_time/(W_INT*temp.period))*W_INT*temp.period;
+		sumU=sumU-(temp.computation_time/temp.period);
+
+
+		if (temp.computation_time > 0)
+		{
+			tasks->push_back(temp);
+		}
+	}
+
+	for(unsigned int i=0;i<tasks->size() && !violation;i++)
+	{
+		float tutil;
+		float max_tutil=t_sumU;
+		float min_tutil=t_sumU;
+		if(i<num_tasks-1)
+		{
+			for(unsigned int j=i+1;j<tasks->size();j++)
+			{
+				max_tutil=max_tutil-MIN_POWER*(*tasks)[j].computation_time/(corrected_threshold*beta*(*tasks)[j].period);
+				min_tutil=min_tutil-MAX_POWER*(*tasks)[j].computation_time/(corrected_threshold*beta*(*tasks)[j].period);
+			}
+
+			float local_max;
+			float local_min;
+
+			local_max=MAX_POWER*(*tasks)[i].computation_time/(corrected_threshold*beta*(*tasks)[i].period);
+			local_min=MIN_POWER*(*tasks)[i].computation_time/(corrected_threshold*beta*(*tasks)[i].period);
+
+			max_tutil=max_tutil>local_max?local_max:max_tutil;
+			min_tutil=min_tutil<local_min?local_min:min_tutil;
+
+			if(min_tutil>max_tutil || max_tutil<min_tutil)
+			{
+				cout<<" error detected min tutil "<<min_tutil<<" max util "<<max_tutil<<endl;
+			}
+
+
+	//		cout<<" index "<<i<<" num tasks "<<num_tasks<<" max "<<max_tutil<<" min "<<min_tutil<<endl;
+
+			tutil=-1;
+
+			int iteration=0;
+			while((tutil<min_tutil || tutil>max_tutil) && !violation)
+			{
+
+				t_next_sumU=t_sumU*pow(rand()/((float)(RAND_MAX)),1.0/((float)(num_tasks-(i+1))));
+				tutil=t_sumU-t_next_sumU;
+
+				if(iteration>1000)
+				{
+					violation=true;
+				}
+
+				iteration=iteration+1;
+			}
+//			cout<<" exited while loop "<<endl;
+		}
+		else
+		{
+			tutil=t_sumU;
+		}
+
+		(*tasks)[i].power=corrected_threshold*beta * (*tasks)[i].period*tutil/(*tasks)[i].computation_time;
+		(*tasks)[i].power=floor((*tasks)[i].power*10.0)/10.0;
+		(*tasks)[i].power=(*tasks)[i].power>MAX_POWER?MAX_POWER:(*tasks)[i].power<MIN_POWER?MIN_POWER:(*tasks)[i].power;
+
+		t_sumU=t_sumU-(*tasks)[i].computation_time*(*tasks)[i].power/(corrected_threshold*beta*(*tasks)[i].period);
+
+
+		cout<<"numerator "<<corrected_threshold*beta * temp.period*tutil<<endl;
+
+	}
+
+
+//	cout<<"checkpoint 1"<<endl;
+
+//	for(unsigned int i=0;i<tasks->size();i++)
+//	{
+//		if((*tasks)[i].power<MIN_POWER || (*tasks)[i].power>MAX_POWER)
+//		{
+//			violation=true;
+//			break;
+//		}
+//	}
+
+	if(violation)
+	{
+		tasks->clear();
+		ab_generate_taskset(tasks, hyperperiod, num_tasks, comp_util, thermal_util);
+	}
+
+	for(unsigned int i =0;i<tasks->size();i++)
+	{
+		(*tasks)[i].index=i;
+	}
+
+
+	taskset temp_set;
+    int num_tasksets = 1;
+	for (int i = 0; i < num_tasksets; i++) {
+
+		int hyp_length = compute_lcm(tasks, 0);
+		float thermal_capacity = ((float) hyp_length) * corrected_threshold;
+		int thermal_utilization = rand() % 51 + 50;
+		float taskset_target_TTI = thermal_capacity
+				* ((float) thermal_utilization) / 100;
+		float average_power = taskset_target_TTI / hyp_length * 2; //*beta;//beta not added to reduce power
+
+		int start = -1;
+		int end;
+		for (unsigned int j = 0; j < tasks->size(); j++) {
+			if ((*tasks)[j].taskset == i) {
+				end = j;
+				if (start == -1) {
+					start = j;
+				}
+			}
+		}
+
+		float total_util = 0;
+		for (int j = start; j <= end; j++) {
+
+			     //#if(ENABLE_PRINTS)
+			cout << "task:" << j << "taskset:" << (*tasks)[j].taskset
+					<< " computation time:" << (*tasks)[j].computation_time
+					<< " period:" << (*tasks)[j].period << " Utilization: "
+					<< (float) (*tasks)[j].computation_time
+							/ (float) (*tasks)[j].period << endl;
+			     //#endif
+			total_util = total_util
+					+ (float) (*tasks)[j].computation_time
+							/ (float) (*tasks)[j].period;
+
+		}
+#if(ENABLE_PRINTS)
+
+		cout<<"total_utilization="<<total_util<<endl;
+#endif
+		temp_set.c_util = total_util;
+		average_power = average_power / total_util;
+#if(ENABLE_PRINTS)
+
+		cout<<"length of hyperperiod:"<<hyp_length<<endl;
+		cout<<"thermal utilization: "<<thermal_utilization<<"average_power: "<<average_power<<endl;
+#endif
+		float deviation = average_power * 1.6;
+		for (int j = start; j <= end; j++) {
+			float power = average_power * 0.2
+					+ ((double) (rand()) / RAND_MAX) * deviation;
+			(*tasks)[j].power = power;
+		}
+
+		float total_impact = 0;
+		for (int j = start; j < end; j++) {
+			total_impact = total_impact
+					+ (*tasks)[j].power * (*tasks)[j].computation_time
+							* (hyp_length / (*tasks)[j].period) / beta;
+		}
+		temp_set.TTI = total_impact / GRANULARITY;
+		temp_set.t_util = total_impact / (corrected_threshold * (hyp_length));
+		temp_set.average_power = total_impact / hyp_length * beta;
+		temp_set.hyperperiod = hyp_length;
+		tasksets.push_back(temp_set);
+    }
+}
+
+
 void generate_taskset(vector<float_task> *tasks, long hyperperiod, int num_tasks, float comp_util)
 {
 	vector<int> factors;
@@ -633,6 +846,69 @@ void generate_taskset(vector<float_task> *tasks, long hyperperiod, int num_tasks
 	for(unsigned int i =0;i<tasks->size();i++)
 	{
 		(*tasks)[i].index=i;
+	}
+
+}
+
+void generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, float comp_util)
+{
+	vector<int> factors;
+	factorise(&factors, hyperperiod);
+
+	task temp;
+
+	float sumU=comp_util;
+
+//	cout<<" initial sumU "<<sumU<<" t_sumU "<<t_sumU<<endl;
+	float t_next_sumU;
+	float next_sumU;
+
+	bool violation=false;
+
+	for (int i = 0; i < num_tasks; i++)
+	{
+		int index = rand() % factors.size();
+		temp.period = factors[index];
+
+		float cutil;
+		if(i<num_tasks-1)
+		{
+			next_sumU=sumU*pow((float)(rand()/((float)(RAND_MAX))),1.0/((float)(num_tasks-(i+1))));
+//			cout<<" sumu "<<sumU<<" next sumu "<<next_sumU<<endl;
+			cutil=sumU-next_sumU;
+
+		}
+		else
+		{
+			cutil=sumU;
+		}
+
+
+		temp.computation_time=temp.period*(cutil);
+		temp.computation_time=floor(temp.computation_time/(W_INT_HIGH*temp.period))*W_INT_HIGH*temp.period;
+		sumU=sumU-(temp.computation_time/temp.period);
+
+
+		if (temp.computation_time > 0)
+		{
+			tasks->push_back(temp);
+		}
+	}
+
+	for(unsigned int i=0;i<tasks->size() && !violation;i++)
+	{
+		(*tasks)[i].power=((double)rand())/RAND_MAX*(MAX_POWER-MIN_POWER) +MIN_POWER;
+	}
+
+
+	for(unsigned int i =0;i<tasks->size();i++)
+	{
+		(*tasks)[i].index=i;
+        cout << "task:" << i << " computation time:" << (*tasks)[i].computation_time
+               << " period:" << (*tasks)[i].period << " Utilization: "
+               << (float) (*tasks)[i].computation_time
+               / (float) (*tasks)[i].period << "Power:" << (*tasks)[i].power << endl;
+
 	}
 
 }
