@@ -555,7 +555,7 @@ void generate_taskset(vector<float_task> *tasks, long hyperperiod, int num_tasks
 		t_sumU=t_sumU-(*tasks)[i].computation_time*(*tasks)[i].power/(corrected_threshold*beta*(*tasks)[i].period);
 
 
-		cout<<"numerator "<<corrected_threshold*beta * temp.period*tutil<<endl;
+		//cout<<"numerator "<<corrected_threshold*beta * temp.period*tutil<<endl;
 
 	}
 
@@ -606,6 +606,7 @@ void ab_generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, f
 	{
 		int index = rand() % factors.size();
 		temp.period = factors[index];
+        temp.taskset = 0;
 
 		float cutil;
 		if(i<num_tasks-1)
@@ -692,7 +693,7 @@ void ab_generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, f
 		t_sumU=t_sumU-(*tasks)[i].computation_time*(*tasks)[i].power/(corrected_threshold*beta*(*tasks)[i].period);
 
 
-		cout<<"numerator "<<corrected_threshold*beta * temp.period*tutil<<endl;
+		//cout<<"numerator "<<corrected_threshold*beta * temp.period*tutil<<endl;
 
 	}
 

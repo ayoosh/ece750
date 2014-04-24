@@ -1,9 +1,9 @@
-#define INTERLEAVE  1
+#define INTERLEAVE  0
 #define INTERLEAVE_GRANULARITY 1
 #define CHOOSE_REAL_FIRST 1
-#define S_COMP_CAP  5
+/*#define S_COMP_CAP  5
 #define S_POWER     50
-#define S_PERIOD    50
+#define S_PERIOD    50*/
 
 #include "scheduler.h"
 #include <tgmath.h>
@@ -18,6 +18,10 @@ stringstream logfile;
 float scheduler_runtime = 0;
 struct timespec schedulestart, starttime, endtime;
 int n_aperiodics = 5;
+
+int S_COMP_CAP = 0;
+double S_POWER = 0;
+int S_PERIOD = 0;
 
 //****************global variables********************************
  double beta = 1 / (R * C) - (DEL / C);
@@ -150,7 +154,7 @@ void insert_aperiodic_instances(instance real, instance idle, vector<instance> *
     return;
 }
 
-#define S_THERM_CAP ((S_COMP_CAP * S_POWER) / beta)
+double S_THERM_CAP = ((S_COMP_CAP * S_POWER) / beta);
 double s_last_deadline = 0;
 int aper_task_id = 500;
 void generate_aperiodics(vector<instance> *aperiodics, int arrival, int computation_time, double power) {
@@ -194,25 +198,54 @@ void generate_aperiodics(vector<instance> *aperiodics, int arrival, int computat
     return;
 }
 
-void generate_poisson(vector<instance> *aperiodics)
+double s_last_tbs = 0;
+
+void generate_aperiodics_tbs(vector<instance> *aperiodics, int arrival, int computation_time, double power) {
+    
+    instance temp;
+
+    temp.arrival    = max(arrival, s_last_tbs);
+    temp.power      = power;
+    temp.computation_time = computation_time;
+    temp.deadline = temp.arrival + (computation_time * ( (double) S_PERIOD / S_COMP_CAP));
+    temp.task_id = aper_task_id++;
+    
+    s_last_tbs = temp.deadline;
+    aperiodics->push_back(temp);
+
+    return;
+}
+
+void generate_poisson(vector<instance> *aperiodics, vector<instance> *aperiodics_tbs)
 {
     const int nrolls = 1000;
     const int n_tasks = 5;
+    double power;
+    int comp_time;
+
+    float deviation = 1.6;
 
     std::default_random_engine generator;
-    std::poisson_distribution<int> distribution(n_tasks);
+    std::poisson_distribution<int> distribution(4.1);
+
+    generator.seed(rand());
 
     int p[n_tasks]={};
+    int last_arrival = 0;
     
-    for (int i=0; i<nrolls; ++i) {
+    for (int i=0; i<n_tasks; ++i) {
         int number = distribution(generator);
-        if (number<n_tasks) ++p[number];
+        p[i] = last_arrival + number;
+        last_arrival += number;
     }
     for (int i=0; i<n_tasks; ++i) {
         cout << i << ":" << p[i]<<endl;
     }
     for(int i=0; i<n_tasks; i++) {
-        generate_aperiodics(aperiodics, p[i], 5, 100);
+        power = S_POWER * (0.2 + ((double) (rand() / RAND_MAX)) * 7.8);
+        comp_time = S_COMP_CAP * (0.2 + ((double) (rand() / RAND_MAX)) * 1.8);
+        generate_aperiodics(aperiodics, p[i], comp_time, power);
+        generate_aperiodics_tbs(aperiodics_tbs, p[i], comp_time, power);
     }
 
 }
@@ -220,6 +253,8 @@ void generate_poisson(vector<instance> *aperiodics)
 
 int main(int argc, char* argv[]) {
 
+    srand(time(NULL));
+    
 	if (argc < 2) {
 		cout<< "invalid format: <taskfile>"	<< endl;
 		exit(1);
@@ -231,6 +266,7 @@ int main(int argc, char* argv[]) {
 	int iter = 1;
 	int hyperperiod = 0;
     double t_util;
+    int num_periodics = 5;
 
 	string task_file;
 	task_file = argv[1];
@@ -239,6 +275,11 @@ int main(int argc, char* argv[]) {
 	vector<float_schedule> edf;
     vector<instance> aperiodics;
     vector<instance> instances;
+
+    vector<instance> aperiodics_tbs;
+    vector<float_schedule> edf_tbs;
+    vector<instance> instances_tbs;
+    //task server;
 
 	//read_tasksets(&periodic_tasks, task_file);
 /*    generate_aperiodics(&aperiodics, 10, 5, 50);
@@ -249,10 +290,24 @@ int main(int argc, char* argv[]) {
     generate_aperiodics(&aperiodics, 70, 5, 0);
     */
     //generate_tasksets(&periodic_tasks,1, 120, 60, 80);
-    ab_generate_taskset(&periodic_tasks, 120, 5, 0.8, 0.8); 
-    generate_poisson(&aperiodics);
+    ab_generate_taskset(&periodic_tasks, 120, num_periodics, 0.8, 0.8);    
+
+    //server = (periodic_tasks)[0];
+    S_COMP_CAP = (periodic_tasks)[0].computation_time;
+    S_POWER = (periodic_tasks)[0].power;
+    S_PERIOD = (periodic_tasks)[0].period;
+
+    periodic_tasks.erase(periodic_tasks.begin() + 0);    
+
+    generate_poisson(&aperiodics, &aperiodics_tbs);
 
     tasks2instances(&periodic_tasks, &aperiodics, &instances);
+
+    tasks2instances(&periodic_tasks, &aperiodics_tbs, &instances_tbs);
+    
+    cout << "aperiodics size:" << aperiodics.size() <<endl;
+    cout << "aperiodics_tbs size:" << aperiodics_tbs.size() <<endl;
+
     
     for(unsigned int i=0;i<instances.size();i++) {
     cout<<setw(5)<<i<<": Task:"<<setw(4)<<instances[i].task_id<<" arrival:"<<setw(7)<<instances[i].arrival;
@@ -261,11 +316,13 @@ int main(int argc, char* argv[]) {
 //    int_pointer=&tasks;
 
 	ab_edf_schedule(&edf, &instances);
+
+    ab_edf_schedule(&edf_tbs, &instances_tbs);
 //	consolidate_schedule(&edf, &tasks);
     
-    generate_poisson(&aperiodics);
-
 	ab_compute_profile(&edf);
+
+    ab_compute_profile(&edf_tbs);
 }
 
 
