@@ -154,13 +154,13 @@ void insert_aperiodic_instances(instance real, instance idle, vector<instance> *
     return;
 }
 
-double S_THERM_CAP = ((S_COMP_CAP * S_POWER) / beta);
 double s_last_deadline = 0;
 int aper_task_id = 500;
 void generate_aperiodics(vector<instance> *aperiodics, int arrival, int computation_time, double power) {
     double TTI = power * computation_time / beta;
     instance temp, tempi;
     double comp_time_remaining = computation_time;
+    double S_THERM_CAP = ((S_COMP_CAP * S_POWER) / beta);
     unsigned int i, ceiling = ceil(TTI / S_THERM_CAP);
 
     double util_ratio = max(1, power / S_POWER);
@@ -211,7 +211,10 @@ void generate_aperiodics_tbs(vector<instance> *aperiodics, int arrival, int comp
     temp.task_id = aper_task_id++;
     
     s_last_tbs = temp.deadline;
-    aperiodics->push_back(temp);
+    
+    if (temp.computation_time != 0) {
+        aperiodics->push_back(temp);
+    }
 
     return;
 }
@@ -244,6 +247,12 @@ void generate_poisson(vector<instance> *aperiodics, vector<instance> *aperiodics
     for(int i=0; i<n_tasks; i++) {
         power = S_POWER * (0.2 + ((double) (rand() / RAND_MAX)) * 7.8);
         comp_time = S_COMP_CAP * (0.2 + ((double) (rand() / RAND_MAX)) * 1.8);
+        
+        if (!comp_time) {
+            i--;
+            continue;
+        }
+        
         generate_aperiodics(aperiodics, p[i], comp_time, power);
         generate_aperiodics_tbs(aperiodics_tbs, p[i], comp_time, power);
     }
@@ -255,11 +264,6 @@ int main(int argc, char* argv[]) {
 
     srand(time(NULL));
     
-	if (argc < 2) {
-		cout<< "invalid format: <taskfile>"	<< endl;
-		exit(1);
-	}
-
 	corrected_threshold = corrected_temperature(THRESHOLD);
 	cout<<"beta "<<beta<<" corrected threshold "<<corrected_threshold<<endl;
 
@@ -269,7 +273,6 @@ int main(int argc, char* argv[]) {
     int num_periodics = 5;
 
 	string task_file;
-	task_file = argv[1];
 
 	vector<task> periodic_tasks;
 	vector<float_schedule> edf;
@@ -290,7 +293,7 @@ int main(int argc, char* argv[]) {
     generate_aperiodics(&aperiodics, 70, 5, 0);
     */
     //generate_tasksets(&periodic_tasks,1, 120, 60, 80);
-    ab_generate_taskset(&periodic_tasks, 120, num_periodics, 0.8, 0.8);    
+    ab_generate_taskset(&periodic_tasks, 120, num_periodics, 0.6, 0.8);    
 
     //server = (periodic_tasks)[0];
     S_COMP_CAP = (periodic_tasks)[0].computation_time;
