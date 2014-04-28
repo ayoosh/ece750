@@ -1,11 +1,11 @@
-#define HYPERPERIOD_MAX 100
-#define HYPERPERIOD_MIN 90
-#define HYPERPERIOD_SCALE 10
+#define HYPERPERIOD_MAX 1000
+#define HYPERPERIOD_MIN 900
+#define HYPERPERIOD_SCALE 100
 
 
 
-#define INTERLEAVE  0
-#define INTERLEAVE_GRANULARITY 1
+#define INTERLEAVE  1
+#define INTERLEAVE_GRANULARITY .01
 #define CHOOSE_REAL_FIRST 1
 
 #include "scheduler.h"
@@ -71,7 +71,9 @@ void tasks2instances(vector<task> *periodic_tasks, vector<instance> *aperiodics,
         start = 0;
 	}
     
-    instances->insert(instances->end(), aperiodics->begin(), aperiodics->end());
+    if (aperiodics) {
+        instances->insert(instances->end(), aperiodics->begin(), aperiodics->end());
+    }
     sort(instances->begin(), instances->end(), compare_arrival);
 }
 
@@ -201,10 +203,10 @@ void generate_aperiodics_tbs(vector<instance> *aperiodics, int arrival, int comp
     
     instance temp;
 
-    temp.arrival    = max(arrival, s_last_tbs);
+    temp.arrival    = arrival;
     temp.power      = power;
     temp.computation_time = computation_time;
-    temp.deadline = temp.arrival + (computation_time * ( (double) S_PERIOD / S_COMP_CAP));
+    temp.deadline = max(arrival, s_last_tbs) + (computation_time * (((float) S_PERIOD) / S_COMP_CAP));
     temp.task_id = aper_task_id++;
     
     s_last_tbs = temp.deadline;
@@ -218,38 +220,40 @@ void generate_aperiodics_tbs(vector<instance> *aperiodics, int arrival, int comp
 
 void generate_poisson(vector<instance> *aperiodics, vector<instance> *aperiodics_tbs)
 {
-    const int nrolls = 1000;
-    const int n_tasks = 5;
-    double power;
+    s_last_tbs = 0;
+    s_last_deadline = 0;
+    aper_task_id = 500;
+    
+    int n_tasks = floor(tasksets[0].hyperperiod/S_PERIOD);
+    float power;
     int comp_time;
 
-    float deviation = 1.6;
-
     std::default_random_engine generator;
-    std::poisson_distribution<int> distribution(4.1);
-
+    std::poisson_distribution<int> distribution(20);
     generator.seed(rand());
 
-    int p[n_tasks]={};
+    int p[1000000]={};
     int last_arrival = 0;
     
     for (int i=0; i<n_tasks; ++i) {
         int number = distribution(generator);
         p[i] = last_arrival + number;
         last_arrival += number;
+        //p[i] = i * S_PERIOD;
+        p[0] = 0;
     }
     for (int i=0; i<n_tasks; ++i) {
-        cout << i << ":" << p[i]<<endl;
+ //       cout << i << ":" << p[i]<<endl;
     }
     for(int i=0; i<n_tasks; i++) {
-        power = S_POWER * (0.2 + ((double) (rand() / RAND_MAX)) * 7.8);
-        comp_time = S_COMP_CAP * (0.2 + ((double) (rand() / RAND_MAX)) * 1.8);
-        
+        power = S_POWER * 5;//(((float) (rand() % 30) + 1) / 10) ;
+        comp_time = (int) (S_COMP_CAP * 5);//(((float) (rand() % 30) + 1) / 10) ;
+
         if (!comp_time) {
             i--;
             continue;
         }
-        
+ 
         generate_aperiodics(aperiodics, p[i], comp_time, power);
         generate_aperiodics_tbs(aperiodics_tbs, p[i], comp_time, power);
     }
@@ -262,61 +266,85 @@ int main(int argc, char* argv[]) {
     srand(time(NULL));
     
 	corrected_threshold = corrected_temperature(THRESHOLD);
-	cout<<"beta "<<beta<<" corrected threshold "<<corrected_threshold<<endl;
+	//cout<<"beta "<<beta<<" corrected threshold "<<corrected_threshold<<endl;
 
-	int iter = 1;
-	int hyperperiod = 0;
-    float t_util = 0.8;
-    float c_util = 0.8;
-    int num_periodics = 5;
-    int i;
+	int iter = 1, hyperperiod = 0, num_periodics = 10, i = 0;
 	string task_file;
-    unsigned int v_ours = 0;
-    unsigned int v_tbs = 0;
+    unsigned int v_ours = 0, v_tbs = 0;
+    float t_util = 0.7;
+    float c_util = 0.8;
 
 	vector<task> periodic_tasks;
-	vector<float_schedule> edf;
-    vector<instance> aperiodics;
-    vector<instance> instances;
+	vector<float_schedule> edf, edf_tbs, edf_periodic;
+    vector<instance> aperiodics, aperiodics_tbs;
+    vector<instance> instances, instances_tbs, instances_periodic;
+    
+    for (i = 0; i < 100; i++) {
 
-    vector<instance> aperiodics_tbs;
-    vector<float_schedule> edf_tbs;
-    vector<instance> instances_tbs;
-    //task server;
-    
-    
-    for (i = 0; i < 10; i++) {
+        periodic_tasks.clear();
+        edf.clear();
+        edf_tbs.clear();
+        edf_periodic.clear();
+        aperiodics.clear();
+        aperiodics_tbs.clear();
+        instances.clear();
+        instances_tbs.clear();
+        instances_periodic.clear();
+	    
+        vector<task> periodic_tasks;
+	    vector<float_schedule> edf, edf_tbs, edf_periodic;
+        vector<instance> aperiodics, aperiodics_tbs;
+        vector<instance> instances, instances_tbs, instances_periodic;
+        
         hyperperiod = ((int) (rand() % (HYPERPERIOD_MAX + 1 - HYPERPERIOD_MIN) + HYPERPERIOD_MIN) / HYPERPERIOD_SCALE) * HYPERPERIOD_SCALE; 
+        ab_generate_taskset(&periodic_tasks, hyperperiod, num_periodics, c_util, t_util);        
+        tasks2instances(&periodic_tasks, NULL, &instances_periodic);
+	    ab_edf_schedule(&edf_periodic, &instances_periodic);
+        
+	    corrected_threshold = corrected_temperature(THRESHOLD) - 5;
+        if (ab_compute_profile(&edf_periodic)) {
+            i--;
+            continue;
+        }
 
-        ab_generate_taskset(&periodic_tasks, hyperperiod, num_periodics, c_util, t_util);    
+        S_COMP_CAP = (periodic_tasks)[0].computation_time;// / 2);
+        S_POWER = (periodic_tasks)[0].power;// / 2);
+        S_PERIOD = (periodic_tasks)[0].period;// / 2);
 
-        S_COMP_CAP = (periodic_tasks)[0].computation_time;
-        S_POWER = (periodic_tasks)[0].power;
-        S_PERIOD = (periodic_tasks)[0].period;
-        periodic_tasks.erase(periodic_tasks.begin() + 0);    
+        if(!S_COMP_CAP || !S_POWER) {
+            i--;
+            continue;
+        }
+        //cout<<"Srvr Params: "<<endl<<S_COMP_CAP<<endl<<S_POWER<<endl<<S_PERIOD<<endl;
+        periodic_tasks.erase(periodic_tasks.begin());    
 
         generate_poisson(&aperiodics, &aperiodics_tbs);
+
 
         tasks2instances(&periodic_tasks, &aperiodics, &instances);
         tasks2instances(&periodic_tasks, &aperiodics_tbs, &instances_tbs);
     
-/*        for(unsigned int i=0;i<instances.size();i++) {
-            cout<<setw(5)<<i<<": Task:"<<setw(4)<<instances[i].task_id<<" arrival:"<<setw(7)<<instances[i].arrival;
-            cout<<" deadline: "<<setw(7)<<instances[i].deadline<<" computations: "<<setw(7)<<instances[i].computation_time<<"\t"<<" Power: "<<instances[i].power<<endl;
+        for(unsigned int i=0;i<instances.size();i++) {
+//            cout<<setw(5)<<i<<": Task:"<<setw(4)<<instances[i].task_id<<" arrival:"<<setw(7)<<instances[i].arrival;
+//            cout<<" deadline: "<<setw(7)<<instances[i].deadline<<" computations: "<<setw(7)<<instances[i].computation_time<<"\t"<<" Power: "<<instances[i].power<<endl;
         }
-*/
+
 	    ab_edf_schedule(&edf, &instances);
         ab_edf_schedule(&edf_tbs, &instances_tbs);
     
-	    if (ab_compute_profile(&edf)) {
+	    corrected_threshold = corrected_temperature(THRESHOLD) + 5;
+        if (ab_compute_profile(&edf_tbs)) { 
+            v_tbs++;
+        } else {
+            i--;
+            continue;
+        }
+	    
+        if (ab_compute_profile(&edf)) {
             v_ours++;
         }
-        
-        if (ab_compute_profile(&edf_tbs)) {
-            v_tbs++;
-        } 
+	    //cout<<"Violations"<<endl<<"Ours: "<<v_ours<<" TBS: "<<v_tbs<<endl;
     }
-
 	cout<<"Violations"<<endl<<"Ours: "<<v_ours<<" TBS: "<<v_tbs<<endl;
 }
 

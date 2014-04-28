@@ -65,7 +65,7 @@ bool ab_compute_profile(vector<float_schedule>* sch) {
 					temperature[temperature.size() - 1].temperature,
 					tasksets[0].hyperperiod - (*sch)[sch->size() - 1].end);
 			temperature.push_back(ttemp);
-			cout<<"end temperature"<<ttemp.temperature<<endl;
+//			cout<<"end temperature"<<ttemp.temperature<<endl;
 		}
 	}
 
@@ -95,11 +95,7 @@ bool ab_compute_profile(vector<float_schedule>* sch) {
 	}
 
 	thermal_profile.close();
-    if (thermal_violation) {
-        cout<<"Thermal Violation !!!!!!"<<endl;
-        return true;
-    }
-    return false;
+    return thermal_violation;
 }
 
 void ab_edf_schedule(vector<float_schedule> *edf, vector<instance> *instances) {
@@ -156,7 +152,7 @@ void ab_edf_schedule(vector<float_schedule> *edf, vector<instance> *instances) {
 	
 	for(unsigned int i=0;i<edf->size();i++)
 	{
-		cout<<i<<": Task:"<<(*edf)[i].task_id<<"\t"<<" start:"<<(*edf)[i].start<<"\t"<<" end: "<<(*edf)[i].end<<"\t"<<" power: "<<(*edf)[i].power<<endl;
+//		cout<<i<<": Task:"<<(*edf)[i].task_id<<"\t"<<" start:"<<(*edf)[i].start<<"\t"<<" end: "<<(*edf)[i].end<<"\t"<<" power: "<<(*edf)[i].power<<endl;
 	}
 	//verify(edf, tasks);
 

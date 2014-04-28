@@ -641,7 +641,7 @@ void ab_generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, f
 			max_tutil=max_tutil>local_max?local_max:max_tutil;
 			min_tutil=min_tutil<local_min?local_min:min_tutil;
 
-			if(min_tutil>max_tutil || max_tutil<min_tutil) {
+			if(min_tutil>max_tutil) {
 				cout<<" error detected min tutil "<<min_tutil<<" max util "<<max_tutil<<endl;
 			}
 
@@ -659,7 +659,7 @@ void ab_generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, f
 					violation=true;
 				}
 
-				iteration=iteration+1;
+				iteration++;
 			}
 //			cout<<" exited while loop "<<endl;
 		}
@@ -691,11 +691,11 @@ void ab_generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, f
 //		}
 //	}
 
-	if(violation)
-	{
-		tasks->clear();
-		ab_generate_taskset(tasks, hyperperiod, num_tasks, comp_util, thermal_util);
-	}
+//	if(violation)
+//	{
+//		tasks->clear();
+//		ab_generate_taskset(tasks, hyperperiod, num_tasks, comp_util, thermal_util);
+//	}
 
 	for(unsigned int i =0;i<tasks->size();i++)
 	{
@@ -728,13 +728,13 @@ void ab_generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, f
 		float total_util = 0;
 		for (int j = start; j <= end; j++) {
 
-			     //#if(ENABLE_PRINTS)
+			     #if(ENABLE_PRINTS)
 			cout << "task:" << j << "taskset:" << (*tasks)[j].taskset
 					<< " computation time:" << (*tasks)[j].computation_time
 					<< " period:" << (*tasks)[j].period << " Utilization: "
 					<< (float) (*tasks)[j].computation_time
 							/ (float) (*tasks)[j].period << endl;
-			     //#endif
+			     #endif
 			total_util = total_util
 					+ (float) (*tasks)[j].computation_time
 							/ (float) (*tasks)[j].period;
@@ -770,6 +770,7 @@ void ab_generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, f
 		temp_set.hyperperiod = hyp_length;
 		tasksets.push_back(temp_set);
     }
+
 }
 
 

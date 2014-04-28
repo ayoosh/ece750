@@ -13,7 +13,7 @@ BIN_LENGTH	config.h	108;"	d
 BUFSIZE	config.h	23;"	d
 C	config.h	13;"	d
 CC	Makefile	/^CC = gcc$/;"	m
-CHOOSE_REAL_FIRST	scheduler.cpp	3;"	d	file:
+CHOOSE_REAL_FIRST	scheduler.cpp	9;"	d	file:
 CONFIG_H_	config.h	9;"	d
 CORE	config.h	70;"	d
 CORRECTION_FACTOR	config.h	38;"	d
@@ -25,12 +25,15 @@ EXECUTING	config.h	53;"	d
 FINISHED	config.h	52;"	d
 F_COMPARE	config.h	104;"	d
 GRANULARITY	config.h	19;"	d
+HYPERPERIOD_MAX	scheduler.cpp	1;"	d	file:
+HYPERPERIOD_MIN	scheduler.cpp	2;"	d	file:
+HYPERPERIOD_SCALE	scheduler.cpp	3;"	d	file:
 IDLE	config.h	54;"	d
 IDLE_TIME	config.h	67;"	d
 INST_ENABLE	config.h	33;"	d
 INST_MF_PRINT	config.h	37;"	d
-INTERLEAVE	scheduler.cpp	1;"	d	file:
-INTERLEAVE_GRANULARITY	scheduler.cpp	2;"	d	file:
+INTERLEAVE	scheduler.cpp	7;"	d	file:
+INTERLEAVE_GRANULARITY	scheduler.cpp	8;"	d	file:
 LINKER_OPT	Makefile	/^LINKER_OPT       = -lstdc++ -lm$/;"	m
 MARGIN	config.h	46;"	d
 MATLAB_ENABLE	config.h	28;"	d
@@ -81,7 +84,7 @@ TTI	scheduler.h	/^	float TTI;$/;"	m	struct:taskset
 UTIL_POWER	config.h	93;"	d
 W_INT	config.h	48;"	d
 W_INT_HIGH	config.h	49;"	d
-ab_compute_profile	base_sched.cpp	/^void ab_compute_profile(vector<float_schedule>* sch) {$/;"	f
+ab_compute_profile	base_sched.cpp	/^bool ab_compute_profile(vector<float_schedule>* sch) {$/;"	f
 ab_edf_schedule	base_sched.cpp	/^void ab_edf_schedule(vector<float_schedule> *edf, vector<instance> *instances) {$/;"	f
 ab_generate_taskset	util.cpp	/^void ab_generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, float comp_util, float thermal_util)$/;"	f
 add_exec	exec_interval.cpp	/^void interval::add_exec(execution newexec)$/;"	f	class:interval
@@ -229,10 +232,10 @@ main	scheduler-bk.cpp	/^int main(int argc, char* argv[]) {$/;"	f
 main	scheduler.cpp	/^int main(int argc, char* argv[]) {$/;"	f
 mapping	scheduler.h	/^	int mapping;$/;"	m	struct:comps_req
 mapping	scheduler.h	/^	int mapping;$/;"	m	struct:instance
-max	scheduler.cpp	39;"	d	file:
+max	scheduler.cpp	42;"	d	file:
 maxfirst_interval_speed	dynamic_interval_speed.cpp	/^int maxfirst_interval_speed(double * computations, long earliness,$/;"	f
 min	base_sched.cpp	16;"	d	file:
-min	scheduler.cpp	43;"	d	file:
+min	scheduler.cpp	46;"	d	file:
 min_deadline	util.cpp	/^int min_deadline(vector<float_task>*tasks, float start) {$/;"	f
 min_deadline	util.cpp	/^int min_deadline(vector<task>*tasks, int start) {$/;"	f
 min_deadline	util.cpp	/^int min_deadline(vector<task>*tasks, int start, vector<int>*times,$/;"	f
