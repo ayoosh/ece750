@@ -13,6 +13,7 @@ BIN_LENGTH	config.h	108;"	d
 BUFSIZE	config.h	23;"	d
 C	config.h	13;"	d
 CC	Makefile	/^CC = gcc$/;"	m
+CHOOSE_REAL_FIRST	scheduler.cpp	3;"	d	file:
 CONFIG_H_	config.h	9;"	d
 CORE	config.h	70;"	d
 CORRECTION_FACTOR	config.h	38;"	d
@@ -28,6 +29,8 @@ IDLE	config.h	54;"	d
 IDLE_TIME	config.h	67;"	d
 INST_ENABLE	config.h	33;"	d
 INST_MF_PRINT	config.h	37;"	d
+INTERLEAVE	scheduler.cpp	1;"	d	file:
+INTERLEAVE_GRANULARITY	scheduler.cpp	2;"	d	file:
 LINKER_OPT	Makefile	/^LINKER_OPT       = -lstdc++ -lm$/;"	m
 MARGIN	config.h	46;"	d
 MATLAB_ENABLE	config.h	28;"	d
@@ -62,12 +65,11 @@ SLACK_ENABLE	config.h	27;"	d
 SLACK_SCHEME_TEST	config.h	61;"	d
 SPEED_DEBUG	config.h	39;"	d
 STATIC_ENABLE	config.h	29;"	d
-S_COMP_CAP	scheduler.cpp	2;"	d	file:
+S_COMP_CAP	scheduler.cpp	/^int S_COMP_CAP = 0;$/;"	v
 S_FACTOR	config.h	11;"	d
 S_L	config.h	95;"	d
-S_PERIOD	scheduler.cpp	4;"	d	file:
-S_POWER	scheduler.cpp	3;"	d	file:
-S_THERM_CAP	scheduler.cpp	63;"	d	file:
+S_PERIOD	scheduler.cpp	/^int S_PERIOD = 0;$/;"	v
+S_POWER	scheduler.cpp	/^double S_POWER = 0;$/;"	v
 TEMP_CORE	config.h	65;"	d
 TEMP_EXPERIMENT	config.h	63;"	d
 TEMP_TASK	config.h	64;"	d
@@ -79,12 +81,14 @@ TTI	scheduler.h	/^	float TTI;$/;"	m	struct:taskset
 UTIL_POWER	config.h	93;"	d
 W_INT	config.h	48;"	d
 W_INT_HIGH	config.h	49;"	d
-ab_compute_profile	base_sched.cpp	/^void ab_compute_profile(vector<schedule>* sch, vector<task>*tasks,$/;"	f
-ab_edf_schedule	base_sched.cpp	/^void ab_edf_schedule(vector<schedule> *edf, vector<instance> *instances) {$/;"	f
+ab_compute_profile	base_sched.cpp	/^void ab_compute_profile(vector<float_schedule>* sch) {$/;"	f
+ab_edf_schedule	base_sched.cpp	/^void ab_edf_schedule(vector<float_schedule> *edf, vector<instance> *instances) {$/;"	f
+ab_generate_taskset	util.cpp	/^void ab_generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, float comp_util, float thermal_util)$/;"	f
 add_exec	exec_interval.cpp	/^void interval::add_exec(execution newexec)$/;"	f	class:interval
+aper_task_id	scheduler.cpp	/^int aper_task_id = 500;$/;"	v
 arrival	scheduler.h	/^	double arrival;$/;"	m	struct:float_schedule
+arrival	scheduler.h	/^	float arrival;$/;"	m	struct:instance
 arrival	scheduler.h	/^	int arrival;$/;"	m	struct:comps_req
-arrival	scheduler.h	/^	int arrival;$/;"	m	struct:instance
 arrival	scheduler.h	/^	int arrival;$/;"	m	struct:schedule
 arrival	scheduler.h	/^	long arrival;$/;"	m	struct:long_schedule
 ascending	util.cpp	/^bool ascending(int a, int b) {$/;"	f
@@ -99,15 +103,16 @@ call_hotspot	hotspot_util.cpp	/^void call_hotspot(string ptrace, string ttrace,s
 cd_computations	scheduler.h	/^struct cd_computations {$/;"	s
 clear	exec_interval.cpp	/^void interval::clear()$/;"	f	class:interval
 command	scheduler.h	/^	vector<string> command;$/;"	m	struct:task
-compare_instances	scheduler.cpp	/^bool compare_instances(instance a, instance b) {$/;"	f
+compare_arrival	scheduler.cpp	/^bool compare_arrival(instance a, instance b) {$/;"	f
+compare_deadline	base_sched.cpp	/^bool compare_deadline(instance a, instance b) {$/;"	f
 comps	scheduler.h	/^	float comps;$/;"	m	struct:comps_req
 comps_done	scheduler.h	/^	float comps_done;$/;"	m	struct:instance
 comps_left	scheduler.h	/^	float comps_left;$/;"	m	struct:instance
 comps_req	scheduler.h	/^struct comps_req {$/;"	s
 computation_time	scheduler.h	/^	float computation_time;$/;"	m	struct:float_task
-computation_time	scheduler.h	/^	int computation_time;$/;"	m	struct:instance
 computation_time	scheduler.h	/^	int computation_time;$/;"	m	struct:task
 computation_time	scheduler.h	/^	long computation_time;$/;"	m	struct:long_task
+computation_time	scheduler.h	/^    float computation_time;$/;"	m	struct:instance
 computations	scheduler.h	/^	double computations;$/;"	m	struct:interval_tasks
 computations	scheduler.h	/^	float computations;$/;"	m	struct:float_task
 computations	scheduler.h	/^	float computations;$/;"	m	struct:instance
@@ -134,8 +139,8 @@ corrected_threshold	scheduler-bk.cpp	/^ double corrected_threshold;$/;"	v
 corrected_threshold	scheduler.cpp	/^ double corrected_threshold;$/;"	v
 current_timedd	scheduler-bk.cpp	/^long long current_timedd = -GRANULARITY;$/;"	v
 current_timedd	scheduler.cpp	/^long long current_timedd = -GRANULARITY;$/;"	v
+deadline	scheduler.h	/^	float deadline;$/;"	m	struct:instance
 deadline	scheduler.h	/^	int deadline;$/;"	m	struct:cd_computations
-deadline	scheduler.h	/^	int deadline;$/;"	m	struct:instance
 dynamic_instance_schedule_speed	dynamic_interval_speed.cpp	/^void dynamic_instance_schedule_speed(vector<long_schedule>*sch,$/;"	f
 edf_schedule	base_sched.cpp	/^void edf_schedule(vector<float_task>*tasks, vector<float_schedule>*edf)$/;"	f
 edf_schedule	base_sched.cpp	/^void edf_schedule(vector<task> * tasks, vector<schedule>*edf) {$/;"	f
@@ -165,16 +170,19 @@ g_task_size	intervals_vars.c	/^int g_task_size=10;$/;"	v
 gams_include	multi.cpp	/^int gams_include(vector<float_task>*tasks, int** matrix)$/;"	f
 gcd	util.cpp	/^int gcd(int a, int b) {$/;"	f
 generate_aperiodics	scheduler.cpp	/^void generate_aperiodics(vector<instance> *aperiodics, int arrival, int computation_time, double power) {$/;"	f
+generate_aperiodics_tbs	scheduler.cpp	/^void generate_aperiodics_tbs(vector<instance> *aperiodics, int arrival, int computation_time, double power) {$/;"	f
 generate_instances	util.cpp	/^void generate_instances(vector<task>*tasks, char *fname) {$/;"	f
 generate_instances	util.cpp	/^void generate_instances(vector<task>*tasks, vector<instance> *inst, float* speeds) {$/;"	f
 generate_intervals	w2fq.cpp	/^void generate_intervals(vector<interval_s>* intervals, vector<long_task>*tasks)$/;"	f
 generate_intervals_gps	w2fq.cpp	/^void generate_intervals_gps(vector<interval_s>* intervals, vector<long_task>*tasks)$/;"	f
 generate_intervals_multi	multi.cpp	/^void generate_intervals_multi(vector<interval>*intervals,string fname)$/;"	f
 generate_intervals_multi	multi.cpp	/^void generate_intervals_multi(vector<interval_s>*intervals,string fname, vector<float_task>*tasks)$/;"	f
+generate_poisson	scheduler.cpp	/^void generate_poisson(vector<instance> *aperiodics, vector<instance> *aperiodics_tbs)$/;"	f
 generate_power_profile	multi.cpp	/^void generate_power_profile(vector<mprofile> *profile,vector<long_schedule>*sch, long hyperperiod)$/;"	f
 generate_power_trace	multi.cpp	/^void generate_power_trace(vector<long_schedule>*sch, string fname, long hyperperiod, float * average_power)$/;"	f
 generate_taskset	util.cpp	/^void generate_taskset(vector<float_task> *tasks, long hyperperiod, int num_tasks, float comp_util)$/;"	f
 generate_taskset	util.cpp	/^void generate_taskset(vector<float_task> *tasks, long hyperperiod, int num_tasks, float comp_util, float thermal_util)$/;"	f
+generate_taskset	util.cpp	/^void generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, float comp_util)$/;"	f
 generate_taskset_multi	multi.cpp	/^void generate_taskset_multi(vector<float_task> *tasks, long hyperperiod, int num_tasks, float comp_util)$/;"	f
 generate_tasksets	util.cpp	/^void generate_tasksets(vector<task>* tasks, int num_tasksets, int hyperperiod,int min_util, int max_util)$/;"	f
 get_element	exec_interval.cpp	/^execution interval::get_element(int index)$/;"	f	class:interval
@@ -198,6 +206,7 @@ imp_times_partial	util.cpp	/^void imp_times_partial(vector<task> * tasks, int * 
 index	scheduler.h	/^	int index;$/;"	m	struct:float_task
 index	scheduler.h	/^	int index;$/;"	m	struct:long_task
 index	scheduler.h	/^	int index;$/;"	m	struct:task
+insert_aperiodic_instances	scheduler.cpp	/^void insert_aperiodic_instances(instance real, instance idle, vector<instance> *aperiodics) {$/;"	f
 instance	scheduler.h	/^struct instance {$/;"	s
 instance_override_speed	dynamic_interval_speed.cpp	/^void instance_override_speed(vector<float_task>*tasks, vector<instance>*inst) {$/;"	f
 int_pointer	scheduler-bk.cpp	/^vector<task>*int_pointer;$/;"	v
@@ -220,8 +229,10 @@ main	scheduler-bk.cpp	/^int main(int argc, char* argv[]) {$/;"	f
 main	scheduler.cpp	/^int main(int argc, char* argv[]) {$/;"	f
 mapping	scheduler.h	/^	int mapping;$/;"	m	struct:comps_req
 mapping	scheduler.h	/^	int mapping;$/;"	m	struct:instance
-max	scheduler.cpp	30;"	d	file:
+max	scheduler.cpp	39;"	d	file:
 maxfirst_interval_speed	dynamic_interval_speed.cpp	/^int maxfirst_interval_speed(double * computations, long earliness,$/;"	f
+min	base_sched.cpp	16;"	d	file:
+min	scheduler.cpp	43;"	d	file:
 min_deadline	util.cpp	/^int min_deadline(vector<float_task>*tasks, float start) {$/;"	f
 min_deadline	util.cpp	/^int min_deadline(vector<task>*tasks, int start) {$/;"	f
 min_deadline	util.cpp	/^int min_deadline(vector<task>*tasks, int start, vector<int>*times,$/;"	f
@@ -230,8 +241,10 @@ multi_schedule	multi.cpp	/^void multi_schedule(vector<long_schedule>*sch,vector<
 multi_simulate	hotspot_util.cpp	/^void multi_simulate(string power_profile, string flp,int mode, double avg_power)$/;"	f
 myceil	util.cpp	/^int myceil(float f)$/;"	f
 myfloor	util.cpp	/^int myfloor(float f)$/;"	f
+n_aperiodics	scheduler.cpp	/^int n_aperiodics = 5;$/;"	v
 net_computations	scheduler.h	/^	long net_computations[MAX_TASKS][CORE];$/;"	m	struct:interval_s
 next_start	scheduler.h	/^	float next_start;$/;"	m	struct:float_task
+next_start	scheduler.h	/^	int next_start;$/;"	m	struct:instance
 next_start	scheduler.h	/^	int next_start;$/;"	m	struct:task
 next_start	scheduler.h	/^	long next_start;$/;"	m	struct:long_task
 partial_instances	util.cpp	/^void partial_instances(vector<task>*tasks,vector<instance>*inst, vector<instance>*r_inst,float* speeds,int start,int end)$/;"	f
@@ -258,7 +271,8 @@ read_ttrace	hotspot_util.cpp	/^double read_ttrace(string fname, vector<trace>*th
 resource_matrix	util.cpp	/^void resource_matrix(int ** matrix,int size, float likelyhood)$/;"	f
 running_tasks	scheduler-bk.cpp	/^int running_tasks[NUM_PROCESSORS] = { -1, -1, -1, -1 };$/;"	v
 running_tasks	scheduler.cpp	/^int running_tasks[NUM_PROCESSORS] = { -1, -1, -1, -1 };$/;"	v
-s_last_deadline	scheduler.cpp	/^int s_last_deadline = 0;$/;"	v
+s_last_deadline	scheduler.cpp	/^double s_last_deadline = 0;$/;"	v
+s_last_tbs	scheduler.cpp	/^double s_last_tbs = 0;$/;"	v
 schedule	scheduler.h	/^struct schedule {$/;"	s
 scheduler_runtime	scheduler-bk.cpp	/^float scheduler_runtime = 0;$/;"	v
 scheduler_runtime	scheduler.cpp	/^float scheduler_runtime = 0;$/;"	v

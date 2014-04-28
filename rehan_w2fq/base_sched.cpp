@@ -30,11 +30,9 @@ bool compare_deadline(instance a, instance b) {
     return false;
 }
 
+// true: Thermal Violation
+bool ab_compute_profile(vector<float_schedule>* sch) {
 
-void ab_compute_profile(vector<float_schedule>* sch) {
-
-
-	//cout<<"Hyperperiod:"<<tasksets[0].hyperperiod<<" total thermal impact:"<<tasksets[0].TTI<<" utilization:"<<tasksets[0].c_util<<" thermal util:"<<tasksets[0].t_util<<" average_power"<<tasksets[0].average_power<<endl;
 	float initial_temperature = 0;
 	vector<profile> temperature;
 	profile ttemp;
@@ -80,32 +78,6 @@ void ab_compute_profile(vector<float_schedule>* sch) {
 
 	ofstream thermal_profile;
 
-	/*switch (thermal_optimal) {
-	case 1:
-		thermal_profile.open("profile");
-		break;
-	case 2:
-		thermal_profile.open("profile_opt");
-		break;
-	case 3:
-		thermal_profile.open("profile_disc");
-		break;
-	case 4:
-		thermal_profile.open("profile_maxfirst");
-		break;
-	case 5:
-		thermal_profile.open("profile_staticspeed");
-		break;
-	case 6:
-		thermal_profile.open("profile_matlab");
-		break;
-	case 7:
-		thermal_profile.open("profile_nocons");
-		break;
-	default:
-		thermal_profile.open("profile_default");
-		break;
-	}*/
     thermal_profile.open("profile");
 	thermal_profile << "#Time\tTemparature\n";
 
@@ -123,75 +95,13 @@ void ab_compute_profile(vector<float_schedule>* sch) {
 	}
 
 	thermal_profile.close();
-//	float c_util = 0.00;
-//	float t_util = 0.00;
-/*	
-    for (unsigned int i = 0; i < tasks->size(); i++) {
-		c_util = c_util
-				+ ((float) (*tasks)[i].computation_time)
-						/ ((float) (*tasks)[i].period);
-		t_util = t_util
-				+ tasksets[0].hyperperiod / ((float) (*tasks)[i].period)
-						* (*tasks)[i].power * (*tasks)[i].computation_time
-						/ beta;
-	}
-*/
-//	t_util = t_util / ((float) (tasksets[0].hyperperiod * corrected_threshold));
-/*	ofstream global_results;
-
-	stringstream fname;
-
-	switch (thermal_optimal) {
-	case 1:
-		fname.str("");
-		fname << "results" << seed;
-		break;
-	case 2:
-		fname.str("");
-		fname << "results_opt" << seed;
-		break;
-	case 3:
-		fname.str("");
-		fname << "results_disc" << seed;
-		break;
-	case 4:
-		fname.str("");
-		fname << "results_maxfirst" << seed;
-		t_util = thermal_util;
-		break;
-	case 5:
-		fname.str("");
-		fname << "results_staticspeed" << seed;
-		t_util = thermal_util;
-		break;
-	case 6:
-		fname.str("");
-		fname << "results_matlab" << seed;
-		t_util = thermal_util;
-		break;
-	case 7:
-		fname.str("");
-		fname << "results_nocons" << seed;
-		break;
-	default:
-		fname.str("");
-		fname << "results_default" << seed;
-		break;
-	}
-
-	global_results.open(fname.str().c_str(), fstream::app);
-
-	global_results << c_util << "\t" << t_util << "\t" << thermal_violation
-			<< "\t" << max_temp << "\t"
-			<< temperature[temperature.size() - 1].time << "\t" << tasks->size()
-			<< endl;
-	global_results.close();
-*/
-	cout<<"corrected_threshold"<<corrected_threshold<<endl;
     if (thermal_violation) {
         cout<<"Thermal Violation !!!!!!"<<endl;
+        return true;
     }
+    return false;
 }
+
 void ab_edf_schedule(vector<float_schedule> *edf, vector<instance> *instances) {
 
     vector<instance> active;

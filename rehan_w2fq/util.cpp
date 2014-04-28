@@ -590,58 +590,44 @@ void ab_generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, f
 	factorise(&factors, hyperperiod);
 
 	task temp;
-//	int num_tasks =
 
-//	cout<<" number of tasks "<<num_tasks<<endl;
 	float sumU=comp_util;
 	float t_sumU=thermal_util;
 
-//	cout<<" initial sumU "<<sumU<<" t_sumU "<<t_sumU<<endl;
 	float t_next_sumU;
-	float next_sumU;
-
+    float next_sumU;
 	bool violation=false;
 
-	for (int i = 0; i < num_tasks; i++)
-	{
+	for (int i = 0; i < num_tasks; i++) {
 		int index = rand() % factors.size();
 		temp.period = factors[index];
         temp.taskset = 0;
 
 		float cutil;
-		if(i<num_tasks-1)
-		{
+		if(i<num_tasks-1) {
 			next_sumU=sumU*pow((float)(rand()/((float)(RAND_MAX))),1.0/((float)(num_tasks-(i+1))));
-//			cout<<" sumu "<<sumU<<" next sumu "<<next_sumU<<endl;
 			cutil=sumU-next_sumU;
 
-		}
-		else
-		{
+		} else {
 			cutil=sumU;
 		}
-
 
 		temp.computation_time=temp.period*(cutil);
 		temp.computation_time=floor(temp.computation_time/(W_INT*temp.period))*W_INT*temp.period;
 		sumU=sumU-(temp.computation_time/temp.period);
 
 
-		if (temp.computation_time > 0)
-		{
+		if (temp.computation_time > 0) {
 			tasks->push_back(temp);
 		}
 	}
 
-	for(unsigned int i=0;i<tasks->size() && !violation;i++)
-	{
+	for(unsigned int i=0;i<tasks->size() && !violation;i++) {
 		float tutil;
 		float max_tutil=t_sumU;
 		float min_tutil=t_sumU;
-		if(i<num_tasks-1)
-		{
-			for(unsigned int j=i+1;j<tasks->size();j++)
-			{
+		if(i<num_tasks-1) {
+			for(unsigned int j=i+1;j<tasks->size();j++) {
 				max_tutil=max_tutil-MIN_POWER*(*tasks)[j].computation_time/(corrected_threshold*beta*(*tasks)[j].period);
 				min_tutil=min_tutil-MAX_POWER*(*tasks)[j].computation_time/(corrected_threshold*beta*(*tasks)[j].period);
 			}
@@ -655,13 +641,9 @@ void ab_generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, f
 			max_tutil=max_tutil>local_max?local_max:max_tutil;
 			min_tutil=min_tutil<local_min?local_min:min_tutil;
 
-			if(min_tutil>max_tutil || max_tutil<min_tutil)
-			{
+			if(min_tutil>max_tutil || max_tutil<min_tutil) {
 				cout<<" error detected min tutil "<<min_tutil<<" max util "<<max_tutil<<endl;
 			}
-
-
-	//		cout<<" index "<<i<<" num tasks "<<num_tasks<<" max "<<max_tutil<<" min "<<min_tutil<<endl;
 
 			tutil=-1;
 

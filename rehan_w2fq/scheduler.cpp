@@ -1,9 +1,12 @@
+#define HYPERPERIOD_MAX 100
+#define HYPERPERIOD_MIN 90
+#define HYPERPERIOD_SCALE 10
+
+
+
 #define INTERLEAVE  0
 #define INTERLEAVE_GRANULARITY 1
 #define CHOOSE_REAL_FIRST 1
-/*#define S_COMP_CAP  5
-#define S_POWER     50
-#define S_PERIOD    50*/
 
 #include "scheduler.h"
 #include <tgmath.h>
@@ -186,12 +189,6 @@ void generate_aperiodics(vector<instance> *aperiodics, int arrival, int computat
         s_last_deadline = tempi.deadline = temp.deadline;
         temp.task_id = tempi.task_id = aper_task_id;
         insert_aperiodic_instances(temp, tempi, aperiodics);
-        /*
-        aperiodics->push_back(temp);
-        if(tempi.computation_time) {
-            aperiodics->push_back(tempi);
-        }
-        */
     }
 
     aper_task_id++;
@@ -269,10 +266,13 @@ int main(int argc, char* argv[]) {
 
 	int iter = 1;
 	int hyperperiod = 0;
-    double t_util;
+    float t_util = 0.8;
+    float c_util = 0.8;
     int num_periodics = 5;
-
+    int i;
 	string task_file;
+    unsigned int v_ours = 0;
+    unsigned int v_tbs = 0;
 
 	vector<task> periodic_tasks;
 	vector<float_schedule> edf;
@@ -283,49 +283,40 @@ int main(int argc, char* argv[]) {
     vector<float_schedule> edf_tbs;
     vector<instance> instances_tbs;
     //task server;
-
-	//read_tasksets(&periodic_tasks, task_file);
-/*    generate_aperiodics(&aperiodics, 10, 5, 50);
-    generate_aperiodics(&aperiodics, 30, 5, 100);
-    generate_aperiodics(&aperiodics, 31, 5, 5);
-    generate_aperiodics(&aperiodics, 50, 5, 200);
-    generate_aperiodics(&aperiodics, 55, 5, 50);
-    generate_aperiodics(&aperiodics, 70, 5, 0);
-    */
-    //generate_tasksets(&periodic_tasks,1, 120, 60, 80);
-    ab_generate_taskset(&periodic_tasks, 120, num_periodics, 0.6, 0.8);    
-
-    //server = (periodic_tasks)[0];
-    S_COMP_CAP = (periodic_tasks)[0].computation_time;
-    S_POWER = (periodic_tasks)[0].power;
-    S_PERIOD = (periodic_tasks)[0].period;
-
-    periodic_tasks.erase(periodic_tasks.begin() + 0);    
-
-    generate_poisson(&aperiodics, &aperiodics_tbs);
-
-    tasks2instances(&periodic_tasks, &aperiodics, &instances);
-
-    tasks2instances(&periodic_tasks, &aperiodics_tbs, &instances_tbs);
     
-    cout << "aperiodics size:" << aperiodics.size() <<endl;
-    cout << "aperiodics_tbs size:" << aperiodics_tbs.size() <<endl;
-
     
-    for(unsigned int i=0;i<instances.size();i++) {
-    cout<<setw(5)<<i<<": Task:"<<setw(4)<<instances[i].task_id<<" arrival:"<<setw(7)<<instances[i].arrival;
-    cout<<" deadline: "<<setw(7)<<instances[i].deadline<<" computations: "<<setw(7)<<instances[i].computation_time<<"\t"<<" Power: "<<instances[i].power<<endl;
+    for (i = 0; i < 10; i++) {
+        hyperperiod = ((int) (rand() % (HYPERPERIOD_MAX + 1 - HYPERPERIOD_MIN) + HYPERPERIOD_MIN) / HYPERPERIOD_SCALE) * HYPERPERIOD_SCALE; 
+
+        ab_generate_taskset(&periodic_tasks, hyperperiod, num_periodics, c_util, t_util);    
+
+        S_COMP_CAP = (periodic_tasks)[0].computation_time;
+        S_POWER = (periodic_tasks)[0].power;
+        S_PERIOD = (periodic_tasks)[0].period;
+        periodic_tasks.erase(periodic_tasks.begin() + 0);    
+
+        generate_poisson(&aperiodics, &aperiodics_tbs);
+
+        tasks2instances(&periodic_tasks, &aperiodics, &instances);
+        tasks2instances(&periodic_tasks, &aperiodics_tbs, &instances_tbs);
+    
+/*        for(unsigned int i=0;i<instances.size();i++) {
+            cout<<setw(5)<<i<<": Task:"<<setw(4)<<instances[i].task_id<<" arrival:"<<setw(7)<<instances[i].arrival;
+            cout<<" deadline: "<<setw(7)<<instances[i].deadline<<" computations: "<<setw(7)<<instances[i].computation_time<<"\t"<<" Power: "<<instances[i].power<<endl;
+        }
+*/
+	    ab_edf_schedule(&edf, &instances);
+        ab_edf_schedule(&edf_tbs, &instances_tbs);
+    
+	    if (ab_compute_profile(&edf)) {
+            v_ours++;
+        }
+        
+        if (ab_compute_profile(&edf_tbs)) {
+            v_tbs++;
+        } 
     }
-//    int_pointer=&tasks;
 
-	ab_edf_schedule(&edf, &instances);
-
-    ab_edf_schedule(&edf_tbs, &instances_tbs);
-//	consolidate_schedule(&edf, &tasks);
-    
-	ab_compute_profile(&edf);
-
-    ab_compute_profile(&edf_tbs);
+	cout<<"Violations"<<endl<<"Ours: "<<v_ours<<" TBS: "<<v_tbs<<endl;
 }
-
 

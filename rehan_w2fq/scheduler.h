@@ -314,7 +314,7 @@ void edf_schedule(vector<float_task> * tasks, vector<float_schedule>*edf);
 void populate_slacks(vector<slack>*slacks, vector<schedule>*sch);
 void compute_profile(vector<schedule>* sch, vector<task>*tasks,
 		double thermal_util);
-void ab_compute_profile(vector<float_schedule>* sch);
+bool ab_compute_profile(vector<float_schedule>* sch);
 void compute_profile_multi(vector<schedule>* sch, vector<task>*tasks,
 		double thermal_util);
 void consolidate_schedule(vector<schedule>*sch, vector<task>*tasks);
