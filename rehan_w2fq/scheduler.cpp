@@ -3,6 +3,11 @@
 #define HYPERPERIOD_SCALE 100
 
 
+#define WFQ_GRAN    ((float) 0.5)
+#define AS_COMPU    ((float) 0.1)
+#define AS_COMP     ((float) 5)
+#define AS_THERMU   ((float) 0.1)
+#define AS_POWER    ((float) 50)
 
 #define INTERLEAVE  1
 #define INTERLEAVE_GRANULARITY .01
@@ -227,18 +232,19 @@ void generate_aperiodics_tbs(vector<instance> *aperiodics, int arrival, int comp
     return;
 }
 
-void generate_poisson(vector<instance> *aperiodics, vector<instance> *aperiodics_tbs)
+void generate_poisson(vector<instance> *aperiodics, vector<instance> *aperiodics_tbs, float mean_arrival, int num)
 {
     s_last_tbs = 0;
     s_last_deadline = 0;
     aper_task_id = 500;
     
-    int n_tasks = floor(tasksets[0].hyperperiod/S_PERIOD);
+    int n_tasks = num;
     float power;
-    int comp_time;
+    float comp_time;
+    instance temp;
 
     std::default_random_engine generator;
-    std::poisson_distribution<int> distribution(20);
+    std::poisson_distribution<int> distribution(mean_arrival);
     generator.seed(rand());
 
     int p[1000000]={};
@@ -249,22 +255,23 @@ void generate_poisson(vector<instance> *aperiodics, vector<instance> *aperiodics
         p[i] = last_arrival + number;
         last_arrival += number;
         //p[i] = i * S_PERIOD;
-        p[0] = 0;
+        //p[0] = 0;
     }
     for (int i=0; i<n_tasks; ++i) {
  //       cout << i << ":" << p[i]<<endl;
     }
     for(int i=0; i<n_tasks; i++) {
-        power = S_POWER * 5;//(((float) (rand() % 30) + 1) / 10) ;
-        comp_time = (int) (S_COMP_CAP * 5);//(((float) (rand() % 30) + 1) / 10) ;
-
-        if (!comp_time) {
-            i--;
-            continue;
-        }
+        power = AS_POWER * 2;//(((float) (rand() % 30) + 1) / 10) ;
+        comp_time = (int)  ((rand() % (int) (1.5*AS_COMP)) + 1)  ;
  
-        generate_aperiodics(aperiodics, p[i], comp_time, power);
-        generate_aperiodics_tbs(aperiodics_tbs, p[i], comp_time, power);
+//        generate_aperiodics(aperiodics, p[i], comp_time, power);
+//        generate_aperiodics_tbs(aperiodics_tbs, p[i], comp_time, power);
+//
+        temp.task_id = aper_task_id++;
+        temp.arrival = (float) p[i];
+        temp.computation_time = comp_time;
+        temp.power = power;
+        aperiodics->push_back(temp);
     }
 
 }
@@ -289,6 +296,8 @@ int main(int argc, char* argv[]) {
     vector<instance> instances, instances_tbs, instances_periodic;
     
     generate_periodic_taskset(&periodic_tasks, /*hyperperiod*/ 20, /*num_tasksets*/ 2, /*comp_util*/ .8, /*thermal_util*/ .8);
+    generate_poisson(&aperiodics, &aperiodics_tbs, 4, 1);
+
     ab_wfq (&wfq, &periodic_tasks, &aperiodics, /*start*/ 0, /*end*/ 10);
     ab_compute_profile(&wfq);
     
@@ -366,10 +375,6 @@ int main(int argc, char* argv[]) {
 }
 
 
-#define WFQ_GRAN    ((float) 0.5)
-#define AS_COMPU    ((float) 0.1)
-#define AS_THERMU   ((float) 0.1)
-#define AS_POWER    ((float) 50)
 void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector <instance> *aperiodic, float start, float end /*hyperperiod*/)
 {
     unsigned int i, j, k;
@@ -412,6 +417,10 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
 
     // Now blow up aperiodics while praying to THE ALGO
     for (i = 0; i < aperiodic->size(); i++) {
+        cout << (*aperiodic)[i].task_id << " C = " << (*aperiodic)[i].computation_time << " A = " << (*aperiodic)[i].arrival << " P = " << (*aperiodic)[i].power << endl;
+    }
+
+    for (i = 0; i < aperiodic->size(); i++) {
         is_high_power = (*aperiodic)[i].power > AS_POWER;
         power_ratio = is_high_power ? ((*aperiodic)[i].power / AS_POWER) : 1;
         idle_factor = is_high_power ? (power_ratio - 1) : 0;
@@ -440,7 +449,7 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
 
             instances_blown.push_back(temp);
 
-            cout << "Task_id: " << temp.task_id << " Arrival: " << temp.arrival << " Deadline: " << temp.deadline << endl;
+            cout << "Task_id: " << temp.task_id << " Arrival: " << temp.arrival << " Deadline: " << temp.deadline << " Power : " << temp.power << endl;
         }
 
         assert(arrival <= (*aperiodic)[i].deadline);
