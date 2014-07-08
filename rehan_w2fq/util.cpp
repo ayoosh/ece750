@@ -773,6 +773,180 @@ void ab_generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, f
 
 }
 
+void generate_periodic_taskset(vector<float_task> *tasks, long hyperperiod, int num_tasks, float comp_util, float thermal_util)
+{
+    vector<int> factors;
+    factorise(&factors, hyperperiod);
+
+    float_task temp;
+
+    float sumU=comp_util;
+    float t_sumU=thermal_util;
+
+    float t_next_sumU = t_sumU;
+    float next_sumU;
+    bool violation=false;
+    float total_util = 0, t_total_util = 0;
+
+    for (int i = 0; i < num_tasks; i++) {
+        int index = rand() % factors.size();
+        temp.period = (float)factors[index];
+        temp.taskset = 0;
+
+        float cutil;
+        float rnum;
+retry:
+        if(i<num_tasks-1) {
+            rnum = rand() % 100;
+            if(rnum < 50 || rnum > 90) //Percentage should be not too low nor too high
+                goto retry;
+            next_sumU = sumU * (rnum / (float) (100));
+            cutil = sumU - next_sumU; 
+        }
+        else {
+            cutil = sumU;
+        }
+
+        temp.computation_time = temp.period * (cutil);
+        temp.computation_time = floor(temp.computation_time /(W_INT*temp.period))*W_INT*temp.period;
+        
+        sumU = sumU - (temp.computation_time/(temp.period)); 
+
+        if (temp.computation_time > 0) {
+            cout << "i = " << i << " C = " << temp.computation_time << " T = " << temp.period << " cutil = " << cutil
+                << " sumU = " << sumU << endl;
+            total_util += cutil;
+            tasks->push_back(temp);
+        }
+        else {
+            cout << "Negative computation time " << endl;
+        }
+    }
+    //Return the actual Periodic taskset utilization
+    cout << " Total Periodic Utilization = " << total_util << endl;
+
+	for(unsigned int i=0;i<tasks->size() && !violation;i++) {
+		float tutil;
+		float max_tutil=t_sumU;
+		float min_tutil=t_sumU;
+		if(i<num_tasks-1) {
+			for(unsigned int j=i+1;j<tasks->size();j++) {
+				max_tutil=max_tutil-MIN_POWER*(*tasks)[j].computation_time/(corrected_threshold*beta*(*tasks)[j].period);
+				min_tutil=min_tutil-MAX_POWER*(*tasks)[j].computation_time/(corrected_threshold*beta*(*tasks)[j].period);
+			}
+
+			float local_max;
+			float local_min;
+
+			local_max=MAX_POWER*(*tasks)[i].computation_time/(corrected_threshold*beta*(*tasks)[i].period);
+			local_min=MIN_POWER*(*tasks)[i].computation_time/(corrected_threshold*beta*(*tasks)[i].period);
+
+			max_tutil=max_tutil>local_max?local_max:max_tutil;
+			min_tutil=min_tutil<local_min?local_min:min_tutil;
+
+            cout << "i = " << i << " min_tutil = " << min_tutil << " max_tutil = " << max_tutil;
+
+			if(min_tutil>max_tutil) {
+				cout<<" error detected min tutil "<<min_tutil<<" max util "<<max_tutil<<endl;
+			}
+			tutil=-1;
+
+			int iteration=0;
+            
+            float min_ratio = (min_tutil / t_sumU) * ((float) 100);
+            //cout << "Ratio should be atleast " << min_ratio << endl;
+            float max_ratio = (max_tutil / t_sumU) * ((float) 100);
+            //cout << "Ratio should not be more than " << max_ratio << endl;
+
+            float randnum;
+t_retry:
+            randnum = rand() % 100;
+            //if((randnum < (min_ratio*1.5)) || (randnum > (max_ratio*0.5))) //|| (randnum < 5 && randnum > 50))
+            if(randnum < min_ratio || randnum > max_ratio)
+                goto t_retry;
+            //cout  << "randnum = " << randnum << endl;
+            tutil = t_sumU * (randnum / ((float)100));
+
+		}
+		else
+		{
+			tutil=t_sumU;
+		}
+
+//        cout << "i = " << i << " tutil = " << tutil << " t_next_sumU = " << t_next_sumU << " t_sumU = " << t_sumU << endl;
+
+        if((tutil<min_tutil || tutil>max_tutil) && (i < (num_tasks-1))) {
+            cout << "Taskset Generation Violation !!! " << endl;
+        }
+
+		(*tasks)[i].power=corrected_threshold*beta * (*tasks)[i].period*tutil/(*tasks)[i].computation_time;
+		(*tasks)[i].power=floor((*tasks)[i].power*10.0)/10.0;
+		(*tasks)[i].power=(*tasks)[i].power>MAX_POWER?MAX_POWER:(*tasks)[i].power<MIN_POWER?MIN_POWER:(*tasks)[i].power;
+
+        cout << " power = " << (*tasks)[i].power;
+
+		t_sumU=t_sumU-(*tasks)[i].computation_time*(*tasks)[i].power/(corrected_threshold*beta*(*tasks)[i].period);
+        t_next_sumU = t_sumU;
+        t_total_util += tutil;
+
+        cout << " tutil = " << tutil /*<< " t_next_sumU = " << t_next_sumU << " t_sumU = " << t_sumU */<< endl;
+
+		//cout<<"numerator "<<corrected_threshold*beta * temp.period*tutil<<endl;
+
+	}
+
+    cout << "Total Thermal Utilization = " << t_total_util << endl;
+    
+/* Setup Parameters for taskset */    
+    for(unsigned int i =0;i<tasks->size();i++)
+	{
+		(*tasks)[i].index=i;
+	}
+
+    taskset temp_set;
+    int num_tasksets = 1;
+	for (int i = 0; i < num_tasksets; i++) {
+
+		//int hyp_length = compute_lcm(tasks, 0);
+		float thermal_capacity = ((float) hyperperiod) * corrected_threshold;
+		//int thermal_utilization = rand() % 51 + 50;
+		float taskset_target_TTI = thermal_capacity
+				* ((float)thermal_util ) / 100;
+		float average_power = taskset_target_TTI / hyperperiod * 2; //*beta;//beta not added to reduce power
+
+        int start = -1;
+		int end;
+		for (unsigned int j = 0; j < tasks->size(); j++) {
+			if ((*tasks)[j].taskset == i) {
+				end = j;
+				if (start == -1) {
+					start = j;
+				}
+			}
+		}
+        
+        temp_set.c_util = total_util;
+		average_power = average_power / total_util;
+        
+        float total_impact = 0;
+        for (int j = start; j < end; j++) {
+			total_impact = total_impact
+					    + (*tasks)[j].power * (*tasks)[j].computation_time
+					    * (hyperperiod / (*tasks)[j].period) / beta;
+		    cout << " i = " << j << " total_impact = " << total_impact << endl;
+        }
+
+        temp_set.TTI = total_impact / GRANULARITY;
+		temp_set.t_util = total_impact / (corrected_threshold * hyperperiod);
+		temp_set.average_power = total_impact / hyperperiod * beta;
+		temp_set.hyperperiod = hyperperiod;
+		tasksets.push_back(temp_set);
+
+        cout << "Taskset " << i << " TTI = " << temp_set.TTI << " t_util = " << temp_set.t_util << " average_power = " << temp_set.average_power << " hyperperiod = " << temp_set.hyperperiod << " total_impact = " << total_impact << " c_util = " << temp_set.c_util << endl;
+
+    }
+
+}
 
 void generate_taskset(vector<float_task> *tasks, long hyperperiod, int num_tasks, float comp_util)
 {

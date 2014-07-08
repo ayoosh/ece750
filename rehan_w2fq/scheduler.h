@@ -99,6 +99,8 @@ struct float_task {
 	float period;
 	float power;
 	int index;
+
+    int taskset;
 };
 
 struct long_task {
@@ -248,6 +250,8 @@ void generate_taskset(vector<float_task> *tasks, long hyperperiod,
 		int num_tasks, float comp_util, float thermal_util);
 void ab_generate_taskset(vector<task> *tasks, long hyperperiod,
         int num_tasks, float comp_util, float thermal_util);
+void generate_periodic_taskset(vector<float_task> *tasks, long hyperperiod,
+        int num_tasks, float comp_util, float thermal_util);
 void generate_taskset(vector<float_task> *tasks, long hyperperiod,
 		int num_tasks, float comp_util);
 void generate_taskset(vector<task> *tasks, long hyperperiod,
@@ -308,7 +312,7 @@ void speed_scale_discrete(vector<task>*scaled_tasks, vector<float>*speeds,
 double heat(double init_temp, double power, double time);
 void heat(double init_temp[CORE], double power[CORE], double time, double *out);
 double cool(double init_temp, double time);
-void ab_edf_schedule(vector<float_schedule> *, vector<instance> *);
+void ab_edf_schedule(vector<float_schedule> *, vector<instance> *, vector<float_task> * tasks);
 void edf_schedule(vector<task> * tasks, vector<schedule>*edf);
 void edf_schedule(vector<float_task> * tasks, vector<float_schedule>*edf);
 void populate_slacks(vector<slack>*slacks, vector<schedule>*sch);
