@@ -336,6 +336,7 @@ void compute_profile(vector<float_schedule>* sch, vector<float_task>*tasks,
 		int mode);
 void resource_matrix(int ** matrix, int size, float likelyhood);
 bool sort_sch(long_schedule a, long_schedule b);
+bool compare_deadline(instance a, instance b);
 //**************************************************
 
 //slack.cpp********************************************************

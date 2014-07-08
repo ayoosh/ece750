@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <iomanip>
 #include <random>
+#include <assert.h>
 float beta_multi[CORE][CORE];
 int running_tasks[NUM_PROCESSORS] = { -1, -1, -1, -1 };
 long long current_timedd = -GRANULARITY;
@@ -54,6 +55,14 @@ bool compare_arrival(instance a, instance b) {
     return false;
 }
 
+/*
+bool compare_deadline(instance a, instance b) {
+    if (a.deadline < b.deadline) {
+        return true;
+    }
+    return false;
+}
+*/
 void tasks2instances(vector<task> *periodic_tasks, vector<instance> *aperiodics, vector<instance> *instances) {
     int i, start = 0;
     instance temp;
@@ -346,5 +355,114 @@ int main(int argc, char* argv[]) {
 	    //cout<<"Violations"<<endl<<"Ours: "<<v_ours<<" TBS: "<<v_tbs<<endl;
     }
 	cout<<"Violations"<<endl<<"Ours: "<<v_ours<<" TBS: "<<v_tbs<<endl;
+}
+
+
+#define WFQ_GRAN 1
+#define AS_COMPU ((float) 0.1)
+#define AS_THERMU ((float) 0.1)
+#define AS_POWER  ((float) 50)
+void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector <instance> *aperiodic, float start, float end /*hyperperiod*/)
+{
+    unsigned int i, j, k;
+    long comp_cnt, idle_cnt;
+    bool is_high_power;
+    float arrival, deadline, sanity_arrival, power_ratio, idle_factor, cur_time;
+    vector <instance> instances_blown;
+    instance temp;
+    float_schedule sched; 
+
+    // First blow up periodic tasks to granular instances
+    for (i = 0; i <= periodic->size(); i++) {
+        arrival = start; // assumption: all periodics start at start
+        for (j = 0; j < (int)((end - start) / (*periodic)[i].period); j++) {
+            deadline = arrival + (*periodic)[i].period; 
+            for (comp_cnt = (long) ((*periodic)[i].computation_time / WFQ_GRAN); comp_cnt > 0; comp_cnt--) {
+                temp.task_id = (*periodic)[i].index;
+                temp.computation_time = WFQ_GRAN;
+                temp.power = (*periodic)[i].power;
+
+                temp.arrival = arrival;
+                temp.deadline = arrival + (((*periodic)[i].period / (*periodic)[i].computation_time) * WFQ_GRAN);
+                arrival = temp.deadline;
+
+                instances_blown.push_back(temp);
+            }
+            // arrival var is the deadline of the last granular instance
+            assert(arrival <= deadline);        
+            arrival = deadline;
+        }
+        assert(deadline <= end);
+    }
+
+    // Now blow up aperiodics while praying to THE ALGO
+    for (i = 0; i <= aperiodic->size(); i++) {
+        is_high_power = (*aperiodic)[i].power > AS_POWER;
+        power_ratio = is_high_power ? ((*aperiodic)[i].power / AS_POWER) : 1;
+        idle_factor = is_high_power ? (power_ratio - 1) : 0;
+
+        arrival = (*aperiodic)[i].arrival;
+        deadline = (*aperiodic)[i].deadline = arrival + (((*aperiodic)[i].computation_time * power_ratio) / AS_COMPU);
+
+        comp_cnt = (long) ((*aperiodic)[i].computation_time / WFQ_GRAN);
+        idle_cnt = (long) ((idle_factor * (*aperiodic)[i].computation_time) / WFQ_GRAN);
+
+        while ((comp_cnt + idle_cnt) > 0) {
+            if (idle_cnt > (comp_cnt * idle_factor)) {
+                temp.power = 0;
+                idle_cnt--;
+            } else {
+                temp.power = (*aperiodic)[i].power;
+                comp_cnt--;
+            }
+
+            temp.task_id = (*aperiodic)[i].task_id;
+            temp.computation_time = WFQ_GRAN;
+
+            temp.arrival = arrival;
+            temp.deadline = arrival + (WFQ_GRAN / AS_COMPU);
+            arrival = temp.deadline;
+
+            instances_blown.push_back(temp);
+        }
+
+        assert(arrival <= (*aperiodic)[i].deadline);
+    }
+
+
+    // Now we have all periodic and aperiodics neatly blown up into granular instances.
+    // All that is left is to create a schedule.
+    // The code assumes that the instances are ordered as:
+    //      Level 1: Deadlines
+    // So the first element is the one with earliest deadline.
+    sort(instances_blown.begin(), instances_blown.end(), compare_deadline);
+    
+    cur_time = start;
+    while (instances_blown.size() > 0) {
+        
+        for (i = 0; i < instances_blown.size(); i++) {
+            // Run down the deadline sorted list to find the first eligible instance
+            if (cur_time >= instances_blown[i].arrival) {
+                break;
+            }
+        }
+
+        if (i >= instances_blown.size()) { // Uh Oh, no eligible instance
+            cur_time += WFQ_GRAN;
+            continue; // This gets us back to while loop check, to make sure we break out when instances_blown list is empty
+        }
+
+        sched.task_id = instances_blown[i].task_id;
+        sched.arrival = instances_blown[i].arrival;
+        sched.power = instances_blown[i].power;
+
+        sched.start = cur_time;
+        cur_time += WFQ_GRAN;
+        sched.end = sched.start + WFQ_GRAN;
+
+        wfq->push_back(sched);
+        instances_blown.erase(instances_blown.begin() + i);
+    }
+    // Insert some verifiers
 }
 
