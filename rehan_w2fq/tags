@@ -6,6 +6,9 @@
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 ACTUAL_RUN	config.h	89;"	d
 AMBIENT	config.h	16;"	d
+AS_COMPU	scheduler.cpp	370;"	d	file:
+AS_POWER	scheduler.cpp	372;"	d	file:
+AS_THERMU	scheduler.cpp	371;"	d	file:
 BASE_OPTIONS	Makefile	/^BASE_OPTIONS= -g -ansi -Wall -Wextra -Wno-long-long -std=c++0x -Wvla$/;"	m
 BASE_OPTIONS1	Makefile	/^BASE_OPTIONS1= -ansi -Wall -Wextra -Wno-long-long -std=c++0x -Wvla$/;"	m
 BENCH_RUN	config.h	59;"	d
@@ -82,11 +85,13 @@ TIMING	config.h	57;"	d
 TTI	scheduler.h	/^	float TTI;$/;"	m	struct:task
 TTI	scheduler.h	/^	float TTI;$/;"	m	struct:taskset
 UTIL_POWER	config.h	93;"	d
+WFQ_GRAN	scheduler.cpp	369;"	d	file:
 W_INT	config.h	48;"	d
 W_INT_HIGH	config.h	49;"	d
 ab_compute_profile	base_sched.cpp	/^bool ab_compute_profile(vector<float_schedule>* sch) {$/;"	f
 ab_edf_schedule	base_sched.cpp	/^void ab_edf_schedule(vector<float_schedule> *edf, vector<instance> *instances) {$/;"	f
 ab_generate_taskset	util.cpp	/^void ab_generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, float comp_util, float thermal_util)$/;"	f
+ab_wfq	scheduler.cpp	/^void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector <instance> *aperiodic, float start, float end \/*hyperperiod*\/)$/;"	f
 add_exec	exec_interval.cpp	/^void interval::add_exec(execution newexec)$/;"	f	class:interval
 aper_task_id	scheduler.cpp	/^int aper_task_id = 500;$/;"	v
 arrival	scheduler.h	/^	double arrival;$/;"	m	struct:float_schedule
@@ -180,6 +185,7 @@ generate_intervals	w2fq.cpp	/^void generate_intervals(vector<interval_s>* interv
 generate_intervals_gps	w2fq.cpp	/^void generate_intervals_gps(vector<interval_s>* intervals, vector<long_task>*tasks)$/;"	f
 generate_intervals_multi	multi.cpp	/^void generate_intervals_multi(vector<interval>*intervals,string fname)$/;"	f
 generate_intervals_multi	multi.cpp	/^void generate_intervals_multi(vector<interval_s>*intervals,string fname, vector<float_task>*tasks)$/;"	f
+generate_periodic_taskset	util.cpp	/^void generate_periodic_taskset(vector<float_task> *tasks, long hyperperiod, int num_tasks, float comp_util, float thermal_util)$/;"	f
 generate_poisson	scheduler.cpp	/^void generate_poisson(vector<instance> *aperiodics, vector<instance> *aperiodics_tbs)$/;"	f
 generate_power_profile	multi.cpp	/^void generate_power_profile(vector<mprofile> *profile,vector<long_schedule>*sch, long hyperperiod)$/;"	f
 generate_power_trace	multi.cpp	/^void generate_power_trace(vector<long_schedule>*sch, string fname, long hyperperiod, float * average_power)$/;"	f
@@ -232,10 +238,10 @@ main	scheduler-bk.cpp	/^int main(int argc, char* argv[]) {$/;"	f
 main	scheduler.cpp	/^int main(int argc, char* argv[]) {$/;"	f
 mapping	scheduler.h	/^	int mapping;$/;"	m	struct:comps_req
 mapping	scheduler.h	/^	int mapping;$/;"	m	struct:instance
-max	scheduler.cpp	42;"	d	file:
+max	scheduler.cpp	43;"	d	file:
 maxfirst_interval_speed	dynamic_interval_speed.cpp	/^int maxfirst_interval_speed(double * computations, long earliness,$/;"	f
 min	base_sched.cpp	16;"	d	file:
-min	scheduler.cpp	46;"	d	file:
+min	scheduler.cpp	47;"	d	file:
 min_deadline	util.cpp	/^int min_deadline(vector<float_task>*tasks, float start) {$/;"	f
 min_deadline	util.cpp	/^int min_deadline(vector<task>*tasks, int start) {$/;"	f
 min_deadline	util.cpp	/^int min_deadline(vector<task>*tasks, int start, vector<int>*times,$/;"	f
@@ -322,6 +328,7 @@ task_id	scheduler.h	/^	int task_id;$/;"	m	struct:long_schedule
 task_id	scheduler.h	/^	int task_id;$/;"	m	struct:schedule
 tasks2instances	scheduler.cpp	/^void tasks2instances(vector<task> *periodic_tasks, vector<instance> *aperiodics, vector<instance> *instances) {$/;"	f
 taskset	scheduler.h	/^	int taskset;$/;"	m	struct:task
+taskset	scheduler.h	/^    int taskset;$/;"	m	struct:float_task
 taskset	scheduler.h	/^struct taskset {$/;"	s
 tasksets	scheduler-bk.cpp	/^ vector<taskset> tasksets;$/;"	v
 tasksets	scheduler.cpp	/^ vector<taskset> tasksets;$/;"	v

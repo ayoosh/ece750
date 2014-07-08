@@ -39,7 +39,7 @@ int S_PERIOD = 0;
  vector<float> speeds;
  vector<taskset> tasksets;
 //****************************************************************
-
+void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector <instance> *aperiodic, float start, float end);
 #define max(a,b) ({ __typeof__ (a) _a = (a); \
                 __typeof__ (b) _b = (b); \
               _a > _b ? _a : _b; })
@@ -283,11 +283,18 @@ int main(int argc, char* argv[]) {
     float t_util = 0.7;
     float c_util = 0.8;
 
-	vector<task> periodic_tasks;
-	vector<float_schedule> edf, edf_tbs, edf_periodic;
+	vector<float_task> periodic_tasks;
+	vector<float_schedule> wfq, edf, edf_tbs, edf_periodic;
     vector<instance> aperiodics, aperiodics_tbs;
     vector<instance> instances, instances_tbs, instances_periodic;
     
+    generate_periodic_taskset(&periodic_tasks, /*hyperperiod*/ 20, /*num_tasksets*/ 2, /*comp_util*/ .8, /*thermal_util*/ .8);
+    ab_wfq (&wfq, &periodic_tasks, &aperiodics, /*start*/ 0, /*end*/ 10);
+    ab_compute_profile(&wfq);
+    
+
+#if 0
+    exit(0);
     for (i = 0; i < 100; i++) {
 
         periodic_tasks.clear();
@@ -355,13 +362,14 @@ int main(int argc, char* argv[]) {
 	    //cout<<"Violations"<<endl<<"Ours: "<<v_ours<<" TBS: "<<v_tbs<<endl;
     }
 	cout<<"Violations"<<endl<<"Ours: "<<v_ours<<" TBS: "<<v_tbs<<endl;
+#endif
 }
 
 
-#define WFQ_GRAN 1
-#define AS_COMPU ((float) 0.1)
-#define AS_THERMU ((float) 0.1)
-#define AS_POWER  ((float) 50)
+#define WFQ_GRAN    ((float) 0.5)
+#define AS_COMPU    ((float) 0.1)
+#define AS_THERMU   ((float) 0.1)
+#define AS_POWER    ((float) 50)
 void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector <instance> *aperiodic, float start, float end /*hyperperiod*/)
 {
     unsigned int i, j, k;
@@ -372,8 +380,13 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
     instance temp;
     float_schedule sched; 
 
+
+    for (i = 0; i < periodic->size(); i++) {
+        cout << (*periodic)[i].index << " C = " << (*periodic)[i].computation_time << " T = " << (*periodic)[i].period << " P = " << (*periodic)[i].power << endl;
+    }
+    
     // First blow up periodic tasks to granular instances
-    for (i = 0; i <= periodic->size(); i++) {
+    for (i = 0; i < periodic->size(); i++) {
         arrival = start; // assumption: all periodics start at start
         for (j = 0; j < (int)((end - start) / (*periodic)[i].period); j++) {
             deadline = arrival + (*periodic)[i].period; 
@@ -387,6 +400,8 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
                 arrival = temp.deadline;
 
                 instances_blown.push_back(temp);
+
+                cout << "Task_id: " << temp.task_id << " Arrival: " << temp.arrival << " Deadline: " << temp.deadline << endl;
             }
             // arrival var is the deadline of the last granular instance
             assert(arrival <= deadline);        
@@ -396,7 +411,7 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
     }
 
     // Now blow up aperiodics while praying to THE ALGO
-    for (i = 0; i <= aperiodic->size(); i++) {
+    for (i = 0; i < aperiodic->size(); i++) {
         is_high_power = (*aperiodic)[i].power > AS_POWER;
         power_ratio = is_high_power ? ((*aperiodic)[i].power / AS_POWER) : 1;
         idle_factor = is_high_power ? (power_ratio - 1) : 0;
@@ -424,6 +439,8 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
             arrival = temp.deadline;
 
             instances_blown.push_back(temp);
+
+            cout << "Task_id: " << temp.task_id << " Arrival: " << temp.arrival << " Deadline: " << temp.deadline << endl;
         }
 
         assert(arrival <= (*aperiodic)[i].deadline);
@@ -440,12 +457,14 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
     cur_time = start;
     while (instances_blown.size() > 0) {
         
+        
         for (i = 0; i < instances_blown.size(); i++) {
             // Run down the deadline sorted list to find the first eligible instance
             if (cur_time >= instances_blown[i].arrival) {
                 break;
             }
         }
+        
 
         if (i >= instances_blown.size()) { // Uh Oh, no eligible instance
             cur_time += WFQ_GRAN;
@@ -462,6 +481,8 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
 
         wfq->push_back(sched);
         instances_blown.erase(instances_blown.begin() + i);
+
+        cout << "Task_id: " << sched.task_id << " Start: " << sched.start << " End: " << sched.end << endl;
     }
     // Insert some verifiers
 }
