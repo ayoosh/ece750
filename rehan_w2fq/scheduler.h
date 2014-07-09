@@ -144,6 +144,7 @@ struct float_schedule {
 	double speed;
 	double arrival;
 	double power;
+    bool is_last;
 };
 
 struct long_schedule {

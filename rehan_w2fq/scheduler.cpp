@@ -4,9 +4,8 @@
 
 
 #define WFQ_GRAN    ((float) W_INT)
-#define AS_COMPU    ((float) 0.25)
-#define AS_COMP     ((float) 5)
-#define AS_THERMU   ((float) 0.25)
+#define AS_COMPU    ((float) 0.5)
+#define AS_THERMU   ((float) 0.5)
 #define AS_POWER    (AS_THERMU * beta * corrected_threshold / AS_COMPU)
 #define AP 1
 
@@ -278,7 +277,7 @@ void generate_poisson(vector<instance> *aperiodics, vector<instance> *aperiodics
 
 }
 
-
+#if 0
 int main(int argc, char* argv[]) {
 
     srand(time(NULL));
@@ -295,14 +294,12 @@ int main(int argc, char* argv[]) {
     vector<instance> aperiodics, aperiodics_tbs;
     vector<instance> instances, instances_tbs, instances_periodic;
     
-    generate_periodic_taskset(&periodic_tasks, /*hyperperiod*/ 100, /*num_tasksets*/ 5, /*comp_util*/ .75, /*thermal_util*/ .75);
+    generate_periodic_taskset(&periodic_tasks, /*hyperperiod*/ 100, /*num_tasksets*/ 5, (1 - AS_COMPU), (1 - AS_THERMU));
     generate_poisson(&aperiodics, &aperiodics_tbs, 4, 1);
 
     ab_wfq (&wfq, &periodic_tasks, &aperiodics, /*start*/ 0, /*end*/ 10);
     ab_compute_profile(&wfq);
     
-
-#if 0
     exit(0);
     for (i = 0; i < 100; i++) {
 
@@ -371,8 +368,9 @@ int main(int argc, char* argv[]) {
 	    //cout<<"Violations"<<endl<<"Ours: "<<v_ours<<" TBS: "<<v_tbs<<endl;
     }
 	cout<<"Violations"<<endl<<"Ours: "<<v_ours<<" TBS: "<<v_tbs<<endl;
-#endif
 }
+#endif
+
 
 
 void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector <instance> *aperiodic, float start, float end /*hyperperiod*/)
@@ -410,10 +408,10 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
                 //cout << "Task_id: " << temp.task_id << " Arrival: " << temp.arrival << " Deadline: " << temp.deadline << endl;
             }
             // arrival var is the deadline of the last granular instance
-            assert(arrival <= deadline);        
+            assert(arrival <= deadline + WFQ_GRAN);        
             arrival = deadline;
         }
-        assert(deadline <= end);
+        assert(deadline <= end + WFQ_GRAN);
     }
 
     // Now blow up aperiodics while praying to THE ALGO
@@ -461,7 +459,7 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
             //cout << "Task_id: " << temp.task_id << " Arrival: " << temp.arrival << " Deadline: " << temp.deadline << " Power : " << temp.power << endl;
         }
 
-        assert(arrival <= (*aperiodic)[i].deadline);
+        assert(arrival <= (*aperiodic)[i].deadline + WFQ_GRAN);
     }
 
 
@@ -493,6 +491,7 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
         sched.task_id = instances_blown[i].task_id;
         sched.arrival = instances_blown[i].arrival;
         sched.power = instances_blown[i].power;
+        sched.is_last = instances_blown[i].is_last;
 
         sched.start = cur_time;
         cur_time += WFQ_GRAN;
@@ -508,3 +507,40 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
     //
 }
 
+int main(int argc, char* argv[]) {
+
+    srand(time(NULL));
+	corrected_threshold = corrected_temperature(THRESHOLD);
+
+	int i, j, k;
+    int violations;
+    double interarrival_time, response_time;
+
+	vector<float_task> periodic_tasks;
+	vector<float_schedule> wfq;
+    vector<instance> aperiodics, aperiodics_tbs;
+    
+    for (interarrival_time = 100; interarrival_time > 0 ; interarrival_time -= 1) {
+        cout << "Interarrival mean = " << interarrival_time << endl;
+        violations = 0;
+        for (j = 0; j < 3; j++) {
+            generate_periodic_taskset(&periodic_tasks, /*hyperperiod*/ 100, /*num_tasksets*/ 2, (1 - AS_COMPU), (1 - AS_THERMU));
+            generate_poisson(&aperiodics, &aperiodics_tbs, interarrival_time, 10);
+            ab_wfq (&wfq, &periodic_tasks, &aperiodics, /*start*/ 0, /*end*/ 100);
+            
+            if (ab_compute_profile(&wfq)) {
+                cout << "Thermal violation!!!" << endl;
+//                exit (1);
+            }
+
+            for (k = 0; k < wfq.size(); k++) {
+                if (wfq[k].is_last) {
+                    if(wfq[k].task_id >= 500) {
+                        response_time = wfq[k].end - aperiodics[wfq[k].task_id - 500].arrival;
+                        cout << "Task " << (wfq[k].task_id - 500) << " Response time = " << response_time << endl;
+                    }
+                }
+            } 
+        }
+    }
+}
