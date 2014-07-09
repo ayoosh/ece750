@@ -6,9 +6,10 @@
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 ACTUAL_RUN	config.h	89;"	d
 AMBIENT	config.h	16;"	d
-AS_COMPU	scheduler.cpp	370;"	d	file:
-AS_POWER	scheduler.cpp	372;"	d	file:
-AS_THERMU	scheduler.cpp	371;"	d	file:
+AS_COMP	scheduler.cpp	8;"	d	file:
+AS_COMPU	scheduler.cpp	7;"	d	file:
+AS_POWER	scheduler.cpp	10;"	d	file:
+AS_THERMU	scheduler.cpp	9;"	d	file:
 BASE_OPTIONS	Makefile	/^BASE_OPTIONS= -g -ansi -Wall -Wextra -Wno-long-long -std=c++0x -Wvla$/;"	m
 BASE_OPTIONS1	Makefile	/^BASE_OPTIONS1= -ansi -Wall -Wextra -Wno-long-long -std=c++0x -Wvla$/;"	m
 BENCH_RUN	config.h	59;"	d
@@ -16,7 +17,7 @@ BIN_LENGTH	config.h	108;"	d
 BUFSIZE	config.h	23;"	d
 C	config.h	13;"	d
 CC	Makefile	/^CC = gcc$/;"	m
-CHOOSE_REAL_FIRST	scheduler.cpp	9;"	d	file:
+CHOOSE_REAL_FIRST	scheduler.cpp	14;"	d	file:
 CONFIG_H_	config.h	9;"	d
 CORE	config.h	70;"	d
 CORRECTION_FACTOR	config.h	38;"	d
@@ -35,8 +36,8 @@ IDLE	config.h	54;"	d
 IDLE_TIME	config.h	67;"	d
 INST_ENABLE	config.h	33;"	d
 INST_MF_PRINT	config.h	37;"	d
-INTERLEAVE	scheduler.cpp	7;"	d	file:
-INTERLEAVE_GRANULARITY	scheduler.cpp	8;"	d	file:
+INTERLEAVE	scheduler.cpp	12;"	d	file:
+INTERLEAVE_GRANULARITY	scheduler.cpp	13;"	d	file:
 LINKER_OPT	Makefile	/^LINKER_OPT       = -lstdc++ -lm$/;"	m
 MARGIN	config.h	46;"	d
 MATLAB_ENABLE	config.h	28;"	d
@@ -85,7 +86,7 @@ TIMING	config.h	57;"	d
 TTI	scheduler.h	/^	float TTI;$/;"	m	struct:task
 TTI	scheduler.h	/^	float TTI;$/;"	m	struct:taskset
 UTIL_POWER	config.h	93;"	d
-WFQ_GRAN	scheduler.cpp	369;"	d	file:
+WFQ_GRAN	scheduler.cpp	6;"	d	file:
 W_INT	config.h	48;"	d
 W_INT_HIGH	config.h	49;"	d
 ab_compute_profile	base_sched.cpp	/^bool ab_compute_profile(vector<float_schedule>* sch) {$/;"	f
@@ -186,7 +187,7 @@ generate_intervals_gps	w2fq.cpp	/^void generate_intervals_gps(vector<interval_s>
 generate_intervals_multi	multi.cpp	/^void generate_intervals_multi(vector<interval>*intervals,string fname)$/;"	f
 generate_intervals_multi	multi.cpp	/^void generate_intervals_multi(vector<interval_s>*intervals,string fname, vector<float_task>*tasks)$/;"	f
 generate_periodic_taskset	util.cpp	/^void generate_periodic_taskset(vector<float_task> *tasks, long hyperperiod, int num_tasks, float comp_util, float thermal_util)$/;"	f
-generate_poisson	scheduler.cpp	/^void generate_poisson(vector<instance> *aperiodics, vector<instance> *aperiodics_tbs)$/;"	f
+generate_poisson	scheduler.cpp	/^void generate_poisson(vector<instance> *aperiodics, vector<instance> *aperiodics_tbs, float mean_arrival, int num)$/;"	f
 generate_power_profile	multi.cpp	/^void generate_power_profile(vector<mprofile> *profile,vector<long_schedule>*sch, long hyperperiod)$/;"	f
 generate_power_trace	multi.cpp	/^void generate_power_trace(vector<long_schedule>*sch, string fname, long hyperperiod, float * average_power)$/;"	f
 generate_taskset	util.cpp	/^void generate_taskset(vector<float_task> *tasks, long hyperperiod, int num_tasks, float comp_util)$/;"	f
@@ -238,10 +239,10 @@ main	scheduler-bk.cpp	/^int main(int argc, char* argv[]) {$/;"	f
 main	scheduler.cpp	/^int main(int argc, char* argv[]) {$/;"	f
 mapping	scheduler.h	/^	int mapping;$/;"	m	struct:comps_req
 mapping	scheduler.h	/^	int mapping;$/;"	m	struct:instance
-max	scheduler.cpp	43;"	d	file:
+max	scheduler.cpp	48;"	d	file:
 maxfirst_interval_speed	dynamic_interval_speed.cpp	/^int maxfirst_interval_speed(double * computations, long earliness,$/;"	f
 min	base_sched.cpp	16;"	d	file:
-min	scheduler.cpp	47;"	d	file:
+min	scheduler.cpp	52;"	d	file:
 min_deadline	util.cpp	/^int min_deadline(vector<float_task>*tasks, float start) {$/;"	f
 min_deadline	util.cpp	/^int min_deadline(vector<task>*tasks, int start) {$/;"	f
 min_deadline	util.cpp	/^int min_deadline(vector<task>*tasks, int start, vector<int>*times,$/;"	f

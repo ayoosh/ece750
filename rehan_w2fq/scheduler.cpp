@@ -3,11 +3,13 @@
 #define HYPERPERIOD_SCALE 100
 
 
-#define WFQ_GRAN    ((float) 0.5)
-#define AS_COMPU    ((float) 0.1)
+#define WFQ_GRAN    ((float) W_INT)
+#define AS_COMPU    ((float) 0.25)
 #define AS_COMP     ((float) 5)
-#define AS_THERMU   ((float) 0.1)
-#define AS_POWER    ((float) 50)
+#define AS_THERMU   ((float) 0.25)
+#define AS_POWER    (AS_THERMU * beta * corrected_threshold / AS_COMPU)
+#define AP 1
+
 
 #define INTERLEAVE  1
 #define INTERLEAVE_GRANULARITY .01
@@ -261,8 +263,8 @@ void generate_poisson(vector<instance> *aperiodics, vector<instance> *aperiodics
  //       cout << i << ":" << p[i]<<endl;
     }
     for(int i=0; i<n_tasks; i++) {
-        power = AS_POWER * 2;//(((float) (rand() % 30) + 1) / 10) ;
-        comp_time = (int)  ((rand() % (int) (1.5*AS_COMP)) + 1)  ;
+        power = AS_POWER * AP;//(((float) (rand() % 30) + 1) / 10) ;
+        comp_time = 1; //(int)  ((rand() % (int) (1.5*AS_COMP)) + 1)  ;
  
 //        generate_aperiodics(aperiodics, p[i], comp_time, power);
 //        generate_aperiodics_tbs(aperiodics_tbs, p[i], comp_time, power);
@@ -280,11 +282,9 @@ void generate_poisson(vector<instance> *aperiodics, vector<instance> *aperiodics
 int main(int argc, char* argv[]) {
 
     srand(time(NULL));
-    
 	corrected_threshold = corrected_temperature(THRESHOLD);
-	//cout<<"beta "<<beta<<" corrected threshold "<<corrected_threshold<<endl;
 
-	int iter = 1, hyperperiod = 0, num_periodics = 10, i = 0;
+	int iter = 1, hyperperiod = 0, num_periodics = 10, i, j, k;
 	string task_file;
     unsigned int v_ours = 0, v_tbs = 0;
     float t_util = 0.7;
@@ -295,7 +295,7 @@ int main(int argc, char* argv[]) {
     vector<instance> aperiodics, aperiodics_tbs;
     vector<instance> instances, instances_tbs, instances_periodic;
     
-    generate_periodic_taskset(&periodic_tasks, /*hyperperiod*/ 20, /*num_tasksets*/ 2, /*comp_util*/ .8, /*thermal_util*/ .8);
+    generate_periodic_taskset(&periodic_tasks, /*hyperperiod*/ 100, /*num_tasksets*/ 5, /*comp_util*/ .75, /*thermal_util*/ .75);
     generate_poisson(&aperiodics, &aperiodics_tbs, 4, 1);
 
     ab_wfq (&wfq, &periodic_tasks, &aperiodics, /*start*/ 0, /*end*/ 10);
@@ -403,10 +403,11 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
                 temp.arrival = arrival;
                 temp.deadline = arrival + (((*periodic)[i].period / (*periodic)[i].computation_time) * WFQ_GRAN);
                 arrival = temp.deadline;
+                temp.is_last = (comp_cnt == 1);
 
                 instances_blown.push_back(temp);
 
-                cout << "Task_id: " << temp.task_id << " Arrival: " << temp.arrival << " Deadline: " << temp.deadline << endl;
+                //cout << "Task_id: " << temp.task_id << " Arrival: " << temp.arrival << " Deadline: " << temp.deadline << endl;
             }
             // arrival var is the deadline of the last granular instance
             assert(arrival <= deadline);        
@@ -429,9 +430,11 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
         deadline = (*aperiodic)[i].deadline = arrival + (((*aperiodic)[i].computation_time * power_ratio) / AS_COMPU);
 
         comp_cnt = (long) ((*aperiodic)[i].computation_time / WFQ_GRAN);
-        idle_cnt = (long) ((idle_factor * (*aperiodic)[i].computation_time) / WFQ_GRAN);
+        //idle_cnt = (long) ((idle_factor * (*aperiodic)[i].computation_time) / WFQ_GRAN);
 
-        while ((comp_cnt + idle_cnt) > 0) {
+        //while ((comp_cnt + idle_cnt) > 0) {
+        while (comp_cnt > 0) {
+            /*
             if (idle_cnt > (comp_cnt * idle_factor)) {
                 temp.power = 0;
                 idle_cnt--;
@@ -439,17 +442,23 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
                 temp.power = (*aperiodic)[i].power;
                 comp_cnt--;
             }
+            */
+            temp.power = (*aperiodic)[i].power;
+            comp_cnt--;
 
             temp.task_id = (*aperiodic)[i].task_id;
             temp.computation_time = WFQ_GRAN;
 
             temp.arrival = arrival;
-            temp.deadline = arrival + (WFQ_GRAN / AS_COMPU);
+            //temp.deadline = arrival + (WFQ_GRAN / AS_COMPU);
+            temp.deadline = arrival + (WFQ_GRAN * power_ratio / AS_COMPU);
             arrival = temp.deadline;
 
+            temp.is_last = (comp_cnt == 0);
+            
             instances_blown.push_back(temp);
 
-            cout << "Task_id: " << temp.task_id << " Arrival: " << temp.arrival << " Deadline: " << temp.deadline << " Power : " << temp.power << endl;
+            //cout << "Task_id: " << temp.task_id << " Arrival: " << temp.arrival << " Deadline: " << temp.deadline << " Power : " << temp.power << endl;
         }
 
         assert(arrival <= (*aperiodic)[i].deadline);
@@ -460,7 +469,8 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
     // All that is left is to create a schedule.
     // The code assumes that the instances are ordered as:
     //      Level 1: Deadlines
-    // So the first element is the one with earliest deadline.
+    //      Level 2: Arrival
+    // So the first element is the one with earliest deadline and then earliest arrival.
     sort(instances_blown.begin(), instances_blown.end(), compare_deadline);
     
     cur_time = start;
@@ -491,8 +501,10 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
         wfq->push_back(sched);
         instances_blown.erase(instances_blown.begin() + i);
 
-        cout << "Task_id: " << sched.task_id << " Start: " << sched.start << " End: " << sched.end << endl;
+        //cout << "Task_id: " << sched.task_id << " Start: " << sched.start << " End: " << sched.end << endl;
     }
+
     // Insert some verifiers
+    //
 }
 

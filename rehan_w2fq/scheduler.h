@@ -170,6 +170,7 @@ struct instance {
 	float power;
 	int mapping;
 	int next_start;
+    bool is_last;
 	//int instance_id;
 };
 
