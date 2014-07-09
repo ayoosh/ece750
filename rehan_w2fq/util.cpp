@@ -798,7 +798,7 @@ void generate_periodic_taskset(vector<float_task> *tasks, long hyperperiod, int 
 retry:
         if(i<num_tasks-1) {
             rnum = rand() % 100;
-            if(rnum < 50 || rnum > 90) //Percentage should be not too low nor too high
+            if(rnum < 50 || rnum >= 70) //Percentage should be not too low nor too high
                 goto retry;
             next_sumU = sumU * (rnum / (float) (100));
             cutil = sumU - next_sumU; 
@@ -824,17 +824,17 @@ retry:
     }
     //Return the actual Periodic taskset utilization
     cout << " Total Periodic Utilization = " << total_util << endl;
-
+#if 1
 	for(unsigned int i=0;i<tasks->size() && !violation;i++) {
 		float tutil;
 		float max_tutil=t_sumU;
 		float min_tutil=t_sumU;
+        float p_tutil;
 		if(i<num_tasks-1) {
 			for(unsigned int j=i+1;j<tasks->size();j++) {
 				max_tutil=max_tutil-MIN_POWER*(*tasks)[j].computation_time/(corrected_threshold*beta*(*tasks)[j].period);
 				min_tutil=min_tutil-MAX_POWER*(*tasks)[j].computation_time/(corrected_threshold*beta*(*tasks)[j].period);
 			}
-
 			float local_max;
 			float local_min;
 
@@ -844,7 +844,7 @@ retry:
 			max_tutil=max_tutil>local_max?local_max:max_tutil;
 			min_tutil=min_tutil<local_min?local_min:min_tutil;
 
-            cout << "i = " << i << " min_tutil = " << min_tutil << " max_tutil = " << max_tutil;
+            //cout << "i = " << i << " min_tutil = " << min_tutil << " max_tutil = " << max_tutil;
 
 			if(min_tutil>max_tutil) {
 				cout<<" error detected min tutil "<<min_tutil<<" max util "<<max_tutil<<endl;
@@ -853,43 +853,65 @@ retry:
 
 			int iteration=0;
             
-            float min_ratio = (min_tutil / t_sumU) * ((float) 100);
+            float min_ratio = (min_tutil / t_sumU) *  100;
             //cout << "Ratio should be atleast " << min_ratio << endl;
-            float max_ratio = (max_tutil / t_sumU) * ((float) 100);
+            float max_ratio = (max_tutil / t_sumU) * 100;
             //cout << "Ratio should not be more than " << max_ratio << endl;
 
             float randnum;
+#if 0
 t_retry:
             randnum = rand() % 100;
             //if((randnum < (min_ratio*1.5)) || (randnum > (max_ratio*0.5))) //|| (randnum < 5 && randnum > 50))
-            if(randnum < min_ratio || randnum > max_ratio)
-                goto t_retry;
-            //cout  << "randnum = " << randnum << endl;
-            tutil = t_sumU * (randnum / ((float)100));
+            if(randnum < min_ratio || randnum > max_ratio) {
+                if(iteration < 100) {
+                    iteration++;
+                    goto t_retry;
+                }
+                else {
+                    violation = true;
+                    cout << "Failed to generate randnum " << endl;
+                }
 
-		}
+            }
+            //cout  << "randnum = " << randnum << endl;
+            if(!violation) {
+            tutil = t_sumU * (randnum / 100);
+            }
+            else {
+                tutil = t_sumU * max_ratio / 100;
+            }
+#endif
+            //Assign tutil equally to all tasks.  Ignore the above calculation
+            tutil = thermal_util/num_tasks;
+        }
 		else
 		{
-			tutil=t_sumU;
+			//tutil=t_sumU;
+            tutil = thermal_util/num_tasks;
 		}
 
-//        cout << "i = " << i << " tutil = " << tutil << " t_next_sumU = " << t_next_sumU << " t_sumU = " << t_sumU << endl;
+        cout << "i = " << i << " tutil = " << tutil << " t_next_sumU = " << t_next_sumU << " t_sumU = " << t_sumU << endl;
 
-        if((tutil<min_tutil || tutil>max_tutil) && (i < (num_tasks-1))) {
+        /*if((tutil<min_tutil || tutil>max_tutil) && (i < (num_tasks-1))) {
             cout << "Taskset Generation Violation !!! " << endl;
-        }
+        }*/
 
 		(*tasks)[i].power=corrected_threshold*beta * (*tasks)[i].period*tutil/(*tasks)[i].computation_time;
 		(*tasks)[i].power=floor((*tasks)[i].power*10.0)/10.0;
 		(*tasks)[i].power=(*tasks)[i].power>MAX_POWER?MAX_POWER:(*tasks)[i].power<MIN_POWER?MIN_POWER:(*tasks)[i].power;
+        //MAX_POWER is too high. reduce it
+        if((*tasks)[i].power == MAX_POWER)
+            (*tasks)[i].power = MAX_POWER - 20;
 
         cout << " power = " << (*tasks)[i].power;
 
 		t_sumU=t_sumU-(*tasks)[i].computation_time*(*tasks)[i].power/(corrected_threshold*beta*(*tasks)[i].period);
+        //t_sumU = t_sumU - tutil;
         t_next_sumU = t_sumU;
         t_total_util += tutil;
 
-        cout << " tutil = " << tutil /*<< " t_next_sumU = " << t_next_sumU << " t_sumU = " << t_sumU */<< endl;
+        //cout << " tutil = " << tutil /*<< " t_next_sumU = " << t_next_sumU << " t_sumU = " << t_sumU */<< endl;
 
 		//cout<<"numerator "<<corrected_threshold*beta * temp.period*tutil<<endl;
 
@@ -933,7 +955,7 @@ t_retry:
 			total_impact = total_impact
 					    + (*tasks)[j].power * (*tasks)[j].computation_time
 					    * (hyperperiod / (*tasks)[j].period) / beta;
-		    cout << " i = " << j << " total_impact = " << total_impact << endl;
+		    //cout << " i = " << j << " total_impact = " << total_impact << endl;
         }
 
         temp_set.TTI = total_impact / GRANULARITY;
@@ -943,8 +965,8 @@ t_retry:
 		tasksets.push_back(temp_set);
 
         cout << "Taskset " << i << " TTI = " << temp_set.TTI << " t_util = " << temp_set.t_util << " average_power = " << temp_set.average_power << " hyperperiod = " << temp_set.hyperperiod << " total_impact = " << total_impact << " c_util = " << temp_set.c_util << endl;
-
     }
+#endif
 
 }
 
