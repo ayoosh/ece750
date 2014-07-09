@@ -775,6 +775,8 @@ void ab_generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, f
 
 void generate_periodic_taskset(vector<float_task> *tasks, long hyperperiod, int num_tasks, float comp_util, float thermal_util)
 {
+    tasks->clear();
+    
     vector<int> factors;
     factorise(&factors, hyperperiod);
 
@@ -813,17 +815,17 @@ retry:
         sumU = sumU - (temp.computation_time/(temp.period)); 
 
         if (temp.computation_time > 0) {
-            cout << "i = " << i << " C = " << temp.computation_time << " T = " << temp.period << " cutil = " << cutil
+            //cout << "i = " << i << " C = " << temp.computation_time << " T = " << temp.period << " cutil = " << cutil   \
                 << " sumU = " << sumU << endl;
             total_util += cutil;
             tasks->push_back(temp);
         }
         else {
-            cout << "Negative computation time " << endl;
+           // cout << "Negative computation time " << endl;
         }
     }
     //Return the actual Periodic taskset utilization
-    cout << " Total Periodic Utilization = " << total_util << endl;
+//    cout << " Total Periodic Utilization = " << total_util << endl;
 #if 1
 	for(unsigned int i=0;i<tasks->size() && !violation;i++) {
 		float tutil;
@@ -891,7 +893,7 @@ t_retry:
             tutil = thermal_util/num_tasks;
 		}
 
-        cout << "i = " << i << " tutil = " << tutil << " t_next_sumU = " << t_next_sumU << " t_sumU = " << t_sumU << endl;
+//        cout << "i = " << i << " tutil = " << tutil << " t_next_sumU = " << t_next_sumU << " t_sumU = " << t_sumU << endl;
 
         /*if((tutil<min_tutil || tutil>max_tutil) && (i < (num_tasks-1))) {
             cout << "Taskset Generation Violation !!! " << endl;
@@ -904,7 +906,7 @@ t_retry:
         if((*tasks)[i].power == MAX_POWER)
             (*tasks)[i].power = MAX_POWER - 20;
 
-        cout << " power = " << (*tasks)[i].power;
+//        cout << " power = " << (*tasks)[i].power;
 
 		t_sumU=t_sumU-(*tasks)[i].computation_time*(*tasks)[i].power/(corrected_threshold*beta*(*tasks)[i].period);
         //t_sumU = t_sumU - tutil;
@@ -917,7 +919,7 @@ t_retry:
 
 	}
 
-    cout << "Total Thermal Utilization = " << t_total_util << endl;
+//    cout << "Total Thermal Utilization = " << t_total_util << endl;
     
 /* Setup Parameters for taskset */    
     for(unsigned int i =0;i<tasks->size();i++)
@@ -964,7 +966,7 @@ t_retry:
 		temp_set.hyperperiod = hyperperiod;
 		tasksets.push_back(temp_set);
 
-        cout << "Taskset " << i << " TTI = " << temp_set.TTI << " t_util = " << temp_set.t_util << " average_power = " << temp_set.average_power << " hyperperiod = " << temp_set.hyperperiod << " total_impact = " << total_impact << " c_util = " << temp_set.c_util << endl;
+  //      cout << "Taskset " << i << " TTI = " << temp_set.TTI << " t_util = " << temp_set.t_util << " average_power = " << temp_set.average_power << " hyperperiod = " << temp_set.hyperperiod << " total_impact = " << total_impact << " c_util = " << temp_set.c_util << endl;
     }
 #endif
 

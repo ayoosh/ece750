@@ -7,7 +7,7 @@
 #define AS_COMPU    ((float) 0.5)
 #define AS_THERMU   ((float) 0.5)
 #define AS_POWER    (AS_THERMU * beta * corrected_threshold / AS_COMPU)
-#define AP 1
+#define AP 0.9
 
 
 #define INTERLEAVE  1
@@ -235,6 +235,8 @@ void generate_aperiodics_tbs(vector<instance> *aperiodics, int arrival, int comp
 
 void generate_poisson(vector<instance> *aperiodics, vector<instance> *aperiodics_tbs, float mean_arrival, int num)
 {
+    aperiodics->clear();
+
     s_last_tbs = 0;
     s_last_deadline = 0;
     aper_task_id = 500;
@@ -375,6 +377,8 @@ int main(int argc, char* argv[]) {
 
 void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector <instance> *aperiodic, float start, float end /*hyperperiod*/)
 {
+    wfq->clear();
+
     unsigned int i, j, k;
     long comp_cnt, idle_cnt;
     bool is_high_power;
@@ -385,7 +389,7 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
 
 
     for (i = 0; i < periodic->size(); i++) {
-        cout << (*periodic)[i].index << " C = " << (*periodic)[i].computation_time << " T = " << (*periodic)[i].period << " P = " << (*periodic)[i].power << endl;
+  //      cout << (*periodic)[i].index << " C = " << (*periodic)[i].computation_time << " T = " << (*periodic)[i].period << " P = " << (*periodic)[i].power << endl;
     }
     
     // First blow up periodic tasks to granular instances
@@ -416,7 +420,7 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
 
     // Now blow up aperiodics while praying to THE ALGO
     for (i = 0; i < aperiodic->size(); i++) {
-        cout << (*aperiodic)[i].task_id << " C = " << (*aperiodic)[i].computation_time << " A = " << (*aperiodic)[i].arrival << " P = " << (*aperiodic)[i].power << endl;
+//        cout << (*aperiodic)[i].task_id << " C = " << (*aperiodic)[i].computation_time << " A = " << (*aperiodic)[i].arrival << " P = " << (*aperiodic)[i].power << endl;
     }
 
     for (i = 0; i < aperiodic->size(); i++) {
@@ -523,8 +527,8 @@ int main(int argc, char* argv[]) {
     for (interarrival_time = 100; interarrival_time > 0 ; interarrival_time -= 1) {
         cout << "Interarrival mean = " << interarrival_time << endl;
         violations = 0;
-        for (j = 0; j < 3; j++) {
-            generate_periodic_taskset(&periodic_tasks, /*hyperperiod*/ 100, /*num_tasksets*/ 2, (1 - AS_COMPU), (1 - AS_THERMU));
+        for (j = 0; j < 1; j++) {
+            generate_periodic_taskset(&periodic_tasks, /*hyperperiod*/ 10, /*num_tasksets*/ 2, (1 - AS_COMPU), (1 - AS_THERMU));
             generate_poisson(&aperiodics, &aperiodics_tbs, interarrival_time, 10);
             ab_wfq (&wfq, &periodic_tasks, &aperiodics, /*start*/ 0, /*end*/ 100);
             
@@ -533,14 +537,18 @@ int main(int argc, char* argv[]) {
 //                exit (1);
             }
 
+            response_time = 0;
             for (k = 0; k < wfq.size(); k++) {
-                if (wfq[k].is_last) {
+                if (wfq[k].is_last == true) {
                     if(wfq[k].task_id >= 500) {
-                        response_time = wfq[k].end - aperiodics[wfq[k].task_id - 500].arrival;
-                        cout << "Task " << (wfq[k].task_id - 500) << " Response time = " << response_time << endl;
+                        response_time += wfq[k].end - aperiodics[wfq[k].task_id - 500].arrival;
+//                        cout << "Task " << (wfq[k].task_id - 500) << " Response time = " << response_time << endl;
                     }
                 }
             } 
+            //cout << " Response time = " << response_time/10 << endl;
+            if ((response_time / 10) > 2)
+                exit(1);
         }
     }
 }
