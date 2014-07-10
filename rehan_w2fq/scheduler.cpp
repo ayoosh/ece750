@@ -1,13 +1,20 @@
-#define HYPERPERIOD_MAX 1000
-#define HYPERPERIOD_MIN 900
-#define HYPERPERIOD_SCALE 100
-
 
 #define WFQ_GRAN    ((float) W_INT)
 #define AS_COMPU    ((float) 0.5)
 #define AS_THERMU   ((float) 0.5)
 #define AS_POWER    (AS_THERMU * beta * corrected_threshold / AS_COMPU)
-#define AP 0.9
+
+#define AP 0.9 // Ratio by which aper task power is multiplied 
+#define NUM_APERIODICS 10
+#define INTERARRIVAL_MAX 4
+#define REPS 5
+
+
+#define HYPERPERIOD_MAX 1000
+#define HYPERPERIOD_MIN 900
+#define HYPERPERIOD_SCALE 100
+
+
 
 
 #define INTERLEAVE  1
@@ -241,7 +248,7 @@ void generate_poisson(vector<instance> *aperiodics, vector<instance> *aperiodics
     s_last_deadline = 0;
     aper_task_id = 500;
     
-    int n_tasks = num;
+    int n_tasks = num, number;
     float power;
     float comp_time;
     instance temp;
@@ -254,7 +261,8 @@ void generate_poisson(vector<instance> *aperiodics, vector<instance> *aperiodics
     int last_arrival = 0;
     
     for (int i=0; i<n_tasks; ++i) {
-        int number = distribution(generator);
+        //number = distribution(generator);
+        number = mean_arrival;
         p[i] = last_arrival + number;
         last_arrival += number;
         //p[i] = i * S_PERIOD;
@@ -378,7 +386,7 @@ int main(int argc, char* argv[]) {
 void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector <instance> *aperiodic, float start, float end /*hyperperiod*/)
 {
     wfq->clear();
-
+    tasksets[0].hyperperiod = end - start;
     unsigned int i, j, k;
     long comp_cnt, idle_cnt;
     bool is_high_power;
@@ -524,20 +532,21 @@ int main(int argc, char* argv[]) {
 	vector<float_schedule> wfq;
     vector<instance> aperiodics, aperiodics_tbs;
     
-    for (interarrival_time = 100; interarrival_time > 0 ; interarrival_time -= 1) {
+    for (interarrival_time = INTERARRIVAL_MAX; interarrival_time > 0 ; interarrival_time -= 0.1) {
         cout << "Interarrival mean = " << interarrival_time << endl;
         violations = 0;
-        for (j = 0; j < 1; j++) {
+        response_time = 0;
+        for (j = 0; j < REPS; j++) {
             generate_periodic_taskset(&periodic_tasks, /*hyperperiod*/ 10, /*num_tasksets*/ 2, (1 - AS_COMPU), (1 - AS_THERMU));
-            generate_poisson(&aperiodics, &aperiodics_tbs, interarrival_time, 10);
-            ab_wfq (&wfq, &periodic_tasks, &aperiodics, /*start*/ 0, /*end*/ 100);
+            generate_poisson(&aperiodics, &aperiodics_tbs, interarrival_time, NUM_APERIODICS);
+            ab_wfq (&wfq, &periodic_tasks, &aperiodics, /*start*/ 0, /*end*/ (NUM_APERIODICS + 1) * INTERARRIVAL_MAX);
             
             if (ab_compute_profile(&wfq)) {
                 cout << "Thermal violation!!!" << endl;
+                violations++;
 //                exit (1);
             }
 
-            response_time = 0;
             for (k = 0; k < wfq.size(); k++) {
                 if (wfq[k].is_last == true) {
                     if(wfq[k].task_id >= 500) {
@@ -546,9 +555,8 @@ int main(int argc, char* argv[]) {
                     }
                 }
             } 
-            //cout << " Response time = " << response_time/10 << endl;
-            if ((response_time / 10) > 2)
-                exit(1);
         }
+        cout << " Response time = " << response_time / (NUM_APERIODICS * REPS) << endl;
+        cout << "Violations : " << violations << endl;
     }
 }

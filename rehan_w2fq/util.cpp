@@ -963,7 +963,7 @@ t_retry:
         temp_set.TTI = total_impact / GRANULARITY;
 		temp_set.t_util = total_impact / (corrected_threshold * hyperperiod);
 		temp_set.average_power = total_impact / hyperperiod * beta;
-		temp_set.hyperperiod = hyperperiod;
+		temp_set.hyperperiod = hyperperiod*10;
 		tasksets.push_back(temp_set);
 
   //      cout << "Taskset " << i << " TTI = " << temp_set.TTI << " t_util = " << temp_set.t_util << " average_power = " << temp_set.average_power << " hyperperiod = " << temp_set.hyperperiod << " total_impact = " << total_impact << " c_util = " << temp_set.c_util << endl;
