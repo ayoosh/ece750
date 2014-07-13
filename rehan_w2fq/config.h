@@ -45,7 +45,7 @@
 #define MAX_SPEED  1.00
 #define MARGIN     0.3   //temperature margin for interval scheduling
 
-#define W_INT		0.10000000  //worst case fair weighted fair queuing interval length
+#define W_INT		0.010000000  //worst case fair weighted fair queuing interval length
 #define W_INT_HIGH  0.2
 
 //rt****************************************

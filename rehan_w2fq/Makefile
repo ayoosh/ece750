@@ -3,7 +3,7 @@ CC = gcc
 CPP= g++
 #BASE_OPTIONS     = -ansi -pedantic-errors -Wall -Wextra -Wno-long-long -std=c++0x -Wvla
 BASE_OPTIONS1= -ansi -Wall -Wextra -Wno-long-long -std=c++0x -Wvla
-BASE_OPTIONS= -g -ansi -Wall -Wextra -Wno-long-long -std=c++0x -Wvla
+BASE_OPTIONS= -g -ansi -Wall -Wextra -Wno-long-long -std=c++0x -Wvla -O1
 LINKER_OPT       = -lstdc++ -lm
 
 

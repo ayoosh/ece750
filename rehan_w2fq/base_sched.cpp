@@ -31,10 +31,11 @@ bool compare_deadline(instance a, instance b) {
 }
 
 // true: Thermal Violation
-bool ab_compute_profile(vector<float_schedule>* sch) {
+bool ab_compute_profile(vector<float_schedule>* sch, bool calculate_steadytemp) {
 
     
     float initial_temperature = 0;
+    double static steady_temperature;
 	vector<profile> temperature;
 	profile ttemp;
 	ttemp.time = 0;
@@ -70,8 +71,11 @@ bool ab_compute_profile(vector<float_schedule>* sch) {
 		}
 	}
 
-	double steady_temperature = (temperature[temperature.size() - 1].temperature)
-			/ (1 - exp(-1 * beta * tasksets[0].hyperperiod / GRANULARITY));
+    if (calculate_steadytemp) {
+	    steady_temperature = (temperature[temperature.size() - 1].temperature)
+			    / (1 - exp(-1 * beta * tasksets[0].hyperperiod / GRANULARITY));
+    }
+
 	for (unsigned int i = 0; i < temperature.size(); i++) {
 		temperature[i].temperature = temperature[i].temperature \
 				+ cool(steady_temperature, temperature[i].time);
