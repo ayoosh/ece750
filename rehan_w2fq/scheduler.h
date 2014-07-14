@@ -250,7 +250,7 @@ void generate_tasksets(vector<task>* tasks, int num_tasksets, int hyperperiod,
 		int min_util, int max_util);
 void generate_taskset(vector<float_task> *tasks, long hyperperiod,
 		int num_tasks, float comp_util, float thermal_util);
-void ab_generate_taskset(vector<task> *tasks, long hyperperiod,
+void ab_generate_taskset(vector<float_task> *tasks, long hyperperiod,
         int num_tasks, float comp_util, float thermal_util);
 void generate_periodic_taskset(vector<float_task> *tasks, long hyperperiod,
         int num_tasks, float comp_util, float thermal_util);

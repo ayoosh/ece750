@@ -584,12 +584,13 @@ void generate_taskset(vector<float_task> *tasks, long hyperperiod, int num_tasks
 
 }
 
-void ab_generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, float comp_util, float thermal_util)
+void ab_generate_taskset(vector<float_task> *tasks, long hyperperiod, int num_tasks, float comp_util, float thermal_util)
 {
+    tasks->clear();
 	vector<int> factors;
 	factorise(&factors, hyperperiod);
 
-	task temp;
+	float_task temp;
 
 	float sumU=comp_util;
 	float t_sumU=thermal_util;
@@ -707,9 +708,10 @@ void ab_generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, f
     int num_tasksets = 1;
 	for (int i = 0; i < num_tasksets; i++) {
 
-		int hyp_length = compute_lcm(tasks, 0);
+		int hyp_length = hyperperiod;//compute_lcm(tasks, 0);
 		float thermal_capacity = ((float) hyp_length) * corrected_threshold;
-		int thermal_utilization = rand() % 51 + 50;
+		//int thermal_utilization = rand() % 51 + 50;
+        float thermal_utilization = thermal_util;
 		float taskset_target_TTI = thermal_capacity
 				* ((float) thermal_utilization) / 100;
 		float average_power = taskset_target_TTI / hyp_length * 2; //*beta;//beta not added to reduce power
@@ -733,7 +735,7 @@ void ab_generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, f
 					<< " computation time:" << (*tasks)[j].computation_time
 					<< " period:" << (*tasks)[j].period << " Utilization: "
 					<< (float) (*tasks)[j].computation_time
-							/ (float) (*tasks)[j].period << endl;
+							/ (float) (*tasks)[j].period << " power: "<< (*tasks)[j].power<<endl;
 			     #endif
 			total_util = total_util
 					+ (float) (*tasks)[j].computation_time
@@ -751,12 +753,12 @@ void ab_generate_taskset(vector<task> *tasks, long hyperperiod, int num_tasks, f
 		cout<<"length of hyperperiod:"<<hyp_length<<endl;
 		cout<<"thermal utilization: "<<thermal_utilization<<"average_power: "<<average_power<<endl;
 #endif
-		float deviation = average_power * 1.6;
+/*		float deviation = average_power * 1.6;
 		for (int j = start; j <= end; j++) {
 			float power = average_power * 0.2
 					+ ((double) (rand()) / RAND_MAX) * deviation;
 			(*tasks)[j].power = power;
-		}
+		}*/
 
 		float total_impact = 0;
 		for (int j = start; j < end; j++) {
