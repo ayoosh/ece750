@@ -1,22 +1,20 @@
 
 #define WFQ_GRAN    ((float) W_INT)
-#define AS_COMPU    ((float) 0.5)
-#define AS_THERMU   ((float) 0.5)
+#define AS_COMPU    ((float) 0.3)
+#define AS_THERMU   ((float) 0.3)
 #define AS_POWER    (AS_THERMU * beta * corrected_threshold / AS_COMPU)
 
-#define AP 2 // Ratio by which aper task power is multiplied
-#define NUM_APERIODICS 10
+#define AP 2 // Ratio by which aper task power is multiplied (0.5, 0.8, 1.0, 1.5, 2.0)
+#define NUM_APERIODICS 1000
 #define INTERARRIVAL_MAX 5
 #define INTERARRIVAL_INC ((float) 0.1)
 #define INTERARRIVAL_MIN 0
-#define REPS 10
-#define PERIODIC_HYPERPERIOD 10
+#define REPS 100
+#define PERIODIC_HYPERPERIOD 100
 
 #define HYPERPERIOD_MAX 1000
 #define HYPERPERIOD_MIN 900
 #define HYPERPERIOD_SCALE 100
-
-
 
 
 #define INTERLEAVE  1
@@ -535,7 +533,7 @@ int main(int argc, char* argv[]) {
         for (interarrival_time = INTERARRIVAL_MAX, i = 0; interarrival_time > INTERARRIVAL_MIN; interarrival_time -= INTERARRIVAL_INC, i++) {
 
             while (1) {
-                generate_periodic_taskset(&periodic_tasks, /*hyperperiod*/ PERIODIC_HYPERPERIOD, /*num_tasksets*/ 2, (1 - AS_COMPU), (1 - AS_THERMU));
+                generate_periodic_taskset(&periodic_tasks, /*hyperperiod*/ PERIODIC_HYPERPERIOD, /*num_tasksets*/ 10, (1 - AS_COMPU), (1 - AS_THERMU));
                 periodic_tasks.push_back(as_periodic_task);
                 aperiodics.clear();
                 ab_wfq (&wfq, &periodic_tasks, &aperiodics, /*start*/ 0, /*end*/ PERIODIC_HYPERPERIOD);
