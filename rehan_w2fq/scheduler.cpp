@@ -501,10 +501,20 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
         //cout << "Task_id: " << sched.task_id << " Start: " << sched.start << " End: " << sched.end << endl;
     }
 
+    // Truncate schedule to end time
+    for (i = 0; i < wfq->size(); i++) {
+        if ((*wfq)[i].start > end) {
+            wfq->erase(wfq->begin() + i, wfq->end());
+        }
+    }
     // Insert some verifiers
     //
 }
 
+struct response_s {
+    double time;
+    unsigned int num_complete;
+};
 int main(int argc, char* argv[]) {
 
     srand(time(NULL));
@@ -528,9 +538,10 @@ int main(int argc, char* argv[]) {
     as_periodic_task.power = AS_POWER;
     as_periodic_task.index = 499;
     
-    double response_time[(unsigned int) (INTERARRIVAL_MAX / INTERARRIVAL_INC)];
-    for (i = 0; i < sizeof(response_time)/sizeof(double); i++) {
-        response_time[i] = 0;
+    struct response_s response[(unsigned int) (INTERARRIVAL_MAX / INTERARRIVAL_INC)];
+    for (i = 0; i < sizeof(response)/sizeof(struct response_s); i++) {
+        response[i].time = 0;
+        response[i].num_complete = 0;
     }
     response_profile.open("response_profile");    
     violations = 0;
@@ -558,7 +569,8 @@ int main(int argc, char* argv[]) {
             for (k = 0; k < wfq.size(); k++) {
                 if (wfq[k].is_last == true) {
                     if(wfq[k].task_id >= 500) {
-                        response_time[i] += (double) (wfq[k].end - aperiodics[wfq[k].task_id - 500].arrival);
+                        response[i].time += (double) (wfq[k].end - aperiodics[wfq[k].task_id - 500].arrival);
+                        response[i].num_complete++;
 //                        cout << "Task " << (wfq[k].task_id - 500) << " Response time = " << response_time[i] << endl;
                     }
                 }
@@ -573,11 +585,11 @@ int main(int argc, char* argv[]) {
         }
     }
     
-    for (interarrival_time = INTERARRIVAL_MAX, i = 0; i  < sizeof(response_time) / sizeof(double) ; interarrival_time -= INTERARRIVAL_INC, i++) {
-        response_time[i] = response_time[i] / (NUM_APERIODICS * REPS);
+    for (interarrival_time = INTERARRIVAL_MAX, i = 0; i  < sizeof(response) / sizeof(struct response_s) ; interarrival_time -= INTERARRIVAL_INC, i++) {
+        response[i].time = response[i].time / response[i].num_complete;
         //cout << "Interarrival mean = " << interarrival_time << "\t" << " Response time = " << response_time[i] << endl; // Bhuvana, this is main output.
-        cout << interarrival_time << " " << response_time[i] << endl;
-        response_profile << interarrival_time << " " << response_time[i] << endl;
+        cout << 1/interarrival_time << " " << response[i].time << endl;
+        response_profile << 1/interarrival_time << " " << response[i].time << endl;
     }
 
     cout << "Violations : " << violations << endl;
