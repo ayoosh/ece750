@@ -74,6 +74,7 @@ bool ab_compute_profile(vector<float_schedule>* sch, bool calculate_steadytemp) 
     if (calculate_steadytemp) {
 	    steady_temperature = (temperature[temperature.size() - 1].temperature)
 			    / (1 - exp(-1 * beta * tasksets[0].hyperperiod / GRANULARITY));
+        //cout << "Steady Temperature : " << steady_temperature << endl;
     }
 
 	for (unsigned int i = 0; i < temperature.size(); i++) {
@@ -98,6 +99,8 @@ bool ab_compute_profile(vector<float_schedule>* sch, bool calculate_steadytemp) 
 			max_temp = temperature[i].temperature;
 		}
 	}
+
+    //cout << "max temp = " << max_temp << endl;
 
 	thermal_profile.close();
     return thermal_violation;

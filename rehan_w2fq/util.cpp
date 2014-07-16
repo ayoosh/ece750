@@ -622,7 +622,10 @@ void ab_generate_taskset(vector<float_task> *tasks, long hyperperiod, int num_ta
 			tasks->push_back(temp);
 		}
 	}
-
+    float t_total_util;
+retry_thermal:
+    t_sumU=thermal_util;
+    t_total_util = 0;
 	for(unsigned int i=0;i<tasks->size() && !violation;i++) {
 		float tutil;
 		float max_tutil=t_sumU;
@@ -668,7 +671,7 @@ void ab_generate_taskset(vector<float_task> *tasks, long hyperperiod, int num_ta
 		{
 			tutil=t_sumU;
 		}
-
+        t_total_util += tutil;
 		(*tasks)[i].power=corrected_threshold*beta * (*tasks)[i].period*tutil/(*tasks)[i].computation_time;
 		(*tasks)[i].power=floor((*tasks)[i].power*10.0)/10.0;
 		(*tasks)[i].power=(*tasks)[i].power>MAX_POWER?MAX_POWER:(*tasks)[i].power<MIN_POWER?MIN_POWER:(*tasks)[i].power;
@@ -681,6 +684,11 @@ void ab_generate_taskset(vector<float_task> *tasks, long hyperperiod, int num_ta
 	}
 
 
+    if(t_total_util > thermal_util+0.05 || t_total_util < thermal_util-0.05) {
+        //cout << "retry t_total_util " << t_total_util << endl;
+        violation = false;
+        goto retry_thermal;
+    }
 //	cout<<"checkpoint 1"<<endl;
 
 //	for(unsigned int i=0;i<tasks->size();i++)
@@ -745,6 +753,7 @@ void ab_generate_taskset(vector<float_task> *tasks, long hyperperiod, int num_ta
 #if(ENABLE_PRINTS)
 
 		cout<<"total_utilization="<<total_util<<endl;
+        cout<<"thermal utilization="<<t_total_util<<endl;
 #endif
 		temp_set.c_util = total_util;
 		average_power = average_power / total_util;
