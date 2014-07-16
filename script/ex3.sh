@@ -10,7 +10,7 @@ set grid
 set style data linespoints
 
 i=1
-n=5
+n=1
 load "loop.sh"
 
 #plot "dat1.dat" using 1:2 title "Example" 
