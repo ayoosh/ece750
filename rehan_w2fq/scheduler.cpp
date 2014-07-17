@@ -5,12 +5,12 @@
 #define AS_POWER    (AS_THERMU * beta * corrected_threshold / AS_COMPU)
 
 #define AP 1 // Ratio by which aper task power is multiplied
-#define NUM_APERIODICS 100
-#define NUM_PERIODICS   3
+#define NUM_APERIODICS 1000
+#define NUM_PERIODICS   2
 #define INTERARRIVAL_MAX ((float) 5.0)
 #define INTERARRIVAL_INC ((float) 0.1)
 #define INTERARRIVAL_MIN ((float) 1.0)
-#define REPS 1
+#define REPS 5
 #define PERIODIC_HYPERPERIOD 10
 
 #define HYPERPERIOD_MAX 1000
@@ -523,6 +523,7 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
 struct response_s {
     double time;
     unsigned int num_complete;
+    float interarrival_time;
 };
 int main(int argc, char* argv[]) {
 
@@ -552,12 +553,13 @@ int main(int argc, char* argv[]) {
         response[i].time = 0;
         response[i].num_complete = 0;
     }
-    unlink("response_profile");
+    unlink("./response_profile");
     response_profile.open("response_profile");    
     violations = 0;
     for (j = 0; j < REPS; j++) {
         //cout << "Interarrival mean = " << interarrival_time << endl;
         for (interarrival_time = INTERARRIVAL_MAX, i = 0; interarrival_time > INTERARRIVAL_MIN; interarrival_time -= INTERARRIVAL_INC, i++) {
+            response[i].interarrival_time = interarrival_time;
 
             while (1) {
                 //generate_periodic_taskset(&periodic_tasks, /*hyperperiod*/ PERIODIC_HYPERPERIOD, NUM_PERIODICS, (1 - AS_COMPU), (1 - AS_THERMU));
@@ -595,11 +597,11 @@ int main(int argc, char* argv[]) {
         }
     }
     
-    for (interarrival_time = INTERARRIVAL_MAX, i = 0; i  < sizeof(response) / sizeof(struct response_s) ; interarrival_time -= INTERARRIVAL_INC, i++) {
+    for (i = 0; i  < sizeof(response) / sizeof(struct response_s) ; i++) {
         response[i].time = response[i].time / response[i].num_complete;
-        //cout << "Interarrival mean = " << interarrival_time << "\t" << " Response time = " << response_time[i] << endl;
-        //cout << "Arrival rate: " << 1/interarrival_time << "\t" << " Response Time: " << response[i].time << endl;
-        response_profile << 1/interarrival_time << " " << response[i].time << endl;
+        //cout << "Interarrival mean = " << response[i].interarrival_time << "\t" << " Response time = " << response_time[i] << endl;
+        //cout << "Arrival rate: " << 1/response[i].interarrival_time << "\t" << " Response Time: " << response[i].time << endl;
+        response_profile << 1/response[i].interarrival_time << " " << response[i].time << endl;
     }
 
     cout << "Violations : " << violations << endl;
