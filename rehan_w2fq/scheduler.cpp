@@ -8,15 +8,13 @@
 #define NUM_APERIODICS 10
 #define INTERARRIVAL_MAX 5
 #define INTERARRIVAL_INC ((float) 0.1)
-#define INTERARRIVAL_MIN 0
+#define INTERARRIVAL_MIN 1
 #define REPS 10
 #define PERIODIC_HYPERPERIOD 10
 
 #define HYPERPERIOD_MAX 1000
 #define HYPERPERIOD_MIN 900
 #define HYPERPERIOD_SCALE 100
-
-
 
 
 #define INTERLEAVE  1
@@ -29,6 +27,7 @@
 #include <iomanip>
 #include <random>
 #include <assert.h>
+
 float beta_multi[CORE][CORE];
 int running_tasks[NUM_PROCESSORS] = { -1, -1, -1, -1 };
 long long current_timedd = -GRANULARITY;
@@ -384,7 +383,7 @@ int main(int argc, char* argv[]) {
 void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector <instance> *aperiodic, float start, float end /*hyperperiod*/)
 {
     wfq->clear();
-    tasksets[0].hyperperiod = end - start;
+    
     unsigned int i, j, k;
     long comp_cnt, idle_cnt;
     bool is_high_power;
@@ -394,37 +393,7 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
     float_schedule sched; 
 
 
-    for (i = 0; i < periodic->size(); i++) {
-  //      cout << (*periodic)[i].index << " C = " << (*periodic)[i].computation_time << " T = " << (*periodic)[i].period << " P = " << (*periodic)[i].power << endl;
-    }
-    
-    // First blow up periodic tasks to granular instances
-    for (i = 0; i < periodic->size(); i++) {
-        arrival = start; // assumption: all periodics start at start
-        for (j = 0; j < (int)((end - start) / (*periodic)[i].period); j++) {
-            deadline = arrival + (*periodic)[i].period; 
-            for (comp_cnt = (long) ((*periodic)[i].computation_time / WFQ_GRAN); comp_cnt > 0; comp_cnt--) {
-                temp.task_id = (*periodic)[i].index;
-                temp.computation_time = WFQ_GRAN;
-                temp.power = (*periodic)[i].power;
-
-                temp.arrival = arrival;
-                temp.deadline = arrival + (((*periodic)[i].period / (*periodic)[i].computation_time) * WFQ_GRAN);
-                arrival = temp.deadline;
-                temp.is_last = (comp_cnt == 1);
-
-                instances_blown.push_back(temp);
-
-                //cout << "Task_id: " << temp.task_id << " Arrival: " << temp.arrival << " Deadline: " << temp.deadline << endl;
-            }
-            // arrival var is the deadline of the last granular instance
-            assert(arrival <= deadline + 2 * WFQ_GRAN);        
-            arrival = deadline;
-        }
-        assert(deadline <= end + 2 * WFQ_GRAN);
-    }
-
-    // Now blow up aperiodics while praying to THE ALGO
+    // Blow up aperiodics while praying to THE ALGO
     for (i = 0; i < aperiodic->size(); i++) {
 //        cout << (*aperiodic)[i].task_id << " C = " << (*aperiodic)[i].computation_time << " A = " << (*aperiodic)[i].arrival << " P = " << (*aperiodic)[i].power << endl;
     }
@@ -459,6 +428,41 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
 
         assert(arrival <= (*aperiodic)[i].deadline + 2 * WFQ_GRAN);
     }
+
+    if (instances_blown.size()) {
+        end = instances_blown.back().deadline;
+    }
+    
+    for (i = 0; i < periodic->size(); i++) {
+  //      cout << (*periodic)[i].index << " C = " << (*periodic)[i].computation_time << " T = " << (*periodic)[i].period << " P = " << (*periodic)[i].power << endl;
+    }
+    
+    // First blow up periodic tasks to granular instances
+    for (i = 0; i < periodic->size(); i++) {
+        arrival = start; // assumption: all periodics start at start
+        for (j = 0; j < (int)((end - start) / (*periodic)[i].period); j++) {
+            deadline = arrival + (*periodic)[i].period; 
+            for (comp_cnt = (long) ((*periodic)[i].computation_time / WFQ_GRAN); comp_cnt > 0; comp_cnt--) {
+                temp.task_id = (*periodic)[i].index;
+                temp.computation_time = WFQ_GRAN;
+                temp.power = (*periodic)[i].power;
+
+                temp.arrival = arrival;
+                temp.deadline = arrival + (((*periodic)[i].period / (*periodic)[i].computation_time) * WFQ_GRAN);
+                arrival = temp.deadline;
+                temp.is_last = (comp_cnt == 1);
+
+                instances_blown.push_back(temp);
+
+                //cout << "Task_id: " << temp.task_id << " Arrival: " << temp.arrival << " Deadline: " << temp.deadline << endl;
+            }
+            // arrival var is the deadline of the last granular instance
+            assert(arrival <= deadline + 2 * WFQ_GRAN);        
+            arrival = deadline;
+        }
+        assert(deadline <= end + 2 * WFQ_GRAN);
+    }
+
 
 
     // Now we have all periodic and aperiodics neatly blown up into granular instances.
@@ -507,8 +511,11 @@ void ab_wfq (vector <float_schedule> *wfq, vector <float_task> *periodic, vector
             wfq->erase(wfq->begin() + i, wfq->end());
         }
     }
+
     // Insert some verifiers
-    //
+    
+    
+    tasksets[0].hyperperiod = end - start;
 }
 
 struct response_s {
@@ -543,6 +550,7 @@ int main(int argc, char* argv[]) {
         response[i].time = 0;
         response[i].num_complete = 0;
     }
+    unlink("response_profile");
     response_profile.open("response_profile");    
     violations = 0;
     for (j = 0; j < REPS; j++) {
