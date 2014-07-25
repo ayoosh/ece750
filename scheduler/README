@@ -1,0 +1,26 @@
+The scheduler consists of two files. lib.py contains library functions and some global variables (BETA, Threshold temperature etc). scheduler.py has the main scheduler code.
+scheduler.py takes following 4 command line arguments:
+<periodic_file><aperiodic_file><mean_interarrival_time><number_of_aperiodics>
+If exactly 4 arguments are not specified, follwing default values are used:
+<"periodic_taskset"><"aperiodic_tasks"><10.0><1000000>
+
+periodic_file has a list of periodic tasks. The format for specifying periodic tasks is:
+Name	Computation_Time	Period	Power
+All entries are tab spaced and first line in the file is ignored when taskset is read. newline is interpreted as new periodic task
+
+Similarly, aperiodic_file has a list of aperiodic task types. The format for specifying aperiodic task type is:
+Task	Computation_Time	Weight	Power
+All entries are tab spaced and first line in the file is ignored when task types are read. newline is interpreted as new aperiodic task type. Weight specifies the likelyhood of a randomly generated aperiodic task to be of a certain type. The probability/likelyhood of a given task type i = Weight_i/sum(weights) 
+
+scheduler.py stores some simulation results in "results" file. This file is appended after each run. The results stored are:
+<mean inter arrival time>	<Utilization>	<Number of aperiodics>	<mean response time>	<mean response time analytic>	<maximum temperature>	<empty count>
+
+Utilization = (mean aperiodic task computation time)/(mean inter arrival time)
+Utilization has to be <1 for a stable system.
+<mean response time> is the average value of response time from GPS simulation
+<mean response time analytic> is the expected value of response time from queuing theory
+<empty count> is the number of aperiodic tasks which find the queue to be empty upon their arrival
+
+Internally power_profile list stores the power consumption in the following format (start_time,end_time,power consumption)
+temperature_profile list stores the processor temperature in the following format (time,temperature)
+
