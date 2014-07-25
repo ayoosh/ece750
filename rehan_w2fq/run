@@ -1,0 +1,243 @@
+beta 3.47097 corrected threshold 27.9597
+ error detected min tutil 0.284787 max util 0.206085
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+task:0taskset:0 computation time:4 period:10 Utilization: 0.4
+task:1taskset:0 computation time:42 period:60 Utilization: 0.7
+task:2taskset:0 computation time:4 period:12 Utilization: 0.333333
+task:3taskset:0 computation time:4 period:24 Utilization: 0.166667
+task:4taskset:0 computation time:3 period:6 Utilization: 0.5
+0:4
+1:8
+2:12
+3:17
+4:23
+aperiodics size:0
+aperiodics_tbs size:5
+    0: Task:   0 arrival:      0 deadline:      60 computations:      42	 Power: 5.47447
+    1: Task:   2 arrival:      0 deadline:      12 computations:       4	 Power: 40.4989
+    2: Task:  17 arrival:      0 deadline:       6 computations:       3	 Power: 31.5574
+    3: Task:  12 arrival:      0 deadline:      24 computations:       4	 Power: 15.5361
+    4: Task:  18 arrival:      6 deadline:      12 computations:       3	 Power: 31.5574
+    5: Task:  19 arrival:     12 deadline:      18 computations:       3	 Power: 31.5574
+    6: Task:   3 arrival:     12 deadline:      24 computations:       4	 Power: 40.4989
+    7: Task:  20 arrival:     18 deadline:      24 computations:       3	 Power: 31.5574
+    8: Task:  21 arrival:     24 deadline:      30 computations:       3	 Power: 31.5574
+    9: Task:   4 arrival:     24 deadline:      36 computations:       4	 Power: 40.4989
+   10: Task:  13 arrival:     24 deadline:      48 computations:       4	 Power: 15.5361
+   11: Task:  22 arrival:     30 deadline:      36 computations:       3	 Power: 31.5574
+   12: Task:   5 arrival:     36 deadline:      48 computations:       4	 Power: 40.4989
+   13: Task:  23 arrival:     36 deadline:      42 computations:       3	 Power: 31.5574
+   14: Task:  24 arrival:     42 deadline:      48 computations:       3	 Power: 31.5574
+   15: Task:  14 arrival:     48 deadline:      72 computations:       4	 Power: 15.5361
+   16: Task:  25 arrival:     48 deadline:      54 computations:       3	 Power: 31.5574
+   17: Task:   6 arrival:     48 deadline:      60 computations:       4	 Power: 40.4989
+   18: Task:  26 arrival:     54 deadline:      60 computations:       3	 Power: 31.5574
+   19: Task:   1 arrival:     60 deadline:     120 computations:      42	 Power: 5.47447
+   20: Task:  27 arrival:     60 deadline:      66 computations:       3	 Power: 31.5574
+   21: Task:   7 arrival:     60 deadline:      72 computations:       4	 Power: 40.4989
+   22: Task:  28 arrival:     66 deadline:      72 computations:       3	 Power: 31.5574
+   23: Task:   8 arrival:     72 deadline:      84 computations:       4	 Power: 40.4989
+   24: Task:  15 arrival:     72 deadline:      96 computations:       4	 Power: 15.5361
+   25: Task:  29 arrival:     72 deadline:      78 computations:       3	 Power: 31.5574
+   26: Task:  30 arrival:     78 deadline:      84 computations:       3	 Power: 31.5574
+   27: Task:   9 arrival:     84 deadline:      96 computations:       4	 Power: 40.4989
+   28: Task:  31 arrival:     84 deadline:      90 computations:       3	 Power: 31.5574
+   29: Task:  32 arrival:     90 deadline:      96 computations:       3	 Power: 31.5574
+   30: Task:  16 arrival:     96 deadline:     120 computations:       4	 Power: 15.5361
+   31: Task:  10 arrival:     96 deadline:     108 computations:       4	 Power: 40.4989
+   32: Task:  33 arrival:     96 deadline:     102 computations:       3	 Power: 31.5574
+   33: Task:  34 arrival:    102 deadline:     108 computations:       3	 Power: 31.5574
+   34: Task:  11 arrival:    108 deadline:     120 computations:       4	 Power: 40.4989
+   35: Task:  35 arrival:    108 deadline:     114 computations:       3	 Power: 31.5574
+   36: Task:  36 arrival:    114 deadline:     120 computations:       3	 Power: 31.5574
+0: Task:17	 start:0	 end: 3	 power: 31.5574
+1: Task:2	 start:3	 end: 6	 power: 40.4989
+2: Task:2	 start:6	 end: 7	 power: 40.4989
+3: Task:18	 start:7	 end: 10	 power: 31.5574
+4: Task:12	 start:10	 end: 12	 power: 15.5361
+5: Task:19	 start:12	 end: 15	 power: 31.5574
+6: Task:12	 start:15	 end: 17	 power: 15.5361
+7: Task:3	 start:17	 end: 18	 power: 40.4989
+8: Task:3	 start:18	 end: 21	 power: 40.4989
+9: Task:20	 start:21	 end: 24	 power: 31.5574
+10: Task:21	 start:24	 end: 27	 power: 31.5574
+11: Task:4	 start:27	 end: 30	 power: 40.4989
+12: Task:4	 start:30	 end: 31	 power: 40.4989
+13: Task:22	 start:31	 end: 34	 power: 31.5574
+14: Task:13	 start:34	 end: 36	 power: 15.5361
+15: Task:23	 start:36	 end: 39	 power: 31.5574
+16: Task:13	 start:39	 end: 41	 power: 15.5361
+17: Task:5	 start:41	 end: 42	 power: 40.4989
+18: Task:5	 start:42	 end: 45	 power: 40.4989
+19: Task:24	 start:45	 end: 48	 power: 31.5574
+20: Task:25	 start:48	 end: 51	 power: 31.5574
+21: Task:0	 start:51	 end: 54	 power: 5.47447
+22: Task:0	 start:54	 end: 60	 power: 5.47447
+23: Task:0	 start:60	 end: 66	 power: 5.47447
+24: Task:0	 start:66	 end: 72	 power: 5.47447
+25: Task:0	 start:72	 end: 78	 power: 5.47447
+26: Task:0	 start:78	 end: 84	 power: 5.47447
+27: Task:0	 start:84	 end: 90	 power: 5.47447
+28: Task:0	 start:90	 end: 93	 power: 5.47447
+29: Task:6	 start:93	 end: 96	 power: 40.4989
+30: Task:6	 start:96	 end: 97	 power: 40.4989
+31: Task:26	 start:97	 end: 100	 power: 31.5574
+32: Task:27	 start:100	 end: 102	 power: 31.5574
+33: Task:27	 start:102	 end: 103	 power: 31.5574
+34: Task:14	 start:103	 end: 107	 power: 15.5361
+35: Task:7	 start:107	 end: 108	 power: 40.4989
+36: Task:7	 start:108	 end: 111	 power: 40.4989
+37: Task:28	 start:111	 end: 114	 power: 31.5574
+38: Task:29	 start:114	 end: 117	 power: 31.5574
+39: Task:8	 start:117	 end: 120	 power: 40.4989
+0: Task:17	 start:0	 end: 3	 power: 31.5574
+1: Task:2	 start:3	 end: 4	 power: 40.4989
+2: Task:501	 start:4	 end: 4	 power: 2.86838
+3: Task:2	 start:4	 end: 6	 power: 40.4989
+4: Task:2	 start:6	 end: 7	 power: 40.4989
+5: Task:18	 start:7	 end: 8	 power: 31.5574
+6: Task:503	 start:8	 end: 8	 power: 2.86838
+7: Task:18	 start:8	 end: 10	 power: 31.5574
+8: Task:12	 start:10	 end: 12	 power: 15.5361
+9: Task:505	 start:12	 end: 12	 power: 2.86838
+10: Task:19	 start:12	 end: 15	 power: 31.5574
+11: Task:12	 start:15	 end: 17	 power: 15.5361
+12: Task:507	 start:17	 end: 17	 power: 2.86838
+13: Task:3	 start:17	 end: 18	 power: 40.4989
+14: Task:3	 start:18	 end: 21	 power: 40.4989
+15: Task:20	 start:21	 end: 23	 power: 31.5574
+16: Task:509	 start:23	 end: 23	 power: 2.86838
+17: Task:20	 start:23	 end: 24	 power: 31.5574
+18: Task:21	 start:24	 end: 27	 power: 31.5574
+19: Task:4	 start:27	 end: 30	 power: 40.4989
+20: Task:4	 start:30	 end: 31	 power: 40.4989
+21: Task:22	 start:31	 end: 34	 power: 31.5574
+22: Task:13	 start:34	 end: 36	 power: 15.5361
+23: Task:23	 start:36	 end: 39	 power: 31.5574
+24: Task:13	 start:39	 end: 41	 power: 15.5361
+25: Task:5	 start:41	 end: 42	 power: 40.4989
+26: Task:5	 start:42	 end: 45	 power: 40.4989
+27: Task:24	 start:45	 end: 48	 power: 31.5574
+28: Task:25	 start:48	 end: 51	 power: 31.5574
+29: Task:0	 start:51	 end: 54	 power: 5.47447
+30: Task:0	 start:54	 end: 60	 power: 5.47447
+31: Task:0	 start:60	 end: 66	 power: 5.47447
+32: Task:0	 start:66	 end: 72	 power: 5.47447
+33: Task:0	 start:72	 end: 78	 power: 5.47447
+34: Task:0	 start:78	 end: 84	 power: 5.47447
+35: Task:0	 start:84	 end: 90	 power: 5.47447
+36: Task:0	 start:90	 end: 93	 power: 5.47447
+37: Task:6	 start:93	 end: 96	 power: 40.4989
+38: Task:6	 start:96	 end: 97	 power: 40.4989
+39: Task:26	 start:97	 end: 100	 power: 31.5574
+40: Task:27	 start:100	 end: 102	 power: 31.5574
+41: Task:27	 start:102	 end: 103	 power: 31.5574
+42: Task:14	 start:103	 end: 107	 power: 15.5361
+43: Task:7	 start:107	 end: 108	 power: 40.4989
+44: Task:7	 start:108	 end: 111	 power: 40.4989
+45: Task:28	 start:111	 end: 114	 power: 31.5574
+46: Task:29	 start:114	 end: 117	 power: 31.5574
+47: Task:8	 start:117	 end: 120	 power: 40.4989
+end temperature9.2251
+corrected_threshold27.9597
+end temperature9.2251
+corrected_threshold27.9597

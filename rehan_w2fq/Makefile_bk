@@ -1,0 +1,28 @@
+#CFLAGS= -g -Wall
+CC = gcc
+CPP= c++
+#BASE_OPTIONS     = -ansi -pedantic-errors -Wall -Wextra -Wno-long-long -std=c++0x -Wvla
+BASE_OPTIONS= -ansi -Wall -Wextra -Wno-long-long -std=c++0x -Wvla
+LINKER_OPT       = -lstdc++ -lm
+
+
+all: edf
+
+edf: intervals_vars.o scheduler.o util.o multi.o w2fq.o
+
+scheduler.o: scheduler.cpp scheduler.h
+	${CPP} ${BASE_OPTIONS} scheduler.cpp
+
+intervals_vars.o: intervals_vars.c scheduler.h
+	${CC} ${BASE_OPTIONS} intervals_vars.c 
+
+util.o: util.cpp scheduler.h
+	${CPP} ${BASE_OPTIONS} util.cpp $(LINKER_OPT)
+
+w2fq.o: w2fq.cpp
+	${CPP} ${BASE_OPTIONS} w2fq.cpp $(LINKER_OPT)
+
+multi.o: multi.cpp
+	${CPP} ${BASE_OPTIONS} multi.cpp $(LINKER_OPT)
+clean:
+	rm -f *.o multi
